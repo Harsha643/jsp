@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+   header{
+    display: flex;
+    justify-content: space-around;
+    height: 60px;
+    background-color: burlywood;
+    align-items: center;
+   }
+   header input{
+    width: 500px;
+    border-radius: 20px;
+    height:30px;
+   }
+   input::placeholder{
+
+    font-size: 20px;
+    text-align: center;
+   }
+   #container-inputs{
+  
+    margin-top: 30px;
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    /* justify-content: center; */
+    width: 400px;
+    align-self: center;
+    margin-bottom: 20px;
+   }
+   #container-inputs input{
+    height: 30px;
+   }
+
+   main{
+    display: flex;
+    justify-content: center;
+    
+   }
+   .button{
+    width: 150px;
+    text-align: center;
+    margin-left:35%;
+    height: 30px;
+    font-size: 1.3rem;
+   }
+   .two input{
+    width: 350px;
+   }
+   .two span{
+    margin-left:20px;
+    font-size: 30px;
+    text-align: center;
+    font-weight: 400;
+    background-color: #ccc;
+   }
+  #maincontainer{
+   margin-left:50px ;
+   
+  }
+  /* #item{
+
+    border: 1px solid black;
+  } */
+  /* #item1{
+    border: 1px solid black;
+    /* width:500px; */
+  /* } */
+  #item2{
+    height:200px;
+    overflow: scroll;
+  }
+  #subcon img{
+    width: 200px;
+  }
+  #subcon{
+    display: grid;
+    height: 200px;
+    margin-bottom: 20px;
+    /* overflow:scroll; */
+    grid-template-columns:repeat(4,250px);
+
+  }
+  #ingre-container{
+    overflow:scroll;
+  }
+
+
+    </style>
+</head>
+<body>
+    <header>
+        <nav id="logo">logo</nav>
+        <input type="text" id="search" placeholder="search here">
+        <span id="admin">Add Recipes</span>
+        <span class="icon"><ion-icon name="menu-outline"></ion-icon></span>
+    </header>
+
+    <main id="container">
+        <div id="container-inputs">
+            <input type="hidden" id="id" >
+            <input type="text" id="item1" placeholder="Mealname ">
+            <input type="text" id="item2" placeholder="Catagory">
+            <input type="text" id="item3" placeholder="Country">
+            <input type="text" id="item4" placeholder="Image URL">
+        
+            <textarea name="inst"  id="ingredient"  placeholder="Ingredients"  rows="5" cols="50"></textarea>
+            <textarea name="ingre" id="Instructions" placeholder="Instructions" rows="5" cols="50"></textarea>
+            <button onclick="saveData()" class="button">save</button>
+           
+        </div>
+    </main>
+
+    <main id="main1">
+        <div id="maincontainer">
+         
+        </div>
+         
+    </main>
+<script src="index.js"></script>
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+</html>
+      
+                    
+       
+
+      
+       
