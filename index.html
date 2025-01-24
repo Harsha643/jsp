@@ -29,7 +29,7 @@
    }
    #container-inputs{
   
-    margin-top: 30px;
+    margin-top: 60px;
     display: flex;
     gap: 20px;
     flex-direction: column;
@@ -50,7 +50,7 @@
    .button{
     width: 150px;
     text-align: center;
-    margin-left:35%;
+    margin-left:90%;
     height: 30px;
     font-size: 1.3rem;
    }
@@ -84,6 +84,7 @@
     width: 200px;
   }
   #subcon{
+    margin-top: 30px;
     display: grid;
     height: 200px;
     margin-bottom: 20px;
@@ -94,15 +95,23 @@
   #ingre-container{
     overflow:scroll;
   }
+  #admin{
+    outline: none;
+    background-color: burlywood;
+
+  }
+  #container-inputs{
+    display: none;
+  }
 
 
     </style>
 </head>
 <body>
-    <header>
+    <header id="head">
         <nav id="logo">logo</nav>
         <input type="text" id="search" placeholder="search here">
-        <span id="admin">Add Recipes</span>
+        <button id="admin" >Add Recipes</button>
         <span class="icon"><ion-icon name="menu-outline"></ion-icon></span>
     </header>
 

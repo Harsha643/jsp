@@ -1,4 +1,20 @@
 
+  let addRecipes=document.getElementById("admin")
+  let  containerInputs=document.getElementById("container-inputs")
+
+  addRecipes.addEventListener("dblclick",()=>{
+    containerInputs.style.display="block"
+    containerInputs.style.display="grid"
+    containerInputs.style.width="80%"
+    containerInputs.style.marginTop="50px"
+    containerInputs.style.gridTemplateColumns="repeat(2,1fr)"
+    
+  })
+  addRecipes.addEventListener("click",()=>{
+    containerInputs.style.display="none"
+
+  })
+
 
 async function fetching() {
   try {
@@ -19,10 +35,12 @@ fetching();
 function displayData(data) {
   let container = document.getElementById("maincontainer");
   container.innerHTML = "";
+  
 
   data.forEach((element) => {
     let div = document.createElement("div");
     div.id = "subcon";
+  
 
     let item = document.createElement("div");
     item.id = "item";
@@ -99,6 +117,11 @@ function displayData(data) {
     let edit=document.getElementById(`edit-${element.id}`)
     edit.addEventListener("click",() =>{
       // console.log(element.id)
+        containerInputs.style.display="block"
+        containerInputs.style.display="grid"
+        containerInputs.style.width="80%"
+        containerInputs.style.marginTop="50px"
+        containerInputs.style.gridTemplateColumns="repeat(2,1fr)"
 
       editData(element.id)
     })
@@ -127,6 +150,8 @@ async function deleteData(id){
   }
 }
 
+
+// edit function
 async function editData(id){
 
 
@@ -158,7 +183,8 @@ async function editData(id){
         instructions.value=recipe.instructions
 
 
-        let form = document.getElementById("container-inputs");
+        let form = document.getElementById("head");
+      
         form.scrollIntoView({ behavior: "smooth", block: "start" });
 
     }catch(error){
@@ -169,55 +195,53 @@ async function editData(id){
 
 }
 
+async function saveData() {
+  // Assuming validation logic (if needed) goes here
+  // if (!valid()) {
+  //   alert("Data is not valid");
+  //   return;
+  // }
 
-async function saveData(){
-       
-  // if(!valid()){
-  //     alert("data is not valid")
-  //     return;
-  // }else{
-      
-    let recipeId=document.getElementById("id").value
-    let mealname=document.getElementById("item1").value
-    let category=document.getElementById("item2").value
-    let Country=document.getElementById("item3").value
-    let imageURL=document.getElementById("item4").value
-    let ingredient=document.getElementById("ingredients").value
-  let instructions=document.getElementById("instractions").value
+  let recipeId = document.getElementById("id").value;
+  let mealname = document.getElementById("item1").value;
+  let category = document.getElementById("item2").value;
+  let country = document.getElementById("item3").value;
+  let imageURL = document.getElementById("item4").value;
+  let ingredients = document.getElementById("ingredient").value.split("\n");
+  let instructions=document.getElementById("Instructions").value;
 
-let obj={
-"mealName":mealname,
-"Category":category,
-"Area":Country,
-"instructions":ingredient,
-"image":imageURL,
-"ingredients":instructions
-}
-let  method=recipeId?"PUT":"POST"
-let URL=recipeId?`http://localhost:3000/meals/${recipeId}`:`http://localhost:3000/meals`;
-let res=await fetch(URL,{
-method,
-"headers":{
-   "content-type":"application/json"
-  
-},
-"body":JSON.stringify(obj)
-})
-try{
-if(!res.ok){
-   throw new Error(res.statusText)
-}
-alert("data updated successfully")
-fetching()
+  let obj = {
+    "mealName": mealname,
+    "Category": category,
+    "Area": country,
+    "instructions": instructions,
+    "image": imageURL,
+    "ingredients": ingredients,
+  };
 
-}catch(error){
-console.error(error)
-}
+  let method = recipeId ? "PUT" : "POST";
+  let url = recipeId
+    ? `http://localhost:3000/meals/${recipeId}`
+    : `http://localhost:3000/meals`;
 
+  let response = await fetch(url, {
+    method,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(obj),
+  });
+
+  try {
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+    alert("Data updated successfully");
+    fetching(); 
+  } catch (error) {
+    console.error(error);
   }
-
-// }
-
+}
 
 
 
