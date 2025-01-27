@@ -1,21 +1,17 @@
 
-  let addRecipes=document.getElementById("admin")
-  let  containerInputs=document.getElementById("container-inputs")
+let addRecipes = document.getElementById("admin");
+let containerInputs = document.getElementById("container-inputs");
 
-  addRecipes.addEventListener("dblclick",()=>{
-    containerInputs.style.display="block"
-    containerInputs.style.display="grid"
-    containerInputs.style.width="80%"
-    containerInputs.style.marginTop="50px"
-    containerInputs.style.gridTemplateColumns="repeat(2,1fr)"
-    
-    
-  })
-  addRecipes.addEventListener("click",()=>{
-    containerInputs.style.display="none"
+addRecipes.addEventListener("dblclick", () => {
+  containerInputs.style.display = "grid"; // Set grid layout
+  containerInputs.style.width = "80%";
+  containerInputs.style.marginTop = "50px";
+  containerInputs.style.gridTemplateColumns = "repeat(2, 1fr)";
+});
 
-  })
-
+addRecipes.addEventListener("click", () => {
+  containerInputs.style.display = "none"; // Hide the container
+});
 
 async function fetching() {
   try {
@@ -25,23 +21,24 @@ async function fetching() {
     }
     let data = await response.json();
     displayData(data);
+    localStorage.setItem("meals", JSON.stringify(data));
   } catch (err) {
     alert("Data fetch failed");
-    console.log(err);
+    console.error(err);
   }
 }
+
+
 
 fetching();
 
 function displayData(data) {
   let container = document.getElementById("maincontainer");
-  container.innerHTML = "";
-  
+  container.innerHTML = ""; // Clear the container
 
   data.forEach((element) => {
     let div = document.createElement("div");
     div.id = "subcon";
-  
 
     let item = document.createElement("div");
     item.id = "item";
@@ -51,7 +48,6 @@ function displayData(data) {
 
     let category = document.createElement("div");
     category.id = "category";
-    // category.style.display = "none"; // Initially hide instructions
 
     let country = document.createElement("div");
     country.id = "country";
@@ -61,9 +57,9 @@ function displayData(data) {
     `;
 
     mealname.innerHTML = `
-      <p>MealName:${element.mealName}</p>
-      <p>Category:${element.Category}</p>
-      <p>Country:${element.Area}</p>
+      <p>MealName: ${element.mealName}</p>
+      <p>Category: ${element.Category}</p>
+      <p>Country: ${element.Area}</p>
       <button id="instbtn-${element.id}">Instructions</button><br><br>
       <button id="insgrebtn-${element.id}">Ingredients</button>
     `;
@@ -82,7 +78,6 @@ function displayData(data) {
       `;
     });
 
-    //buttons
     country.innerHTML = `
       <button id="del-${element.id}">Delete</button>
       <button id="edit-${element.id}">Edit</button>
@@ -94,7 +89,7 @@ function displayData(data) {
     let instructionsBtn = document.getElementById(`instbtn-${element.id}`);
     if (instructionsBtn) {
       instructionsBtn.addEventListener("click", () => {
-        category.style.display = "block"; 
+        category.style.display = "block";
         ingredientsContainer.style.display = "none"; // Hide ingredients when instructions are shown
       });
     }
@@ -107,198 +102,105 @@ function displayData(data) {
       });
     }
 
-    let del=document.getElementById(`del-${element.id}`)
+    let del = document.getElementById(`del-${element.id}`);
+    if (del) {
+      del.addEventListener("click", () => {
+        deleteData(element.id);
+      });
+    }
 
-    del.addEventListener("click",() =>{
-      console.log(element.id)
+    let edit = document.getElementById(`edit-${element.id}`);
+    if (edit) {
+      edit.addEventListener("click", () => {
+        containerInputs.style.display = "grid";
+        containerInputs.style.width = "80%";
+        containerInputs.style.marginTop = "50px";
+        containerInputs.style.gridTemplateColumns = "repeat(2, 1fr)";
 
-      deleteData(element.id)
-    })
-
-    let edit=document.getElementById(`edit-${element.id}`)
-    edit.addEventListener("click",() =>{
-      
-      // console.log(element.id)
-        containerInputs.style.display="block"
-        containerInputs.style.display="grid"
-        containerInputs.style.width="80%"
-        containerInputs.style.marginTop="50px"
-        containerInputs.style.gridTemplateColumns="repeat(2,1fr)"
-
-      editData(element.id)
-    })
-
- 
-    
+        editData(element.id);
+      });
+    }
   });
+
 }
+
+
 
 
 
 ///delete function
-async function deleteData(id){
-
-  let response=await fetch(`http://localhost:3000/meals/${id}`,{method:"DELETE"})
-  try{
-    if(response.ok){
-      throw new err (response.statusText,response.status)
-
+async function deleteData(id) {
+  try {
+    let response = await fetch(`http://localhost:3000/meals/${id}`, {
+      method: "DELETE",
+    });
+    if (!response.ok) {
+      throw new Error(response.statusText);
     }
-    alert("Are want to delete this item")
-  }catch(err){
-//  alert("delete data failed")
- console.log(err)
+    alert("Item deleted successfully");
+    fetching(); // Refresh data after deletion
+  } catch (err) {
+    console.error("Delete failed", err);
   }
 }
 
+async function editData(id) {
+  try {
+    let response = await fetch(`http://localhost:3000/meals/${id}`);
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+    let recipe = await response.json();
+    document.getElementById("id").value = recipe.id;
+    document.getElementById("mealname").value = recipe.mealName;
+    document.getElementById("category").value = recipe.Category;
+    document.getElementById("country").value = recipe.Area;
+    document.getElementById("imageUrl").value = recipe.image;
+    document.getElementById("ingredient").value = recipe.ingredients.join("\n");
+    document.getElementById("Instructions").value = recipe.instructions;
 
-// edit function
-async function editData(id){
-
- 
-
-
-  let recipeId=document.getElementById("id")
-    let mealname=document.getElementById("mealname")
-    let category=document.getElementById("category")
-    let Country=document.getElementById("country")
-    let imageURL=document.getElementById("imageUrl")
-    let ingredient = document.getElementById("ingredient");   
-    let instructions = document.getElementById("Instructions");
- 
-
-    let response=await fetch(`http://localhost:3000/meals/${id}`)
-    try{
-        if(!response.ok){
-            throw new Error(response.statusText)
-   
-
-        }
-        let recipe=await response.json()
-      console.log(recipe.ingredients.toString())
-        console.log(recipe)
-        recipeId.value=recipe.id
-        mealname.value=recipe.mealName
-        category.value=recipe.Category
-        Country.value=recipe.Area
-        imageURL.value=recipe.image
-        ingredient.value=recipe.ingredients.join("\n")
-        instructions.value=recipe.instructions
-
-
-        let form = document.getElementById("head");
-      
-        form.scrollIntoView({ behavior: "smooth", block: "start" });
-
-    }catch(error){
-        alert("editData data error"  + error.message)
-        // console.log(error)
- 
-}
-
+    let form = document.getElementById("head");
+    form.scrollIntoView({ behavior: "smooth", block: "start" });
+  } catch (error) {
+    console.error("Edit data error", error);
+  }
 }
 
 function valid() {
-  let isValid=true;
-  // Get input fields and their error placeholders
-  const mealName= document.getElementById("mealname")
-  const mealNameError = document.getElementById("MealnameError");
-  const category= document.getElementById("category")
-  const categoryError = document.getElementById("CategoryError");
-  const country= document.getElementById("country")
-  const countryError = document.getElementById("countryError");
-  const image= document.getElementById("imageUrl")
-  const imageError = document.getElementById("imageError");
-  const ingredients= document.getElementById("ingredient")
-  const ingredientsError= document.getElementById("IngredientsError");
-  const instructions= document.getElementById("Instructions")
-  const instructionsError= document.getElementById("InstructionsError");
+  let isValid = true;
+  const fields = [
+    { id: "mealname", errorId: "MealnameError", message: "Meal Name is required." },
+    { id: "category", errorId: "CategoryError", message: "Category is required." },
+    { id: "country", errorId: "countryError", message: "Country is required." },
+    { id: "imageUrl", errorId: "imageError", message: "Image URL is required." },
+    { id: "ingredient", errorId: "IngredientsError", message: "Ingredients are required." },
+    { id: "Instructions", errorId: "InstructionsError", message: "Instructions are required." },
+  ];
 
-  // Validate name
-  if (!mealName.value.trim()) {
-    mealNameError.innerText= "mealName is required.";
-    mealNameError.style.color="red"
-    mealName.style.outline = "1px solid red";
-    isValid = false;
-}else{
-    mealNameError.style.display="none"
-    mealName.style.outline = "";
+  fields.forEach(({ id, errorId, message }) => {
+    const field = document.getElementById(id);
+    const errorField = document.getElementById(errorId);
+    if (!field.value.trim()) {
+      errorField.innerText = message;
+      errorField.style.color = "red";
+      field.style.outline = "2px solid red";
+      isValid = false;
+    } else {
+      errorField.innerText = "";
+      field.style.outline = "";
+    }
+  });
+
+  return isValid;
 }
-
-// Validate image URL
-if (!image.value.trim()) {
-    imageError.innerText = "Image URL is required.";
-     imageError.style.color="red"
-     image.style.outline = "2px solid red";
-    isValid = false;
-} else if (!isValidURL(image.value.trim())) {
-    imageError.innerText = "Enter a valid URL.";
-    image.style.outline = "2px solid red";
-    isValid = false;
-}else{
-    imageError.style.display="none"
-    image.style.outline = ""
-}
-
-if (!instructions.value.trim()) {
-    instructionsError.innerText = "instructions is required.";
-    instructionsError.style.color="red"
-    instructions.style.outline = "2px solid red";
-    isValid = false;
-}else{
-    instructionsError.style.display="none"
-    instructions.style.outline = "";
-}
-
-
-if (!ingredients.value.trim()) {
-    ingredientsError.innerText = "ingredients is required.";
-    ingredientsError.style.color="red"
-    ingredients.style.outline = "2px solid red";
-    isValid = false;
-}else{
-  ingredientsError.style.display="none"
-  ingredients.style.outline = "";
-}
-
-if (!country.value.trim()) {
-  countryError.innerText = "country is required.";
-  countryError.style.color="red"
-  country.style.outline = "2px solid red";
-  isValid = false;
-}else{
-countryError.style.display="none"
-country.style.outline = "";
-}
-
-
-
-if (!category.value.trim()) {
-  categoryError.innerText = "category is required.";
-  categoryError.style.color="red"
-  category.style.outline = "2px solid red";
-    isValid = false;
-}else{
-  categoryError.style.display="none"
-  category.style.outline = "";
-}
-
-if (!isValid) {
-    alert("Please fill out all fields correctly.");
-}
-return isValid;
-}
-
 
 function isValidURL(string) {
-try {
+  try {
     new URL(string);
     return true;
-} catch (_) {
+  } catch {
     return false;
-}
-
-
+  }
 }
 
 function clearForm() {
@@ -309,95 +211,71 @@ function clearForm() {
   document.getElementById("imageUrl").value = "";
   document.getElementById("ingredient").value = "";
   document.getElementById("Instructions").value = "";
- 
 }
 
 async function saveData() {
-  // console.log("hello")
   if (!valid()) {
-    alert("Data is not valid");
+    alert("Please fill out all fields correctly.");
     return;
   }
 
   let recipeId = document.getElementById("id").value;
-  let mealname = document.getElementById("mealname").value;
-  let category = document.getElementById("category").value;
-  let country = document.getElementById("country").value;
-  let imageURL = document.getElementById("imageUrl").value;
-  let ingredients = document.getElementById("ingredient").value.split("\n");
-  let instructions=document.getElementById("Instructions").value;
-
   let obj = {
-    "mealName": mealname,
-    "Category": category,
-    "Area": country,
-    "instructions": instructions,
-    "image": imageURL,
-    "ingredients": ingredients,
+    mealName: document.getElementById("mealname").value,
+    Category: document.getElementById("category").value,
+    Area: document.getElementById("country").value,
+    instructions: document.getElementById("Instructions").value,
+    image: document.getElementById("imageUrl").value,
+    ingredients: document.getElementById("ingredient").value.split("\n"),
   };
 
-  let method = recipeId ? "PUT" : "POST";
-  let url = recipeId
-    ? `http://localhost:3000/meals/${recipeId}`
-    : `http://localhost:3000/meals`;
-
-  let response = await fetch(url, {
-    method,
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(obj),
-  });
-
   try {
+    let method = recipeId ? "PUT" : "POST";
+    let url = recipeId
+      ? `http://localhost:3000/meals/${recipeId}`
+      : `http://localhost:3000/meals`;
+    let response = await fetch(url, {
+      method,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(obj),
+    });
+
     if (!response.ok) {
       throw new Error(response.statusText);
     }
-    alert("Data updated successfully");
-    // fetching(); 
-    clearForm() 
+    alert(recipeId ? "Data updated successfully" : "Data saved successfully");
+    fetching(); // Refresh data after saving
+    clearForm();
   } catch (error) {
-    console.error(error);
+    console.error("Save data error", error);
   }
 }
 
-////filter 
 
 const filterInput = document.getElementById("search");
 
 filterInput.addEventListener("input", () => {
-    const filterText = filterInput.value.toLowerCase();
-    const recipes = document.querySelectorAll("#maincontainer > div");
+  const filterText = filterInput.value.toLowerCase().trim(); // Get the filter text
+  const recipes = document.querySelectorAll("#maincontainer > div"); // Select all recipe cards
 
-    recipes.forEach((recipe) => {
-        const mealNameElement = recipe.querySelector("#mealname p:first-child");
-        const categoryElement = recipe.querySelector("#mealname p:nth-child(2)");
-        const countryElement = recipe.querySelector("#mealname p:nth-child(3)");
+  recipes.forEach((recipe) => {
+    // Select the text content of the meal name, category, and country
+    const mealNameElement = recipe.querySelector("#mealname p:first-child");
+    const categoryElement = recipe.querySelector("#mealname p:nth-child(2)");
+    const countryElement = recipe.querySelector("#mealname p:nth-child(3)");
 
-        const name = mealNameElement ? mealNameElement.innerText.toLowerCase() : "";
-        const category = categoryElement ? categoryElement.innerText.toLowerCase() : "";
-        const country = countryElement ? countryElement.innerText.toLowerCase() : "";
+    // Extract text values and convert to lowercase
+    const name = mealNameElement?.innerText.toLowerCase() || "";
+    const category = categoryElement?.innerText.toLowerCase() || "";
+    const country = countryElement?.innerText.toLowerCase() || "";
 
-        if (
-            name.includes(filterText) || 
-            category.includes(filterText) || 
-            country.includes(filterText)
-        ) {
-            recipe.style.display = "block";
-        } else {
-            recipe.style.display = "none";
-        }
-    });
+    // Check if the filter text matches any of the fields
+    if (name.includes(filterText) || category.includes(filterText) || country.includes(filterText)) {
+      recipe.style.display = "block"; // Show the recipe
+    } else {
+      recipe.style.display = "none"; // Hide the recipe
+    }
+  });
 });
 
 
-
-  async function fetchData() {
-    
-    let response = await fetch("http://localhost:3000/meals");
-    let meals = await response.json();
-    console.log(meals.Category)
-   
-  }
-  
-  
