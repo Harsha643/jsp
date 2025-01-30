@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <style>
+        
+        
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+
+        }
+
+
+        .form-container{
+            display: flex;
+            height: 100vh;
+            align-items: center;
+            justify-content: center;
+            align-content: center;
+        }
+
+        .form form{
+            background-color: #ccc;
+            width: 400px;
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+            align-content: center;
+            border-radius: 30px;
+            justify-content: center;
+        
+
+        }
+        input{
+            height: 30px;
+            width: 250px;
+        }
+        button{
+            width: 150px;
+            height: 30px;
+            margin-bottom: 30px;
+        }
+        .messageDiv{
+            margin: 10px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1rem;
+            opacity: 0;
+
+        }
+        
+     
+    </style>
+    <script type="module" src="sign.js"></script>
+</head>
+<body>
+    <div class="form-container">
+       <!-- signup -->
+    <div class="form" id="signUpForm" >
+      
+        <form  id="sForm">
+            <h2>Register</h2>
+           <div id="signupmessage" class="messageDiv" style="display: none;"></div>
+            <input type="text" id="username"  placeholder="Username">
+            <span id="usernameerror"></span>
+            <input type="email" id="emailr" placeholder="Email">
+            <span id="emailError"></span>
+            <input type="password" id="pwdr" placeholder="Password" >
+            <span id="passwordError"></span>
+            <!-- <input type="text" id="cpwd" placeholder="Confirm Password">
+            <span id="cpwdError"></span> -->
+                <button id="submitSignup">signUp</button>
+                <span>Already have account?<a href="" id="rsignin">SignIn</a><span>
+        </form>
+    </div>
+    
+
+    <!-- signin -->
+
+    <div class="form" id="signInForm">
+        <form  id="lForm">
+            <h2>login</h2>
+            <input type="email" id="email" placeholder="Email">
+            <span id="emailError"></span>
+            <input type="password" id="pwd" placeholder="Password" >
+            <span id="passwordError"></span>
+            
+                <button id="submitSignin">signIn</button>
+            <span>Don't have an account?<a href="" id="rsignup">SignUp</a><span>
+        </form>
+    </div>
+</div>
+<script>
+    let submitsignin=document.getElementById("rsignin")
+    let submitsignup=document.getElementById("rsignup")
+
+
+    let register=document.getElementById("signUpForm")
+    register.style.display="none"
+
+    let login=document.getElementById("signInForm")
+    login.style.display="block"
+    
+    
+
+    submitsignin.addEventListener("click",(e)=>{
+        e.preventDefault()
+        signInForm.style.display="block"
+
+        signUpForm.style.display="none"
+
+    })
+    submitsignup.addEventListener("click",(e)=>{
+        e.preventDefault()
+    
+          login.style.display="none"
+        register.style.display="block"
+
+    })
+
+    
+
+</script>
+<!-- <script src="sign.js"></script> -->
+<script type="module" src="sign.js"></script>
+
+</body>
+</html>
