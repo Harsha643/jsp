@@ -51,7 +51,7 @@ async function fetchingData() {
     search.innerText=""
         
     try {
-      // Use the `search` value dynamically to fetch recipes for a specific country
+  
       let response = await fetch(
         `https://www.themealdb.com/api/json/v1/1/filter.php?a=${search || "Indian"}`
       );
@@ -59,29 +59,28 @@ async function fetchingData() {
         throw new Error("Data is not found");
       }
       let data = await response.json();
-      displayDatas(data.meals); // Pass the fetched meals to display function
+      displayDatas(data.meals);
     } catch (err) {
       alert("Data fetch failed");
       console.error(err);
     }
   }
   
-  // Call the fetchingData function
+
   fetchingData();
   
   function displayDatas(data) {
     console.log(data);
   
-    // Clear previous content before appending new items
-    const container = document.getElementById("recipe-displays");
-    container.innerHTML = ""; // Clear existing content
   
-    // Create a scrollable container
+    const container = document.getElementById("recipe-displays");
+    container.innerHTML = "";
+  
+    
     
     const subdiv = document.createElement("div");
     subdiv.className = "scrollright";
-  
-    // Iterate through the meal data and display each item
+ 
     data.forEach((element) => {
       console.log(element);
       
@@ -108,18 +107,9 @@ async function fetchingData() {
 
   ///////home///////////
 
-  // let home =document.getElementById("home")
-  //   // home.style.display="block"
-  // let header=document.getElementById("recipes-details")
-  // home.addEventListener("click",home=>{
-  // home.style.display="block"
-  // header.style.display="none"
-    
-  // })
-
 let home=document.getElementById("home1")
 
-let homeLink = document.getElementById("home"); // More descriptive variable name
+let homeLink = document.getElementById("home"); 
 let recipesDetails = document.getElementById("recipes-details");
 let about=document.getElementById("abouta")
 let aboutUs=document.getElementById("about")
@@ -151,8 +141,20 @@ cont.addEventListener("click",(eventa)=>{
 recipesDetails.style.display = "none";
 
 })
- const animatedLetters = document.querySelectorAll('.animated-letter');
 
-animatedLetters.forEach((letter, index) => {
-    letter.style.animationDelay = `${index * 0.2}s`;
-}); 
+
+
+let loginbtn=document.getElementById("login")
+
+loginbtn.addEventListener("click",(e)=>{
+  e.preventDefault()
+  // console.log("hello");
+  location.href="./sign.html"
+})
+
+
+let signupbtn=document.getElementById("sgnup")
+signupbtn.addEventListener("click",(e)=>{
+  e.preventDefault()
+  location.href="./sign.html"
+})

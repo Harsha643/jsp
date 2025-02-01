@@ -21,19 +21,22 @@ const firebaseConfig = {
 
     const loggedInUserId=localStorage.getItem("loggedInUserId")
     if(loggedInUserId){
-        console.log(user.email)
-        console.log(loggedInUserId)
+        // console.log(user.email)
+        // console.log(loggedInUserId)
         const docRef=doc(db, "users",loggedInUserId)
-        console.log(docRef)
+        // console.log(docRef)
         getDoc(docRef)
         .then((docSnap)=>{
-
+            // console.log(docSnap.data())
             if(docSnap.exists()){
+
                 const userData=docSnap.data()
-                console.log(userData)
+                // console.log(userData)
                 document.getElementById("username").innerText=userData.username
                 document.getElementById("email").innerText=userData.email
                 document.getElementById("password").innerText=userData.password
+                // document.getElementById("id").innerText=
+                
 
             }
             else{
@@ -50,3 +53,32 @@ const firebaseConfig = {
         console.error("user id not found in local storage")
     }
   })
+
+  let logout=document.getElementById("logout")
+  logout.addEventListener("click",(e)=>{
+    e.preventDefault()
+    window.location.href="signin.html"
+  })
+
+  //userprofile
+let profileContainer=document.getElementById("profileContainer")
+profileContainer.style.display="none"
+  let profile=document.getElementById("userprofile")
+  profile.addEventListener("dblclick",(e)=>{
+    e.preventDefault()
+
+    profileContainer.style.display="block"
+    // profileContainer.style.alignSelf="end"
+
+
+
+  })
+  profile.addEventListener("click",(e)=>{
+    e.preventDefault()
+
+    profileContainer.style.display="none"
+
+
+  })
+
+

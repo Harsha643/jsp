@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>loginafter</title>
+    <style>
+        .subcontainer{
+            display: flex;
+            flex-direction: column;
+            background-color: #ccc;
+            width: 200px;
+            align-items: center;
+            border-radius: 20px;
+
+        }
+        .container{
+            position: absolute;
+            top: 80px;
+            right: 20px;
+        }
+        
+        .main{
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+        input{
+            width: 350px;
+            height: 30px;
+            border-radius: 15px;
+        }
+        #subBtn1{
+            display: none;
+        }
+        #image{
+            cursor: pointer;
+        }
+    </style>
+    
+    
+    <script type="module" src="loginpage.js"></script>
+
+</head>
+<body>
+
+    <!-- header navbar -->
+     <header id="hcontainer">
+        <div class="main">  
+            <img src="./recipe-food-logo-design-template-free-vector-removebg-preview.png" alt="recipe" id="image" width="80px">
+    
+           
+            <form id="recipe-form" onsubmit="fetchingData(); return false;">
+                <input type="text" id="input-country" placeholder="search country recipes">
+                 <button type="submit" id="subBtn1">submit</button>
+                 </form>
+
+        <span id="addBtn">Add Recipes</span>
+
+
+        <span id="userprofile"><img src="./image-removebg-preview.png" alt="" width="70px"></span>
+        </div>
+     </header>
+
+    <!-- profile -->
+    <div class="container" id="profileContainer" >
+        <div class="subcontainer">
+            <img src="./image-removebg-preview.png" alt="" width="100px">
+            <div><span id="username"></span></div>
+            <div><span id="email"></span></div>
+            <div><span id="password"></span></div>
+            <!-- <div><span id="id"></span></div> -->
+            <button id="logout">logout</button>
+        </div>
+    </div>
+    <script type="module" src="loginpage.js"></script>
+    
+</body>
+</html>

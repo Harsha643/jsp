@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <style>
+        
+        
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+
+        }
+
+
+        .form-container{
+            display: flex;
+            height: 100vh;
+            align-items: center;
+            justify-content: center;
+            align-content: center;
+        }
+
+        .form form{
+            background-color: #ccc;
+            width: 400px;
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+            align-content: center;
+            border-radius: 30px;
+            justify-content: center;
+        
+
+        }
+        input{
+            height: 30px;
+            width: 250px;
+        }
+        button{
+            width: 150px;
+            height: 30px;
+            margin-bottom: 30px;
+        }
+        .messageDiv{
+            margin: 10px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1rem;
+            opacity: 0;
+
+        }
+        
+     
+    </style>
+    <!-- <script type="module" src="sign.js"></script> -->
+</head>
+<body>
+    <div class="form-container">
+       <!-- signup -->
+    <div class="form" id="signUpForm" >
+      
+        <form  id="sForm">
+            <h2>Register</h2>
+           <div id="signupmessage" class="messageDiv" style="display: none;"></div>
+            <input type="text" id="username"  placeholder="Username">
+            <span id="usernameerror"></span>
+            <input type="email" id="emailr" placeholder="Email">
+            <span id="emailError"></span>
+            <input type="password" id="pwdr" placeholder="Password" >
+            <span id="passwordError"></span>
+            <!-- <input type="text" id="cpwd" placeholder="Confirm Password">
+            <span id="cpwdError"></span> -->
+                <button id="submitSignup">signUp</button>
+                <span>Already have account?<a href="" id="rsignin">SignIn</a><span>
+        </form>
+    </div>
+    
+
+<script type="module">
+
+    
+    let submitsignin=document.getElementById("rsignin")
+    let submitsignup=document.getElementById("rsignup")
+
+    submitsignin.addEventListener("click",(e)=>{
+        e.preventDefault()
+        window.location.href="./signin.html"
+    })
+
+    // let subBtn=document.getElementById("submitSignup")
+
+    // subBtn.addEventListener("click",(e)=>{
+    //     e.preventDefault()
+    //     window.location.href="./sign.html"
+        
+    // })
+
+
+    // firebase
+
+    // Import the functions you need from the SDKs you need
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
+import { getFirestore, setDoc,doc} from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
+
+
+
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyBbmBJPwfOKa2Q-r2CEhvsFv5yhmNFkuAU",
+  authDomain: "login-kk-f580d.firebaseapp.com",
+  projectId: "login-kk-f580d",
+  storageBucket: "login-kk-f580d.firebasestorage.app",
+  messagingSenderId: "901441715555",
+  appId: "1:901441715555:web:5228323a42259e1e91a756"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
+
+function showMessage(message, divId) {  // More descriptive name: divId
+    let messageDiv = document.getElementById(divId); // More descriptive name and correct capitalization
+    if (!messageDiv) {  // Check if the element exists
+        console.error("Div with ID '" + divId + "' not found!");
+        return; // Exit early if the div doesn't exist
+    }
+
+    messageDiv.style.display = "block";
+    messageDiv.innerHTML = message;
+    messageDiv.style.opacity = 1; // Set opacity to 1 to make it visible
+
+    setTimeout(function() {
+        messageDiv.style.opacity = 0; // Fade out the message
+      // Delay to allow fade-out to complete (adjust as needed)
+    }, 2000); // Delay before fade-out starts
+}
+
+
+
+// signup
+
+
+let signup=document.getElementById("submitSignup")
+signup.addEventListener("click",(e)=>{
+    e.preventDefault()
+    let username=document.getElementById("username").value
+    let email=document.getElementById("emailr").value
+    let password=document.getElementById("pwdr").value
+    const auth=getAuth()
+    const db=getFirestore()
+
+    createUserWithEmailAndPassword(auth,email,password)
+    .then((userCredential)=>{
+        const user=userCredential.user;
+        let userData={
+            email:email,
+            password:password,
+            username:username
+
+        }
+        showMessage("account created successfully")
+        let docRef=doc(db,"users",user.uid)
+        setDoc(docRef,userData)
+        .then(()=>{
+            window.location.href=`signin.html`
+
+        }).catch((error)=>{
+            console.log("error writing  ",error)
+        })
+    })
+    .catch((error)=>{
+        const errorCode=error.code
+        if(errorCode=='auth/email-already-in-use'){
+            showMessage('email address is already exists !!',"signupmessage")
+
+        }else{
+            showMessage("unable to create user","signupmessage")
+
+        }
+    })
+})
+
+    
+
+</script>
+<!-- <script src="sign.js"></script> -->
+<!-- <script type="module" src="sign.js"></script> -->
+
+</body>
+</html>

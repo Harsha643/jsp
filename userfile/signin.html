@@ -1,7 +1,112 @@
-// Import the functions you need from the SDKs you need
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <style>
+        
+        
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+
+        }
+
+
+        .form-container{
+            display: flex;
+            height: 100vh;
+            align-items: center;
+            justify-content: center;
+            align-content: center;
+        }
+
+        .form form{
+            background-color: #ccc;
+            width: 400px;
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+            align-content: center;
+            border-radius: 30px;
+            justify-content: center;
+        
+
+        }
+        input{
+            height: 30px;
+            width: 250px;
+        }
+        button{
+            width: 150px;
+            height: 30px;
+            margin-bottom: 30px;
+        }
+        .messageDiv{
+            margin: 10px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1rem;
+            opacity: 0;
+
+        }
+        .form{
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            align-content: center;
+        }
+        
+     
+    </style>
+    <!-- <script type="module" src="sign.js"></script> -->
+</head>
+<body>
+ 
+    
+
+    <!-- signin -->
+
+    <div class="form" id="signInForm">
+        <form  id="lForm">
+            <h2>login</h2>
+            <input type="email" id="email" placeholder="Email">
+            <span id="emailError"></span>
+            <input type="password" id="pwd" placeholder="Password" >
+            <span id="passwordError"></span>
+            
+                <button id="submitSignin">signIn</button>
+            <span>Don't have an account?<a href="" id="rsignup">SignUp</a><span>
+        </form>
+    </div>
+</div>
+<script type="module">
+
+    
+    let submitsignin=document.getElementById("rsignin")
+    let submitsignup=document.getElementById("rsignup")
+
+
+    submitsignup.addEventListener("click",(e)=>{
+        e.preventDefault()
+    
+      window.location.href="./signup.html"
+    })
+
+
+
+    // firebase
+
+
+    // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword ,signInWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
-import { getFirestore, setDoc,doc} from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
+import { getAuth, signInWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
+// import { getFirestore, setDoc,doc} from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
 
 
 
@@ -41,49 +146,6 @@ function showMessage(message, divId) {  // More descriptive name: divId
 
 
 
-let signup=document.getElementById("submitSignup")
-signup.addEventListener("click",(e)=>{
-    e.preventDefault()
-    let username=document.getElementById("username").value
-    let email=document.getElementById("emailr").value
-    let password=document.getElementById("pwdr").value
-    const auth=getAuth()
-    const db=getFirestore()
-
-    createUserWithEmailAndPassword(auth,email,password)
-    .then((userCredential)=>{
-        const user=userCredential.user;
-        let userData={
-            email:email,
-            password:password,
-            username:username
-
-        }
-        showMessage("account created successfully")
-        let docRef=doc(db,"users",user.uid)
-        setDoc(docRef,userData)
-        .then(()=>{
-            // window.location.href=`.html`
-
-        }).catch((error)=>{
-            console.log("error writing  ",error)
-        })
-    })
-    .catch((error)=>{
-        const errorCode=error.code
-        if(errorCode=='auth/email-already-in-use'){
-            showMessage('email address is already exists !!',"signupmessage")
-
-        }else{
-            showMessage("unable to create user","signupmessage")
-
-        }
-    })
-})
-
-
-
-
 // sign in 
 
 let signin = document.getElementById("submitSignin");
@@ -119,3 +181,12 @@ signin.addEventListener("click", (event) => {
             }
         });
 });
+
+    
+
+</script>
+<!-- <script src="sign.js"></script> -->
+<!-- <script type="module" ></script> -->
+
+</body>
+</html>

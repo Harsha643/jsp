@@ -12,6 +12,12 @@
   scrollbar-width: none; 
 
 }
+#login{
+  cursor: pointer;
+}
+#menubar{
+  display: none;
+}
 .scroll p{
     /* margin: 20px;  */
    display: none;
@@ -114,11 +120,9 @@
   button{
       text-align: center;
   }
-  #image{
-  
-  display: flex;
-  align-items: center;
-  }
+#image{
+  cursor: pointer;
+}
   
   footer {
     background: #6c63ff;
