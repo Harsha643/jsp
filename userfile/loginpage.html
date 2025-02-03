@@ -4,26 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>loginafter</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing:border-box;
+        }
         .subcontainer{
             display: flex;
             flex-direction: column;
             background-color: #ccc;
-            width: 200px;
+            width:250px;
             align-items: center;
             border-radius: 20px;
 
         }
-        .container{
-            position: absolute;
-            top: 80px;
-            right: 20px;
+        #profileContainer{
+            display: flex;
+            justify-content: end;
+            margin-right: 30px;
+
         }
+    
         
         .main{
             display: flex;
             justify-content: space-around;
             align-items: center;
+            background-color: #d4b5b5;
         }
         input{
             width: 350px;
@@ -36,6 +46,37 @@
         #image{
             cursor: pointer;
         }
+     
+        #fav{
+            font-size:24px;
+        }
+       
+
+        /* fetching */
+
+        #maincontainer{
+            margin: 20px;
+            padding: 20px;
+        }
+     .category-container{
+        display: flex;
+        gap: 20px;
+        position: relative;
+        margin: 30px;
+     }
+      /* .fav1{
+        position: absolute;
+        top: 0px;
+        /* left: 30px; 
+    
+      } */
+       #fava{
+        position: absolute;
+        top: 0px;
+        padding: 10px;
+        color: red;
+        font-size: 28px;
+       }
     </style>
     
     
@@ -46,6 +87,7 @@
 
     <!-- header navbar -->
      <header id="hcontainer">
+
         <div class="main">  
             <img src="./recipe-food-logo-design-template-free-vector-removebg-preview.png" alt="recipe" id="image" width="80px">
     
@@ -56,10 +98,10 @@
                  </form>
 
         <span id="addBtn">Add Recipes</span>
-
-
+        <span id="fav"><ion-icon name="heart-outline"></ion-icon></span>
         <span id="userprofile"><img src="./image-removebg-preview.png" alt="" width="70px"></span>
         </div>
+
      </header>
 
     <!-- profile -->
@@ -69,11 +111,23 @@
             <div><span id="username"></span></div>
             <div><span id="email"></span></div>
             <div><span id="password"></span></div>
-            <!-- <div><span id="id"></span></div> -->
             <button id="logout">logout</button>
         </div>
     </div>
+
+
+    <!-- bodylines -->
+
+    <main id="main1">
+        <div id="maincontainer">
+           
+                 </div>
+
+</main>
+
+
     <script type="module" src="loginpage.js"></script>
-    
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
 </html>

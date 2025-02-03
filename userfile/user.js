@@ -149,12 +149,12 @@ let loginbtn=document.getElementById("login")
 loginbtn.addEventListener("click",(e)=>{
   e.preventDefault()
   // console.log("hello");
-  location.href="./sign.html"
+  location.href="./signin.html"
 })
 
 
 let signupbtn=document.getElementById("sgnup")
 signupbtn.addEventListener("click",(e)=>{
   e.preventDefault()
-  location.href="./sign.html"
+  location.href="./signup.html"
 })

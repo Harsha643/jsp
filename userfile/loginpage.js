@@ -61,6 +61,8 @@ const firebaseConfig = {
   })
 
   //userprofile
+
+
 let profileContainer=document.getElementById("profileContainer")
 profileContainer.style.display="none"
   let profile=document.getElementById("userprofile")
@@ -68,8 +70,7 @@ profileContainer.style.display="none"
     e.preventDefault()
 
     profileContainer.style.display="block"
-    // profileContainer.style.alignSelf="end"
-
+   
 
 
   })
@@ -80,5 +81,89 @@ profileContainer.style.display="none"
 
 
   })
+
+// displayData
+async function fetching() {
+  try {
+    let response = await fetch("http://localhost:3000/meals");
+    if (!response.ok) {
+      throw new Error("Data is not found");
+    }
+    let data = await response.json();
+    displayData(data);
+  } catch (err) {
+    alert("Data fetch failed");
+    console.error(err);
+  }
+}
+
+fetching();
+
+function displayData(data) {
+  const categoryData = {};
+
+  data.forEach((element) => {
+    // console.log(element)
+    if (element.Category) {
+      if (!categoryData[element.Category]) {
+        categoryData[element.Category] = [];
+      }
+      categoryData[element.Category].push(element);
+    } else {
+     
+      console.warn("Element found without a category:", element);
+    }
+  });
+
+
+  const container = document.getElementById("maincontainer");
+  container.innerHTML = ``;
+
+
+  for (const category in categoryData) {
+    // console.log(category)
+    const categoryContainer = document.createElement("div");
+    let catName=document.createElement("div")
+
+    catName.innerHTML=`<h2>${category}</h2>`
+    container.appendChild(catName)
+    categoryContainer.classList.add("category-container");
+    
+    categoryData[category].forEach((element) => {
+      const item = document.createElement("div");
+    //  console.log(element)
+      item.classList.add("meal-item"); 
+      item.innerHTML = `
+        <img src="${element.image}" width="200px">
+        <p>${element.mealName}</p>
+        <span id="fava" class="favorite-icon"><ion-icon name="heart-outline"></ion-icon></span>
+      `;
+      categoryContainer.append(item);
+      const favoriteIcon = item.querySelector(".favorite-icon");
+      favoriteIcon.addEventListener("click", () => {
+        const favoriteMeals = JSON.parse(localStorage.getItem("favoriteMeals")) || [];
+        const isAlreadyFavorite = favoriteMeals.some((meal) => meal.id === element.id);
+
+        if (!isAlreadyFavorite) {
+          favoriteMeals.push(element);
+          localStorage.setItem("favoriteMeals", JSON.stringify(favoriteMeals));
+          favoriteIcon.querySelector("ion-icon").name = "heart";
+        } else {
+          const filteredFavorites = favoriteMeals.filter((meal) => meal.id !== element.id);
+          localStorage.setItem("favoriteMeals", JSON.stringify(filteredFavorites));
+          favoriteIcon.querySelector("ion-icon").name = "heart-outline";
+        }
+      });
+    });
+
+   
+    container.appendChild(categoryContainer);
+  }
+
+  if (Object.keys(categoryData).length === 0) {
+    container.innerHTML = "No meals found.";
+  }
+
+}
 
 
