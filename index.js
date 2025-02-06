@@ -15,7 +15,7 @@ addRecipes.addEventListener("click", () => {
 
 async function fetching() {
   try {
-    let response = await fetch("http://localhost:3000/meals");
+    let response = await fetch("https://pouncing-scarlet-cesium.glitch.me/meals");
     if (!response.ok) {
       throw new Error("Data is not found");
     }
@@ -131,7 +131,7 @@ function displayData(data) {
 ///delete function
 async function deleteData(id) {
   try {
-    let response = await fetch(`http://localhost:3000/meals/${id}`, {
+    let response = await fetch(`https://pouncing-scarlet-cesium.glitch.me/meals/${id}`, {
       method: "DELETE",
     });
     if (!response.ok) {
@@ -146,7 +146,7 @@ async function deleteData(id) {
 
 async function editData(id) {
   try {
-    let response = await fetch(`http://localhost:3000/meals/${id}`);
+    let response = await fetch(`https://pouncing-scarlet-cesium.glitch.me/meals/${id}`);
     if (!response.ok) {
       throw new Error(response.statusText);
     }
@@ -176,6 +176,8 @@ function valid() {
     { id: "ingredient", errorId: "IngredientsError", message: "Ingredients are required." },
     { id: "Instructions", errorId: "InstructionsError", message: "Instructions are required." },
   ];
+
+
 
   fields.forEach(({ id, errorId, message }) => {
     const field = document.getElementById(id);
@@ -232,8 +234,8 @@ async function saveData() {
   try {
     let method = recipeId ? "PUT" : "POST";
     let url = recipeId
-      ? `http://localhost:3000/meals/${recipeId}`
-      : `http://localhost:3000/meals`;
+      ? `https://pouncing-scarlet-cesium.glitch.me/meals/${recipeId}`
+      : `https://pouncing-scarlet-cesium.glitch.me/meals`;
     let response = await fetch(url, {
       method,
       headers: { "Content-Type": "application/json" },

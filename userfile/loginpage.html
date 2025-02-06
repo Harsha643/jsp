@@ -67,20 +67,42 @@
       /* .fav1{
         position: absolute;
         top: 0px;
-        /* left: 30px; 
+        left: 30px; 
     
       } */
-       #fava{
+      .favorite-icon{
         position: absolute;
         top: 0px;
         padding: 10px;
         color: red;
         font-size: 28px;
        }
+
+       #container-inputs {
+        display: none;
+        width: 90%;
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+ 
+    #container-inputs input,
+    #container-inputs textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+    
     </style>
     
     
-    <script type="module" src="loginpage.js"></script>
+    <!-- <script type="module" src="loginpage.js"></script> -->
 
 </head>
 <body>
@@ -93,12 +115,13 @@
     
            
             <form id="recipe-form" onsubmit="fetchingData(); return false;">
-                <input type="text" id="input-country" placeholder="search country recipes">
+                <!-- <input type="text" id="input-country" placeholder="search country recipes"> -->
+                <input type="text" id="search" placeholder="Search recipes MealName or category" autocomplete="off">
                  <button type="submit" id="subBtn1">submit</button>
                  </form>
 
         <span id="addBtn">Add Recipes</span>
-        <span id="fav"><ion-icon name="heart-outline"></ion-icon></span>
+        <span id="fav"><ion-icon name="heart-outline" id="favopen"></ion-icon></span>
         <span id="userprofile"><img src="./image-removebg-preview.png" alt="" width="70px"></span>
         </div>
 
@@ -115,6 +138,49 @@
         </div>
     </div>
 
+    <!-- adding recipes -->
+
+    
+    <main id="container">
+        <div id="container-inputs">
+        
+            <input type="hidden" id="id" >
+            <div class="sub-input">
+            <input type="text" id="mealname" placeholder="Mealname "  id="name" autocomplete="off">
+            <div id="MealnameError"></div>
+            </div>
+            <div class="sub-input">
+
+            <input type="text" id="category" placeholder="Catagory" id="name" autocomplete="off">
+            <div id="CategoryError"></div>
+            </div>
+            <div class="sub-input">
+
+            <input type="text" id="country" placeholder="Country" id="name" autocomplete="off">
+            <div id="countryError"></div>
+            </div>
+            <div class="sub-input">
+
+            <input type="text" id="imageUrl" placeholder="Image URL" id="name" autocomplete="off">
+            
+            <div id="imageError"></div>
+            </div>
+            <div class="sub-input">
+
+            <textarea name="inst"  id="ingredient"  placeholder="Ingredients"  rows="5" cols="50"id="name" autocomplete="off"></textarea>
+            <div id="IngredientsError"></div>
+            </div>
+            <div class="sub-input">
+
+            <textarea name="ingre" id="Instructions" placeholder="Instructions" rows="5" cols="50"id="name" autocomplete="off"></textarea>
+        
+            <div id="InstructionsError"></div>
+            </div>
+            <button id="savedata" class="button">save</button>
+           
+        </div>
+    </main>
+
 
     <!-- bodylines -->
 
@@ -124,6 +190,7 @@
                  </div>
 
 </main>
+
 
 
     <script type="module" src="loginpage.js"></script>

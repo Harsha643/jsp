@@ -66,43 +66,48 @@ const firebaseConfig = {
 let profileContainer=document.getElementById("profileContainer")
 profileContainer.style.display="none"
   let profile=document.getElementById("userprofile")
-  profile.addEventListener("dblclick",(e)=>{
+  profile.addEventListener("click",(e)=>{
     e.preventDefault()
 
-    profileContainer.style.display="block"
+    profileContainer.style.display=profileContainer.style.display==="none"?"block":"none"
    
 
 
   })
-  profile.addEventListener("click",(e)=>{
-    e.preventDefault()
-
-    profileContainer.style.display="none"
-
-
-  })
-
-// displayData
-async function fetching() {
+///////////////////////////////////////////////////
+async function fetchingData() {
   try {
-    let response = await fetch("http://localhost:3000/meals");
+    let response = await fetch("https://pouncing-scarlet-cesium.glitch.me/meals");
     if (!response.ok) {
       throw new Error("Data is not found");
     }
     let data = await response.json();
-    displayData(data);
+    displayData1(data);
+    // console.log(data)
+   
   } catch (err) {
     alert("Data fetch failed");
     console.error(err);
   }
 }
+fetchingData();
 
-fetching();
-
-function displayData(data) {
+function displayData1(data) {
   const categoryData = {};
-
+// const countryData={}s
   data.forEach((element) => {
+
+    // if(element.Area){
+    //   if(!countryData[element.Area]){
+    //     countryData[element.Area]=[];
+  
+    //   }
+    // countryData[element.Area].push(element)
+    // }else{
+      
+    //   country.warn("Element found without a countrry:",element)
+  
+    // }
     // console.log(element)
     if (element.Category) {
       if (!categoryData[element.Category]) {
@@ -115,7 +120,6 @@ function displayData(data) {
     }
   });
 
-
   const container = document.getElementById("maincontainer");
   container.innerHTML = ``;
 
@@ -124,26 +128,27 @@ function displayData(data) {
     // console.log(category)
     const categoryContainer = document.createElement("div");
     let catName=document.createElement("div")
-
+    catName.classList.add("catName");
     catName.innerHTML=`<h2>${category}</h2>`
     container.appendChild(catName)
     categoryContainer.classList.add("category-container");
     
     categoryData[category].forEach((element) => {
       const item = document.createElement("div");
-    //  console.log(element)
       item.classList.add("meal-item"); 
+    
+
       item.innerHTML = `
-        <img src="${element.image}" width="200px">
+        <img src="${element.image}" width="200px" class="imgopen" data-id="${element.id}">
         <p>${element.mealName}</p>
-        <span id="fava" class="favorite-icon"><ion-icon name="heart-outline"></ion-icon></span>
+         <span id="fava" class="favorite-icon"><ion-icon name="heart-outline"></ion-icon></span>
       `;
       categoryContainer.append(item);
       const favoriteIcon = item.querySelector(".favorite-icon");
       favoriteIcon.addEventListener("click", () => {
+
         const favoriteMeals = JSON.parse(localStorage.getItem("favoriteMeals")) || [];
         const isAlreadyFavorite = favoriteMeals.some((meal) => meal.id === element.id);
-
         if (!isAlreadyFavorite) {
           favoriteMeals.push(element);
           localStorage.setItem("favoriteMeals", JSON.stringify(favoriteMeals));
@@ -153,7 +158,29 @@ function displayData(data) {
           localStorage.setItem("favoriteMeals", JSON.stringify(filteredFavorites));
           favoriteIcon.querySelector("ion-icon").name = "heart-outline";
         }
+
       });
+    
+   
+    container.appendChild(categoryContainer);
+  
+  if (Object.keys(categoryData).length === 0) {
+    container.innerHTML = "No meals found.";
+  }
+
+        // image 
+
+      let imgOpen = item.querySelector(".imgopen");
+  imgOpen.addEventListener("click", (event1) => {
+    event1.preventDefault();
+    console.log("Image clicked for meal ID:", element)
+  localStorage.setItem("imageitem",JSON.stringify(element))
+
+
+  });
+
+
+
     });
 
    
@@ -166,4 +193,186 @@ function displayData(data) {
 
 }
 
+let favopen=document.getElementById("favopen")
+favopen.addEventListener("click",()=>{
+  window.location.href="fav.html"
 
+})
+
+
+// recipes adding
+
+let addRecipes = document.getElementById("addBtn");
+let containerInputs = document.getElementById("container-inputs");
+
+addRecipes.addEventListener("click", () => {
+  containerInputs.style.display = containerInputs.style.display==="none"? "grid" :"none";
+  // containerInputs.style.display = "grid"; // Set grid layout
+  containerInputs.style.width = "80%";
+  containerInputs.style.marginTop = "50px";
+  containerInputs.style.gridTemplateColumns = "repeat(2, 1fr)";
+});
+
+
+function valid() {
+  let isValid = true;
+  const fields = [
+    { id: "mealname", errorId: "MealnameError", message: "Meal Name is required." },
+    { id: "category", errorId: "CategoryError", message: "Category is required." },
+    { id: "country", errorId: "countryError", message: "Country is required." },
+    { id: "imageUrl", errorId: "imageError", message: "Image URL is required." },
+    { id: "ingredient", errorId: "IngredientsError", message: "Ingredients are required." },
+    { id: "Instructions", errorId: "InstructionsError", message: "Instructions are required." },
+  ];
+
+  fields.forEach(({ id, errorId, message }) => {
+    const field = document.getElementById(id);
+    const errorField = document.getElementById(errorId);
+
+    if (!field.value.trim()) {
+      errorField.innerText = message;
+      errorField.style.color = "red";
+      field.style.border = "1px solid red"; // Use border for visual feedback
+      isValid = false;
+    } else {
+      errorField.innerText = "";
+      field.style.border = "";
+    }
+  });
+
+  // Validate image URL
+  const imageUrlField = document.getElementById("imageUrl");
+  const imageUrlErrorField = document.getElementById("imageError");
+  if (imageUrlField.value.trim() && !isValidURL(imageUrlField.value)) {
+    imageUrlErrorField.innerText = "Invalid Image URL.";
+    imageUrlErrorField.style.color = "red";
+    imageUrlField.style.border = "1px solid red";
+    isValid = false;
+  } else {
+    imageUrlErrorField.innerText = "";
+    imageUrlField.style.border = "";
+  }
+
+  return isValid;
+}
+
+function isValidURL(string) {
+  try {
+    new URL(string);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function clearForm() {
+  document.getElementById("id").value = "";
+  document.getElementById("mealname").value = "";
+  document.getElementById("category").value = "";
+  document.getElementById("country").value = "";
+  document.getElementById("imageUrl").value = "";
+  document.getElementById("ingredient").value = "";
+  document.getElementById("Instructions").value = "";
+
+  // Clear error messages and styles
+  const fields = [
+    "mealname", "category", "country", "imageUrl", "ingredient", "Instructions"
+  ];
+  fields.forEach((id) => {
+    const field = document.getElementById(id);
+    const errorField = document.getElementById(`${id}Error`);
+    errorField.innerText = "";
+    field.style.border = "";
+  });
+}
+
+let savedata=document.getElementById("savedata")
+savedata.addEventListener("click",()=>{
+  dataSave()
+})
+async function dataSave() {
+  if (!valid()) {
+    alert("Please fill out all fields correctly.");
+    return;
+  }
+
+  let recipeId = document.getElementById("id").value;
+  let obj = {
+    mealName: document.getElementById("mealname").value,
+    Category: document.getElementById("category").value,
+    Area: document.getElementById("country").value,
+    instructions: document.getElementById("Instructions").value,
+    image: document.getElementById("imageUrl").value,
+    ingredients: document.getElementById("ingredient").value.split("\n"),
+  };
+
+  try {
+    let method = "POST";
+   
+
+    let response = await fetch("https://pouncing-scarlet-cesium.glitch.me/meals", {
+      method,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(obj),
+    });
+
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+
+    alert(recipeId ? "Data updated successfully" : "Data saved successfully");
+    fetchingData(); 
+    clearForm(); 
+  } catch (error) {
+    console.error("Save data error", error);
+  }
+}
+
+
+
+const filterInput = document.getElementById("search");
+
+filterInput.addEventListener("input", () => {
+  const filterText = filterInput.value.toLowerCase().trim(); 
+  const mealItems = document.querySelectorAll(".meal-item"); 
+
+  mealItems.forEach((mealItem) => {
+    const mealName = mealItem.querySelector("p").textContent.toLowerCase(); 
+    const categoryElement = mealItem.querySelector("p:nth-child(2)"); 
+    const category = categoryElement ? categoryElement.textContent.toLowerCase() : ""; 
+    const countryElement = mealItem.querySelector("p:nth-child(3)"); 
+    const country = countryElement ? countryElement.textContent.toLowerCase() : ""; 
+
+    if (mealName.includes(filterText) || category.includes(filterText) || country.includes(filterText)) {
+      mealItem.style.display = "block"; 
+    } else {
+      mealItem.style.display = "none"; 
+    }
+  });
+
+  // Filter category headers as well
+  const categoryHeaders = document.querySelectorAll("h2");
+  categoryHeaders.forEach((header) => {
+    const categoryName = header.textContent.toLowerCase();
+    if (categoryName.includes(filterText)) {
+      header.style.display = "block"; 
+    } else {
+      header.style.display = "none"; 
+    }
+  });
+});
+
+
+// let addion=document.getElementById('ion')
+// addion.addEventListener('click', (e)=> {
+//   e.preventDefault()
+//   var spans = document.querySelectorAll('.main span');
+//   spans.forEach(function(span) {
+//       span.style.display = span.style.display === 'block' ? 'none' : 'block';
+//   });
+// });
+
+
+
+
+// imageopen 
