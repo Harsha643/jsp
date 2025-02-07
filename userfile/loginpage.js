@@ -94,21 +94,10 @@ fetchingData();
 
 function displayData1(data) {
   const categoryData = {};
-// const countryData={}s
+
   data.forEach((element) => {
 
-    // if(element.Area){
-    //   if(!countryData[element.Area]){
-    //     countryData[element.Area]=[];
-  
-    //   }
-    // countryData[element.Area].push(element)
-    // }else{
-      
-    //   country.warn("Element found without a countrry:",element)
-  
-    // }
-    // console.log(element)
+
     if (element.Category) {
       if (!categoryData[element.Category]) {
         categoryData[element.Category] = [];
@@ -287,6 +276,9 @@ function clearForm() {
   });
 }
 
+
+
+// savedata 
 let savedata=document.getElementById("savedata")
 savedata.addEventListener("click",()=>{
   dataSave()
@@ -312,6 +304,54 @@ async function dataSave() {
    
 
     let response = await fetch("https://pouncing-scarlet-cesium.glitch.me/meals", {
+      method,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(obj),
+    });
+
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+
+    alert(recipeId ? "Data updated successfully" : "Data saved successfully");
+    fetchingData(); 
+    clearForm(); 
+  } catch (error) {
+    console.error("Save data error", error);
+  }
+}
+
+
+
+// draft data
+
+
+let draftdata=document.getElementById("draftdata")
+draftdata.addEventListener("click",()=>{
+  dSave()
+  console.log("he")
+})
+async function dSave() {
+  console.log("hello")
+
+  if (!valid()) {
+    alert("Please fill out all fields correctly.");
+    return;
+  }
+
+  let recipeId = document.getElementById("id").value;
+  let obj = {
+    mealName: document.getElementById("mealname").value,
+    Category: document.getElementById("category").value,
+    Area: document.getElementById("country").value,
+    instructions: document.getElementById("Instructions").value,
+    image: document.getElementById("imageUrl").value,
+    ingredients: document.getElementById("ingredient").value.split("\n"),
+  };
+
+  try {
+    let method = "POST";
+    let response = await fetch("https://amplified-hulking-snowdrop.glitch.me/meals", {
       method,
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(obj),
