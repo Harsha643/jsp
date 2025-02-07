@@ -19,6 +19,7 @@
     
     <script>
      const favoriteMeals = JSON.parse(localStorage.getItem("favoriteMeals")) || [];
+     
 const maincontainer = document.getElementById("container");
 
 favoriteMeals.forEach((element) => {
@@ -38,14 +39,33 @@ favoriteMeals.forEach((element) => {
   const toggleButton = document.createElement("button");
   toggleButton.textContent = "Show Instructions & Ingredients";
   
+  const remove=document.createElement("button")
+  remove.innerText="remove"
+  remove.addEventListener("click",(e)=>{
+    e.preventDefault()
+    // console.log(element.id)
+    const index = favoriteMeals.indexOf(element);
+    if (index > -1) {
+    
+      favoriteMeals.splice(index, 1);
 
+
+      localStorage.setItem("favoriteMeals", JSON.stringify(favoriteMeals));
+
+      mealContainer.remove();
+    }
+
+  })
   
   const detailsContainer = document.createElement("div");
   detailsContainer.style.display = "none"; 
 
-  detailsContainer.innerHTML = `
+  detailsContainer.innerHTML = 
+  `
    <h2>INGREDIENTS</h2>
-    <p>${element.ingredients}</p>
+    <ul>
+        ${element.ingredients.map(ingredient => `<li>${ingredient}</li>`).join('')}
+      </ul>
     <h2>INSTRUCTIONS</h2>
     <p>${element.instructions}</p>
    
@@ -53,7 +73,7 @@ favoriteMeals.forEach((element) => {
 
 
   mealContainer.appendChild(mealInfo);
-  mealContainer.appendChild(toggleButton);
+  mealContainer.append(toggleButton,remove);
   mealContainer.appendChild(detailsContainer);
 
   

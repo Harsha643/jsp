@@ -6,58 +6,133 @@
     <title>Register</title>
     <style>
         
-        
-        *{
+ 
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-
         }
 
-
-        .form-container{
+        /* Blurred background effect */
+        body {
+            position: relative;
             display: flex;
-            height: 100vh;
-            align-items: center;
             justify-content: center;
-            align-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
         }
 
-        .form form{
-            background-color: #ccc;
+        /* Background image with blur */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://t3.ftcdn.net/jpg/09/88/42/96/360_F_988429626_aWXKFOrh6nBjJEsBLCBnxyYN5BUQEgKB.jpg'); /* Direct image URL */
+            background-size: cover;
+            background-position: center;
+            filter: blur(4px); /* Apply blur effect */
+            z-index: -1; /* Keep it behind other elements */
+        }
+
+        .form-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            opacity: 0.7;
+        }
+
+        /* Form styling with shadow and highlighted effect */
+        .form form {
+            background: rgba(20, 20, 20, 0.9); /* Dark background with transparency */
             width: 400px;
-            height: 400px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            align-items: center;
-            align-content: center;
-            border-radius: 30px;
-            justify-content: center;
-        
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Strong shadow */
+            text-align: center;
 
         }
-        input{
-            height: 30px;
-            width: 250px;
+
+        h2 {
+            color: #ffffff;
+            margin-bottom: 15px;
         }
-        button{
-            width: 150px;
-            height: 30px;
-            margin-bottom: 30px;
-        }
-        .messageDiv{
-            margin: 10px;
-            padding: 10px 20px;
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
             border-radius: 5px;
-            font-size: 1rem;
-            opacity: 0;
-
+            font-size: 16px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
         }
-        
-     
+
+        input:focus {
+            border-color: #ff6600;
+            outline: none;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #ff6600;
+            border: none;
+            color: white;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+        button:hover {
+            background: #e65c00;
+        }
+
+        .messageDiv {
+            display: none;
+            margin: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            color: red;
+        }
+
+        span a {
+            color: #ff6600;
+            text-decoration: none;
+        }
+
+        span a:hover {
+            text-decoration: underline;
+        }
+        /* HTML: <div class="loader"></div> */
+.loader {
+  width: 30px;
+  display: flex;
+  justify-self: center;
+  padding: 8px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #25b09b;
+  --_m: 
+    conic-gradient(#0000 10%,#000),
+    linear-gradient(#000 0 0) content-box;
+  -webkit-mask: var(--_m);
+          mask: var(--_m);
+  -webkit-mask-composite: source-out;
+          mask-composite: subtract;
+  animation: l3 1s infinite linear;
+}
+@keyframes l3 {to{transform: rotate(1turn)}}
     </style>
-    <!-- <script type="module" src="sign.js"></script> -->
+    
 </head>
 <body>
     <div class="form-container">
@@ -67,38 +142,38 @@
         <form  id="sForm">
             <h2>Register</h2>
            <div id="signupmessage" class="messageDiv" style="display: none;"></div>
-            <input type="text" id="username"  placeholder="Username">
-            <span id="usernameerror"></span>
-            <input type="email" id="emailr" placeholder="Email">
+            <input type="text" id="username"  placeholder="Username" autocapitalize="off">
+            <span id="usernameError"></span>
+            <input type="email" id="emailr" placeholder="Email" autocapitalize="off">
             <span id="emailError"></span>
-            <input type="password" id="pwdr" placeholder="Password" >
+            <input type="password" id="pwdr" placeholder="Password" autocapitalize="off" >
             <span id="passwordError"></span>
-            <!-- <input type="text" id="cpwd" placeholder="Confirm Password">
-            <span id="cpwdError"></span> -->
-                <button id="submitSignup">signUp</button>
-                <span>Already have account?<a href="" id="rsignin">SignIn</a><span>
+            <input type="text" id="cpwd" placeholder="Confirm Password" autocapitalize="off">
+            <span id="cpwdError"></span>
+                <button id="submitSignup"><div class="loader" ></div> signUp</button>
+                <span style="color: white;">Already have account?<a href="" id="rsignin">SignIn</a><span>
         </form>
     </div>
     
 
 <script type="module">
 
-    
+
+
     let submitsignin=document.getElementById("rsignin")
     let submitsignup=document.getElementById("rsignup")
+    
 
     submitsignin.addEventListener("click",(e)=>{
         e.preventDefault()
-        window.location.href="./signin.html"
+        // submitloader.style.display="block"
+        setTimeout(
+                window.location.href="./signin.html"
+            ,1000)
+        
     })
 
-    // let subBtn=document.getElementById("submitSignup")
-
-    // subBtn.addEventListener("click",(e)=>{
-    //     e.preventDefault()
-    //     window.location.href="./sign.html"
-        
-    // })
+  
 
 
     // firebase
@@ -148,52 +223,118 @@ function showMessage(message, divId) {  // More descriptive name: divId
 
 // signup
 
+let submitloader=document.getElementsByClassName("loader")[0]
+    submitloader.style.display="none"
 
 let signup=document.getElementById("submitSignup")
-signup.addEventListener("click",(e)=>{
-    e.preventDefault()
-    let username=document.getElementById("username").value
-    let email=document.getElementById("emailr").value
-    let password=document.getElementById("pwdr").value
-    const auth=getAuth()
-    const db=getFirestore()
+    
 
-    createUserWithEmailAndPassword(auth,email,password)
-    .then((userCredential)=>{
-        const user=userCredential.user;
-        let userData={
-            email:email,
-            password:password,
-            username:username
+signup.addEventListener("click", async (e) => {
+    // submitloader.style.text-align="center"
+        // signup.style.display="none"
 
+
+    e.preventDefault();
+
+    let username = document.getElementById("username");
+    let email = document.getElementById("emailr");
+    let password = document.getElementById("pwdr");
+    let confirmPassword = document.getElementById("cpwd");
+
+    let usernameError= document.getElementById("usernameError");
+    let emailError = document.getElementById("emailError");
+    let passwordError = document.getElementById("passwordError");
+    let confirmPasswordError = document.getElementById("cpwdError");
+
+    // Reset errors
+    usernameError.innerText=""
+    emailError.innerText = "";
+    passwordError.innerText = "";
+    confirmPasswordError.innerText = "";
+
+    username.style.border = "1px solid #ccc";
+    email.style.border = "1px solid #ccc";
+    password.style.border = "1px solid #ccc";
+    confirmPassword.style.border = "1px solid #ccc";
+
+    // Email Validation
+    if (!email.value.trim()) {
+        emailError.innerText = "Email is required";
+        email.style.border = "2px solid red";
+        emailError.style.color="red"
+        return;
+    }
+
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailPattern.test(email.value)) {
+        emailError.innerText = "Invalid email format";
+        email.style.border = "2px solid red";
+        return;
+    }
+
+    // Password Validation
+    if (password.length < 8 || !/[A-Z]/.test(password.value) || !/[a-z]/.test(password.value) || !/[0-9]/.test(password.value)) {
+                passwordError.textContent = "Password must be at least 8 characters long, including uppercase, lowercase, and numbers.";
+                password.style.border = "2px solid red";
+                passwordError.style.color="red"
+                return;
+            }
+
+    if (confirmPassword.value !== password.value) {
+        confirmPasswordError.innerText = "Passwords do not match";
+        confirmPassword.style.border = "2px solid red";
+        confirmPasswordError.style.color="red"
+
+        return;
+    }
+    submitloader.style.display = "block"; 
+    signup.disabled = true;
+
+    // Firebase Auth Signup
+    const auth = getAuth();
+    const db = getFirestore();
+
+    try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email.value, password.value);
+        const user = userCredential.user;
+
+        let userData = {
+            email: email.value,
+            username: username.value,
+            password:password.value
+        };
+
+        let docRef = doc(db, "users", user.uid);
+        await setDoc(docRef, userData);
+      
+        // submitloader.style.display="block"
+        showMessage("Account created successfully!", "signupmessage");
+
+
+        setTimeout(()=>{
+
+            window.location.href = "signin.html"
+        },3000)
+
+
+    } catch (error) {
+        console.error("Signup error:", error.message);
+        submitloader.style.display = "none"; 
+    signup.disabled = false; 
+
+        if (error.code === "auth/email-already-in-use") {
+            showMessage("Email is already registered!", "signupmessage");
+        } else {
+            showMessage("Signup failed. Try again.", "signupmessage");
         }
-        showMessage("account created successfully")
-        let docRef=doc(db,"users",user.uid)
-        setDoc(docRef,userData)
-        .then(()=>{
-            window.location.href=`signin.html`
+    }
+});
 
-        }).catch((error)=>{
-            console.log("error writing  ",error)
-        })
-    })
-    .catch((error)=>{
-        const errorCode=error.code
-        if(errorCode=='auth/email-already-in-use'){
-            showMessage('email address is already exists !!',"signupmessage")
-
-        }else{
-            showMessage("unable to create user","signupmessage")
-
-        }
-    })
-})
 
     
 
 </script>
-<!-- <script src="sign.js"></script> -->
-<!-- <script type="module" src="sign.js"></script> -->
+
 
 </body>
 </html>

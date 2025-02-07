@@ -173,9 +173,10 @@ function displayData1(data) {
       let imgOpen = item.querySelector(".imgopen");
   imgOpen.addEventListener("click", (event1) => {
     event1.preventDefault();
+
     console.log("Image clicked for meal ID:", element)
   localStorage.setItem("imageitem",JSON.stringify(element))
-
+    window.location.href="./image.html"
 
   });
 

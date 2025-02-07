@@ -3,68 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
+    <title>login</title>
     <style>
-        
-        
-        *{
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+     * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+    }
 
-        }
+    body {
+        background: url('https://static.vecteezy.com/system/resources/thumbnails/051/418/053/small/fresh-vegetables-and-herbs-on-a-white-background-photo.jpg') no-repeat center center/cover;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
 
+    .form-container {
+        display: flex;
+        height: 100vh;
+        align-items: center;
+        justify-content: center;
+        align-content: center;
+    }
 
-        .form-container{
-            display: flex;
-            height: 100vh;
-            align-items: center;
-            justify-content: center;
-            align-content: center;
-        }
+    .form form {
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+        width: 400px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+        border-radius: 15px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
 
-        .form form{
-            background-color: #ccc;
-            width: 400px;
-            height: 400px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            align-items: center;
-            align-content: center;
-            border-radius: 30px;
-            justify-content: center;
-        
+    input {
+        height: 40px;
+        width: 250px;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        outline: none;
+        font-size: 16px;
+    }
 
-        }
-        input{
-            height: 30px;
-            width: 250px;
-        }
-        button{
-            width: 150px;
-            height: 30px;
-            margin-bottom: 30px;
-        }
-        .messageDiv{
-            margin: 10px;
-            padding: 10px 20px;
-            border-radius: 5px;
-            font-size: 1rem;
-            opacity: 0;
+    button {
+        width: 150px;
+        height: 40px;
+        background: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+    }
 
-        }
-        .form{
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            align-content: center;
-        }
-        
-     
+    .messageDiv {
+        margin: 10px;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 1rem;
+        opacity: 0;
+        color: red;
+    }
+
+    .form {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .loader {
+    width:20px;
+    
+    height:20px;
+    border: 5px solid black;
+    border-bottom-color:white;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+    }
+
+    @keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+    } 
     </style>
-    <!-- <script type="module" src="sign.js"></script> -->
+  
 </head>
 <body>
  
@@ -74,17 +112,18 @@
 
     <div class="form" id="signInForm">
         <form  id="lForm">
-            <h2>login</h2>
+            <h2>Login</h2>
             <input type="email" id="email" placeholder="Email">
             <span id="emailError"></span>
             <input type="password" id="pwd" placeholder="Password" >
             <span id="passwordError"></span>
             
-                <button id="submitSignin">signIn</button>
+                <button id="submitSignin">signIn<span class="loader"></span></button>
             <span>Don't have an account?<a href="" id="rsignup">SignUp</a><span>
         </form>
     </div>
 </div>
+
 <script type="module">
 
     
@@ -110,10 +149,6 @@ import { getAuth, signInWithEmailAndPassword} from "https://www.gstatic.com/fire
 
 
 
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyBbmBJPwfOKa2Q-r2CEhvsFv5yhmNFkuAU",
   authDomain: "login-kk-f580d.firebaseapp.com",
@@ -139,48 +174,96 @@ function showMessage(message, divId) {  // More descriptive name: divId
     messageDiv.style.opacity = 1; // Set opacity to 1 to make it visible
 
     setTimeout(function() {
-        messageDiv.style.opacity = 0; // Fade out the message
-      // Delay to allow fade-out to complete (adjust as needed)
-    }, 2000); // Delay before fade-out starts
+        messageDiv.style.opacity = 0;
+      
+    }, 2000); 
 }
 
 
 
 // sign in 
 
+
+let submitloader=document.getElementsByClassName("loader")[0]
+    submitloader.style.display="none"
 let signin = document.getElementById("submitSignin");
 
-signin.addEventListener("click", (event) => {
+signin.addEventListener("click", async (event) => {
     event.preventDefault(); // Prevent form submission
 
-    let email = document.getElementById("email").value;
-    let password = document.getElementById("pwd").value;
+    let emailElement = document.getElementById("email");
+    let passwordElement = document.getElementById("pwd");
+    let emailError = document.getElementById("emailError");
+    let passwordError = document.getElementById("passwordError");
 
-    const auth = getAuth(); // Make sure getAuth() is imported correctly
+    let email = emailElement.value.trim(); // Get email input value
+    let password = passwordElement.value.trim(); // Get password input value
 
-    signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-            showMessage("Login is successful", "signinmessage"); // Corrected typo here
-            const user = userCredential.user;
-            localStorage.setItem('loggedInUserId',user.uid);
-            window.location.href = "loginpage.html"; // Redirect after successful login
-        })
-        .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message; // Good practice to use the message too
-            console.error("Login error:", errorCode, errorMessage); // Log for debugging
+    // Reset previous error messages and styles
+    emailError.innerText = "";
+    passwordError.innerText = "";
+    emailElement.style.border = "1px solid #ccc";
+    passwordElement.style.border = "1px solid #ccc";
 
-            if (errorCode === "auth/invalid-credential") { // Corrected typo here
-                showMessage('Incorrect email or password', "signinmessage"); // Corrected typo here
-            } else if (errorCode === "auth/user-not-found") {  // More specific error check
-                showMessage("Account does not exist", "signinmessage"); // Corrected typo here
-            } else {
-                showMessage("An error occurred during login. Please try again.", "signinmessage"); // Generic message
-                // Optionally display the full error message for debugging (not in production):
-                // showMessage(errorMessage, "signinmessage");
-            }
-        });
+    // Validate empty fields
+    if (!email) {
+        emailError.innerText = "Email is required";
+        emailError.style.color = "red";
+        emailElement.style.border = "2px solid red";
+        return;
+    }
+
+    if (!password) {
+        passwordError.innerText = "Password is required";
+        passwordError.style.color = "red";
+        passwordElement.style.border = "2px solid red";
+        return;
+    }
+
+    // Email format validation
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email)) {
+        emailError.innerText = "Invalid email format";
+        emailError.style.color = "red";
+        emailElement.style.border = "2px solid red";
+        return;
+    }
+
+    submitloader.style.display = "block";
+    signin.disabled = true;
+    
+    try {
+        const auth = getAuth(); // Make sure getAuth() is imported correctly
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        
+        showMessage("Login is successful", "signinmessage"); // Corrected typo here
+        const user = userCredential.user;
+
+        setTimeout(() => {
+            localStorage.setItem("loggedInUserId", user.uid);
+            window.location.href = "loginpage.html";
+        }, 5000);
+
+    } catch (error) {
+        console.error("Login error:", error.code, error.message); // Log for debugging
+
+        submitloader.style.display = "none";
+        signin.disabled = false;
+
+        if (error.code === "auth/invalid-credential") {
+            passwordError.innerText = "Incorrect email or password";
+            passwordError.style.color = "red";
+            passwordElement.style.border = "2px solid red";
+        } else if (error.code === "auth/user-not-found") {
+            emailError.innerText = "Account does not exist";
+            emailError.style.color = "red";
+            emailElement.style.border = "2px solid red";
+        } else {
+            alert("An unexpected error occurred. Please try again.");
+        }
+    }
 });
+
 
     
 

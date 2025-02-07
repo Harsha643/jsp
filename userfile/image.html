@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>recipe details </title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+      .meal-item{
+        display: flex;
+        gap: 20px;
+        padding: 30px;
+        
+      }
+      .items p{
+        font-size: 24px;
+        font-weight: 500;
+        
+      }
+      .items1 h2{
+    padding-top: 30px;
+        
+      }
+      .items1 p{
+    padding-top: 20px;
+        
+      }
+      .items1 ul{
+    padding-left: 30px;
+    padding-top: 20px;
+        
+      }
+      
+    </style>
+</head>
+<body><div id="container">
+
+</div>
+    <script >
+        
+        let imageDetails = JSON.parse(localStorage.getItem("imageitem")) || []; 
+
+console.log(imageDetails); 
+const mainContainer = document.getElementById("container");
+
+
+    const mealContainer = document.createElement("div");
+    mealContainer.classList.add("meal-item"); 
+
+    const mealInfo = document.createElement("div");
+    mealInfo.classList.add("items")
+    mealInfo.innerHTML = `
+      <img src="${imageDetails.image}" width="400px" alt="${imageDetails.mealName}">
+      <p>Meal Name: ${imageDetails.mealName}</p>
+      <p>Category: ${imageDetails.Category}</p>
+      
+    `;
+    let mealInfo1=document.createElement("div")
+    mealInfo1.classList.add("items1")
+
+    mealInfo1.innerHTML=
+    `
+    <h2>INGREDIENTS</h2>
+      <ul>
+        ${imageDetails.ingredients.map(ingredient => `<li>${ingredient}</li>`).join('')}
+      </ul>
+
+
+         <h2>INSTRUCTIONS</h2>
+      <p>${imageDetails.instructions}</p>
+
+    `
+
+    mealContainer.append(mealInfo,mealInfo1);
+    mainContainer.appendChild(mealContainer); 
+
+
+    </script>
+</body>
+</html>
