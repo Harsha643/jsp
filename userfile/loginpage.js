@@ -177,7 +177,16 @@ containerA.innerHTML=""
          <img src="${ele.image}" width="200px" class="imgopen" data-id="${ele.id}"/>
          <h3>${ele.mealName}</h3>
          `
-          // container.style.display = container.style.display==="block"? "none":"none";
+
+         let imgOpen =filterdiv .querySelector(".imgopen");
+         imgOpen.addEventListener("click", (event1) => {
+           event1.preventDefault();
+   
+           console.log("Image clicked for meal ID:", ele)
+           localStorage.setItem("imageitem", JSON.stringify(ele))
+           window.location.href = "./image.html"
+   
+         });
 
           containerA.append(filterdiv )
 
@@ -420,21 +429,8 @@ filterInput.addEventListener("input", () => {
 });
 
 
-// let addion=document.getElementById('ion')
-// addion.addEventListener('click', (e)=> {
-//   e.preventDefault()
-//   var spans = document.querySelectorAll('.main span');
-//   spans.forEach(function(span) {
-//       span.style.display = span.style.display === 'block' ? 'none' : 'block';
-//   });
-// });
-
-
-
 
 // imageopen 
-
-
 
 
 
@@ -466,6 +462,8 @@ function catdata(categoryData) {
          <span id="fava" class="favorite-icon"><ion-icon name="heart-outline"></ion-icon></span>
       `;
       categoryContainer.append(item);
+
+
       const favoriteIcon = item.querySelector(".favorite-icon");
       favoriteIcon.addEventListener("click", () => {
 
