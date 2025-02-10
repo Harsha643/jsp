@@ -66,8 +66,11 @@ profileContainer.style.display = "none"
 let profile = document.getElementById("userprofile")
 profile.addEventListener("click", (e) => {
   e.preventDefault()
-  profileContainer.style.display = profileContainer.style.display === "none" ? "block" : "none"
+  setTimeout(()=>{
+     profileContainer.style.display = profileContainer.style.display === "none" ? "block" : "none"
   profileContainer.style.width="250px"
+  },1000)
+ 
 
 })
 
@@ -125,17 +128,25 @@ function displayData1(data) {
 
   });
 
+
+
+let loading=document.getElementsByClassName("loader")[0]
+loading.style.display="block"
+ setTimeout(()=>{
+  loading.style.display="none"
   catdata(categoryData)
+ },3000)
 
 
-  let container = document.getElementById("maincontainer")
+  // let container = document.getElementById("maincontainer")
   let containerA = document.getElementById("main2container")
 
   let countryContainer = document.getElementById("footcountry");
   countryContainer.style.backgroundColor = "#ccc"
   countryContainer.style.height = "200px"
 
-
+setTimeout(()=>{
+  
   if (countryContainer) {
     let allAreas = [];
     for (const country in countryData) {
@@ -161,11 +172,9 @@ console.log("hello")
 containerA.innerHTML=""              
         const filteredData =countryData[element];
         filteredData.forEach((ele) => {
-         
-     
+
           let filterdiv = document.createElement("div")
-  
-          
+
           if(element==ele.Area){
             countryFilter.push(ele.Area)
 
@@ -176,7 +185,26 @@ containerA.innerHTML=""
             `
          <img src="${ele.image}" width="200px" class="imgopen" data-id="${ele.id}"/>
          <h3>${ele.mealName}</h3>
+         <span id="fava" class="favorite-icon"><ion-icon name="heart-outline"></ion-icon></span>
          `
+
+         
+      const favoriteIcon =filterdiv.querySelector(".favorite-icon");
+      favoriteIcon.addEventListener("click", () => {
+
+        const favoriteMeals = JSON.parse(localStorage.getItem("favoriteMeals")) || [];
+        const isAlreadyFavorite = favoriteMeals.some((meal) => meal.id === ele.id);
+        if (!isAlreadyFavorite) {
+          favoriteMeals.push(element);
+          localStorage.setItem("favoriteMeals", JSON.stringify(favoriteMeals));
+          favoriteIcon.querySelector("ion-icon").name = "heart";
+        } else {
+          const filteredFavorites = favoriteMeals.filter((meal) => meal.id !== ele.id);
+          localStorage.setItem("favoriteMeals", JSON.stringify(filteredFavorites));
+          favoriteIcon.querySelector("ion-icon").name = "heart-outline";
+        }
+      });
+
 
          let imgOpen =filterdiv .querySelector(".imgopen");
          imgOpen.addEventListener("click", (event1) => {
@@ -205,6 +233,7 @@ containerA.innerHTML=""
   else {
     console.error("Element with ID 'footcountry' not found.");
   }
+},5000)
 }
 
 
@@ -226,16 +255,19 @@ let addRecipes = document.getElementById("addBtn");
 let containerInputs = document.getElementById("container-inputs");
 
 addRecipes.addEventListener("click", () => {
+ 
+
   containerInputs.style.display = containerInputs.style.display === "none" ? "grid" : "none";
   // containerInputs.style.display = "grid"; // Set grid layout
   containerInputs.style.width = "80%";
   containerInputs.style.marginTop = "50px";
   containerInputs.style.gridTemplateColumns = "repeat(2, 1fr)";
+   
+  // let form = document.getElementById("recipe-form");
+  // form.scrollIntoView({ behavior: "smooth", block: "start" });
+
+
 });
-
-
-
-
 
 function valid() {
   let isValid = true;
@@ -395,6 +427,7 @@ async function dataSave() {
 
 
 // search function
+
 const filterInput = document.getElementById("search");
 
 filterInput.addEventListener("input", () => {
