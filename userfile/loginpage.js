@@ -21,21 +21,20 @@ onAuthStateChanged(auth, (user) => {
 
   const loggedInUserId = localStorage.getItem("loggedInUserId")
   if (loggedInUserId) {
-    // console.log(user.email)
-    // console.log(loggedInUserId)
+   
     const docRef = doc(db, "users", loggedInUserId)
-    // console.log(docRef)
+  
     getDoc(docRef)
       .then((docSnap) => {
-        // console.log(docSnap.data())
+      
         if (docSnap.exists()) {
 
           const userData = docSnap.data()
-          // console.log(userData)
+        
           document.getElementById("username").innerText = userData.username
           document.getElementById("email").innerText = userData.email
           document.getElementById("password").innerText = userData.password
-          // document.getElementById("id").innerText=
+       
 
 
         }
@@ -53,6 +52,10 @@ onAuthStateChanged(auth, (user) => {
     console.error("user id not found in local storage")
   }
 })
+
+
+
+
 
 let logout = document.getElementById("logout")
 logout.addEventListener("click", (e) => {

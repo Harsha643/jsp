@@ -1,0 +1,337 @@
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
+import { getFirestore, getDoc, doc } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
+
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBbmBJPwfOKa2Q-r2CEhvsFv5yhmNFkuAU",
+  authDomain: "login-kk-f580d.firebaseapp.com",
+  projectId: "login-kk-f580d",
+  storageBucket: "login-kk-f580d.firebasestorage.app",
+  messagingSenderId: "901441715555",
+  appId: "1:901441715555:web:5228323a42259e1e91a756"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth()
+const db = getFirestore()
+onAuthStateChanged(auth, (user) => {
+
+  const loggedInUserId = localStorage.getItem("loggedInUserId")
+  if (loggedInUserId) {
+   
+    const docRef = doc(db, "users", loggedInUserId)
+  
+    getDoc(docRef)
+      .then((docSnap) => {
+      
+        if (docSnap.exists()) {
+
+          const userData = docSnap.data()
+        
+          document.getElementById("username").innerText = userData.username
+          document.getElementById("email").innerText = userData.email
+          document.getElementById("password").innerText = userData.password
+       
+
+
+        }
+        else {
+          console.log("no document found matching id ")
+        }
+
+      })
+      .catch((error) => {
+        console.error("error geting ", error)
+      })
+
+  }
+  else {
+    console.error("user id not found in local storage")
+  }
+})
+
+let logout = document.getElementById("logout")
+logout.addEventListener("click", (e) => {
+  e.preventDefault()
+  window.location.href = "signin.html"
+})
+
+//userprofile
+let profileContainer = document.getElementById("profileContainer")
+profileContainer.style.display = "none"
+let profile = document.getElementById("userprofile")
+profile.addEventListener("click", (e) => {
+  e.preventDefault()
+//   setTimeout(()=>{
+     profileContainer.style.display = profileContainer.style.display === "none" ? "block" : "none"
+  profileContainer.style.width="250px"
+//   },1000)
+ 
+
+})
+
+
+
+const favoriteMeals = JSON.parse(localStorage.getItem("favoriteMeals")) || [];
+     
+const maincontainer = document.getElementById("container");
+
+favoriteMeals.forEach((element) => {
+  console.log(element);
+
+
+  const mealContainer = document.createElement("div");
+  mealContainer.classList.add("meal-item"); 
+
+
+  const mealInfo = document.createElement("div");
+  mealInfo.innerHTML = `
+    <img src="${element.image}" width="300px" alt="${element.mealName}" class="imgopen" >
+    <p>Meal Name: ${element.mealName}</p>
+    <p>Category: ${element.Category}</p>
+`
+  const toggleButton = document.createElement("button");
+  toggleButton.textContent = "Show Instructions & Ingredients";
+    // click image  details
+    let imgOpen = mealInfo.querySelector(".imgopen");
+      imgOpen.addEventListener("click", (event1) => {
+        event1.preventDefault();
+
+        console.log("Image clicked for meal ID:", element)
+        localStorage.setItem("imageitem", JSON.stringify(element))
+        window.location.href = "./image.html"
+
+      });
+
+
+  const remove=document.createElement("button")
+  remove.innerText="remove"
+  remove.addEventListener("click",(e)=>{
+    e.preventDefault()
+    // console.log(element.id)
+    const index = favoriteMeals.indexOf(element);
+    if (index > -1) {
+    
+      favoriteMeals.splice(index, 1);
+
+
+      localStorage.setItem("favoriteMeals", JSON.stringify(favoriteMeals));
+
+      mealContainer.remove();
+    }
+
+  })
+  
+  const detailsContainer = document.createElement("div");
+  detailsContainer.style.display = "none"; 
+
+  detailsContainer.innerHTML = 
+  `
+   <h2>INGREDIENTS</h2>
+    <ul>
+        ${element.ingredients.map(ingredient => `<li>${ingredient}</li>`).join('')}
+      </ul>
+    <h2>INSTRUCTIONS</h2>
+    <p>${element.instructions}</p>
+   
+  `;
+
+
+  mealContainer.appendChild(mealInfo);
+  mealContainer.append(toggleButton,remove);
+  mealContainer.appendChild(detailsContainer);
+
+  
+  toggleButton.addEventListener("click", () => {
+    detailsContainer.style.display = detailsContainer.style.display === "none" ? "block" : "none";
+    toggleButton.textContent = detailsContainer.style.display === "block" ? "Hide Instructions & Ingredients" : "Show Instructions & Ingredients";
+  });
+
+
+  maincontainer.appendChild(mealContainer);
+});
+
+
+
+let addRecipes = document.getElementById("addBtn");
+
+let containerInputs = document.getElementById("container-inputs");
+
+addRecipes.addEventListener("click", () => {
+ 
+
+  containerInputs.style.display = containerInputs.style.display === "none" ? "grid" : "none";
+  // containerInputs.style.display = "grid"; // Set grid layout
+  containerInputs.style.width = "80%";
+  containerInputs.style.marginTop = "50px";
+  containerInputs.style.gridTemplateColumns = "repeat(2, 1fr)";
+   
+  // let form = document.getElementById("recipe-form");
+  // form.scrollIntoView({ behavior: "smooth", block: "start" });
+
+
+});
+
+function valid() {
+  let isValid = true;
+  const fields = [
+    { id: "mealname", errorId: "MealnameError", message: "Meal Name is required." },
+    { id: "category", errorId: "CategoryError", message: "Category is required." },
+    { id: "country", errorId: "countryError", message: "Country is required." },
+    { id: "imageUrl", errorId: "imageError", message: "Image URL is required." },
+    { id: "ingredient", errorId: "IngredientsError", message: "Ingredients are required." },
+    { id: "Instructions", errorId: "InstructionsError", message: "Instructions are required." },
+  ];
+
+  fields.forEach(({ id, errorId, message }) => {
+    const field = document.getElementById(id);
+    const errorField = document.getElementById(errorId);
+
+    if (!field.value.trim()) {
+      errorField.innerText = message;
+      errorField.style.color = "red";
+      field.style.border = "1px solid red"; // Use border for visual feedback
+      isValid = false;
+    } else {
+      errorField.innerText = "";
+      field.style.border = "";
+    }
+  });
+
+  // Validate image URL
+  const imageUrlField = document.getElementById("imageUrl");
+  const imageUrlErrorField = document.getElementById("imageError");
+  if (imageUrlField.value.trim() && !isValidURL(imageUrlField.value)) {
+    imageUrlErrorField.innerText = "Invalid Image URL.";
+    imageUrlErrorField.style.color = "red";
+    imageUrlField.style.border = "1px solid red";
+    isValid = false;
+  } else {
+    imageUrlErrorField.innerText = "";
+    imageUrlField.style.border = "";
+  }
+
+  return isValid;
+}
+
+function isValidURL(string) {
+  try {
+    new URL(string);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function clearForm() {
+  document.getElementById("id").value = "";
+  document.getElementById("mealname").value = "";
+  document.getElementById("category").value = "";
+  document.getElementById("country").value = "";
+  document.getElementById("imageUrl").value = "";
+  document.getElementById("ingredient").value = "";
+  document.getElementById("Instructions").value = "";
+
+  // Clear error messages and styles
+  const fields = [
+    "mealname", "category", "country", "imageUrl", "ingredient", "Instructions"
+  ];
+  fields.forEach((id) => {
+    const field = document.getElementById(id);
+    const errorField = document.getElementById(`${id}Error`);
+    errorField.innerText = "";
+    field.style.border = "";
+  });
+}
+let draftdata=document.getElementById("draftdata")
+draftdata.addEventListener("click",()=>{
+  dSave()
+  console.log("he")
+})
+async function dSave() {
+  console.log("hello")
+  if (!valid()) {
+    alert("Please fill out all fields correctly.");
+    return;
+  }
+  let recipeId = document.getElementById("id").value;
+  let obj = {
+    mealName: document.getElementById("mealname").value,
+    Category: document.getElementById("category").value,
+    Area: document.getElementById("country").value,
+    instructions: document.getElementById("Instructions").value,
+    image: document.getElementById("imageUrl").value,
+    ingredients: document.getElementById("ingredient").value.split("\n"),
+  };
+  try {
+    let method = "POST";
+    let response = await fetch("https://amplified-hulking-snowdrop.glitch.me/meals", {
+      method,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(obj),
+    });
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+    alert(recipeId ? "Data updated successfully" : "Data saved successfully");
+    fetchingData(); 
+    clearForm(); 
+  } catch (error) {
+    console.error("Save data error", error);
+  }
+}
+
+
+// savedata 
+let savedata = document.getElementById("savedata")
+savedata.addEventListener("click", () => {
+  dataSave()
+})
+async function dataSave() {
+  if (!valid()) {
+    alert("Please fill out all fields correctly.");
+    return;
+  }
+
+  let recipeId = document.getElementById("id").value;
+  let obj = {
+    mealName: document.getElementById("mealname").value,
+    Category: document.getElementById("category").value,
+    Area: document.getElementById("country").value,
+    instructions: document.getElementById("Instructions").value,
+    image: document.getElementById("imageUrl").value,
+    ingredients: document.getElementById("ingredient").value.split("\n"),
+  };
+
+  try {
+    let method = "POST";
+
+
+    let response = await fetch("https://pouncing-scarlet-cesium.glitch.me/meals", {
+      method,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(obj),
+    });
+
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+    
+  
+
+    alert(recipeId ? "Data updated successfully" : "Data saved successfully");
+      window.location.href="./loginpage.html"
+
+
+  } catch (error) {
+    console.error("Save data error", error);
+  }
+}
+
+
+
+
+            

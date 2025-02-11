@@ -5,90 +5,381 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        #container{
+
+* {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        :root {
+            --primary-color: #6B8E23; /* Soft green */
+            --secondary-color: #FFD700; /* Warm yellow */
+            --background-color: #F5F5F5; /* Light neutral */
+            --text-color: #333333; /* Dark gray for text */
+            --button-hover-color: #556B2F; /* Darker green for button hover */
+        }
+        #container-inputs{
+          display: none;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+
+        /* Style for the header container */
+#hcontainer {
+    background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent background for glassmorphism effect */
+    backdrop-filter: blur(10px); /* Blur effect for glassmorphism */
+    border-radius: 16px; /* Rounded corners */
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    background-color: var(--primary-color);
+
+    /* position: sticky; */
+    top: 0;
+}
+
+/* Container Styles */
+#container {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  /* max-width: 500px; */
+  width: 100%;
+}
+
+/* Input Field Styles */
+.sub-input {
+  margin-bottom: 15px;
+}
+
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+input[type="text"]:focus,
+textarea:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Button Styles */
+.button {
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.button:hover {
+  background-color: #0056b3;
+}
+
+/* Error Message Styles */
+div[id$="Error"] {
+  color: #ff0000;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  #container {
+    padding: 15px;
+  }
+
+  input[type="text"],
+  textarea {
+    font-size: 14px;
+  }
+
+  .button {
+    font-size: 14px;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+}
+
+
+
+
+
+
+/* Grid layout for the main div */
+.main {
+    /* display: grid;
+    grid-template-columns: auto 1fr auto auto; /* Define columns for grid items */
+    /* align-items: center; Center items vertically */
+    /* gap: 20px; Space between grid items */
+    display: flex;
+    justify-content:space-between;
+} 
+#addBtn{
+  background-color: rgb(192, 96, 221);
+  width: 150px;
+  border-radius: 20px;text-align: center;
+}
+
+/* Style for the moveback button */
+#moveback {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Style for the favorite icon */
+#fav {
+    font-size: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Style for the user profile image */
+#userprofile img {
+    border-radius: 50%; /* Circular profile image */
+    cursor: pointer;
+}
+
+
+     
+        header img {
+            width: 80px;
+        }
+
+        header .main {
             display: flex;
+            align-items: center;
             gap: 20px;
+        }
+
+        header button, header span {
+            background: none;
+            border: none;
+            color: var(--secondary-color);
+            cursor: pointer;
+            font-size: 1.2em;
+        }
+
+        main {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .meal-item {
+            background: var(--secondary-color);
+            border-radius: 16px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 300px;
+            text-align: center;
+            color: var(--text-color);
+            transition: transform 0.3s;
+        }
+
+        .meal-item:hover {
+            transform: scale(1.05);
+        }
+
+        .meal-item img {
+            width: 100%;
+            border-radius: 12px;
+        }
+
+        .meal-item button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            background-color: var(--primary-color);
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .meal-item button:hover {
+            background-color: var(--button-hover-color);
+        }
+
+        @media (max-width: 768px) {
+            main {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+
+
+        .container {
+            position: fixed;
+            top: 105px;
+            right: 0;
+            background: #ffffff;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            width: 250px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .subcontainer {
+            text-align: center;
+            width: 100%;
+        }
+
+        .subcontainer img {
+            width: 80px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+
+        .subcontainer div {
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #333;
+        }
+
+        button#logout {
+            background: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s ease;
+        }
+
+        button#logout:hover {
+            background: #e63939;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                width: 220px;
+                padding: 10px;
+            }
+
+            .subcontainer img {
+                width: 70px;
+            }
+
+            .subcontainer div {
+                font-size: 13px;
+            }
+
+            button#logout {
+                font-size: 13px;
+                padding: 7px 12px;
+            }
         }
     </style>
 </head>
 <body>
+
+  <header id="hcontainer">
+
+    <div class="main">  
+        <img src="./recipe-food-logo-design-template-free-vector-removebg-preview.png" alt="recipe" id="image" width="80px">
+
+    <span id="addBtn">Add Recipes</span>
+    <!-- <span id="fav"><ion-icon name="heart-outline" id="favopen"></ion-icon></span> -->
+    <span id="userprofile"><img src="./image-removebg-preview.png" alt="" width="70px"></span>
+    </div>
+
+ </header>
+ 
+  <!-- profile -->
+  <div class="container" id="profileContainer" >
+    <div class="subcontainer">
+        <img src="./image-removebg-preview.png" alt="" width="100px">
+        <div><span id="username"></span></div>
+        <div><span id="email"></span></div>
+        <div><span id="password"></span></div>
+        <button id="logout">logout</button>
+    </div>
+</div>
+    
+ <main id="container">
+  <div id="container-inputs">
+  
+      <input type="hidden" id="id" >
+      <div class="sub-input">
+      <input type="text" id="mealname" placeholder="Mealname "  id="name" autocomplete="off">
+      <div id="MealnameError"></div>
+      </div>
+      <div class="sub-input">
+
+      <input type="text" id="category" placeholder="Catagory" id="name" autocomplete="off">
+      <div id="CategoryError"></div>
+      </div>
+      <div class="sub-input">
+
+      <input type="text" id="country" placeholder="Country" id="name" autocomplete="off">
+      <div id="countryError"></div>
+      </div>
+      <div class="sub-input">
+
+      <input type="text" id="imageUrl" placeholder="Image URL" id="name" autocomplete="off">
+      
+      <div id="imageError"></div>
+      </div>
+      <div class="sub-input">
+
+      <textarea name="inst"  id="ingredient"  placeholder="Ingredients"  rows="5" cols="50"id="name" autocomplete="off"></textarea>
+      <div id="IngredientsError"></div>
+      </div>
+      <div class="sub-input">
+
+      <textarea name="ingre" id="Instructions" placeholder="Instructions" rows="5" cols="50"id="name" autocomplete="off"></textarea>
+  
+      <div id="InstructionsError"></div>
+      </div>
+      <button id="savedata" class="button" >save</button>
+      <button id="draftdata" class="button">Draft</button>
+
+     
+  </div>
+</main>
+
     <div id="container">
 
     </div>
     
     
-    <script>
-     const favoriteMeals = JSON.parse(localStorage.getItem("favoriteMeals")) || [];
+    <script type="module" src="./fav.js">
      
-const maincontainer = document.getElementById("container");
-
-favoriteMeals.forEach((element) => {
-  console.log(element);
-
-
-  const mealContainer = document.createElement("div");
-  mealContainer.classList.add("meal-item"); 
-
-
-  const mealInfo = document.createElement("div");
-  mealInfo.innerHTML = `
-    <img src="${element.image}" width="300px" alt="${element.mealName}">
-    <p>Meal Name: ${element.mealName}</p>
-    <p>Category: ${element.Category}</p>
-`
-  const toggleButton = document.createElement("button");
-  toggleButton.textContent = "Show Instructions & Ingredients";
-  
-  const remove=document.createElement("button")
-  remove.innerText="remove"
-  remove.addEventListener("click",(e)=>{
-    e.preventDefault()
-    // console.log(element.id)
-    const index = favoriteMeals.indexOf(element);
-    if (index > -1) {
-    
-      favoriteMeals.splice(index, 1);
-
-
-      localStorage.setItem("favoriteMeals", JSON.stringify(favoriteMeals));
-
-      mealContainer.remove();
-    }
-
-  })
-  
-  const detailsContainer = document.createElement("div");
-  detailsContainer.style.display = "none"; 
-
-  detailsContainer.innerHTML = 
-  `
-   <h2>INGREDIENTS</h2>
-    <ul>
-        ${element.ingredients.map(ingredient => `<li>${ingredient}</li>`).join('')}
-      </ul>
-    <h2>INSTRUCTIONS</h2>
-    <p>${element.instructions}</p>
-   
-  `;
-
-
-  mealContainer.appendChild(mealInfo);
-  mealContainer.append(toggleButton,remove);
-  mealContainer.appendChild(detailsContainer);
-
-  
-  toggleButton.addEventListener("click", () => {
-    detailsContainer.style.display = detailsContainer.style.display === "none" ? "block" : "none";
-    toggleButton.textContent = detailsContainer.style.display === "block" ? "Hide Instructions & Ingredients" : "Show Instructions & Ingredients";
-  });
-
-
-  maincontainer.appendChild(mealContainer);
-});
-
-
-            
     
     </script>
+        <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
 </html>
