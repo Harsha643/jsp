@@ -94,6 +94,8 @@ onAuthStateChanged(auth, (user) => {
 
 
 
+
+
 let logout = document.getElementById("logout")
 logout.addEventListener("click", (e) => {
   e.preventDefault()
@@ -109,10 +111,12 @@ profile.addEventListener("click", (e) => {
   setTimeout(()=>{
      profileContainer.style.display = profileContainer.style.display === "none" ? "block" : "none"
   profileContainer.style.width="250px"
-  },1000)
+  },0)
  
 
 })
+
+
 
 let  draftbtn= document.getElementById("draftdisplay")
 draftbtn.addEventListener("click",(e)=>{
@@ -183,7 +187,6 @@ loading.style.display="block"
   loading.style.display="none"
   catdata(categoryData)
  },3000)
-
 
   // let container = document.getElementById("maincontainer")
   let containerA = document.getElementById("main2container")
@@ -293,28 +296,56 @@ favopen.addEventListener("click", () => {
 
 
 
-
-
 // recipes adding
 
 let addRecipes = document.getElementById("addBtn");
 
 let containerInputs = document.getElementById("container-inputs");
+containerInputs.style.display="none"
+// let coninput=document.getElementById("container")
+// coninput.style.display="none"
+//  coninput.style.alignItems="center"
+//  coninput.style.justifyContent="center"
+//  coninput.style.alignContent="center"
+
+
 
 addRecipes.addEventListener("click", () => {
  
-
-  containerInputs.style.display = containerInputs.style.display === "none" ? "grid" : "none";
-  // containerInputs.style.display = "grid"; // Set grid layout
+// coninput.style.display=coninput.style.display==="none"?"block":"none"
+  containerInputs.style.display = containerInputs.style.display === "none" ? "block" : "none";
+containerInputs.style.display="grid"
   containerInputs.style.width = "80%";
   containerInputs.style.marginTop = "50px";
   containerInputs.style.gridTemplateColumns = "repeat(2, 1fr)";
-   
-  // let form = document.getElementById("recipe-form");
-  // form.scrollIntoView({ behavior: "smooth", block: "start" });
-
 
 });
+addRecipes.addEventListener("dblclick",()=>{
+  containerInputs.style.display = containerInputs.style.display === "none" ? "block" : "none";
+
+})
+
+
+
+// icon
+
+
+let iconadd = document.getElementById("iconadd");
+
+iconadd.addEventListener("dblclick",()=>{
+  containerInputs.style.display = containerInputs.style.display === "none" ? "block" : "none";
+containerInputs.style.display="grid"
+  containerInputs.style.width = "80%";
+  containerInputs.style.marginTop = "50px";
+  containerInputs.style.gridTemplateColumns = "repeat(2, 1fr)";
+})
+
+iconadd.addEventListener("click",()=>{
+  containerInputs.style.display = containerInputs.style.display === "none" ? "block" : "none";
+  
+
+})
+
 
 function valid() {
   let isValid = true;
@@ -524,7 +555,7 @@ function catdata(categoryData) {
   // categotydata  
   for (const category in categoryData) {
     // console.log(category)
-    const categoryContainer = document.createElement("div");
+    const categoryContainer = document.createElement("div");   
     let catName = document.createElement("div")
     catName.classList.add("catName");
     catName.innerHTML = `<h2>${category}</h2>`
