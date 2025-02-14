@@ -1,6 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
-import { getFirestore, getDoc, doc } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
+import { getAuth, onAuthStateChanged, updateProfile } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
+// import { getAuth, onAuthStateChanged , } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
+import { getFirestore, getDoc, doc,updateDoc } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
 
 
 const firebaseConfig = {
@@ -33,9 +34,45 @@ onAuthStateChanged(auth, (user) => {
         
           document.getElementById("username").innerText = userData.username
           document.getElementById("email").innerText = userData.email
-          document.getElementById("password").innerText = userData.password
+          // document.getElementById("password").innerText = userData.password
        
-
+                 const editButton = document.getElementById('editbt');
+                 const subcontainer = document.getElementById('subcontainer');
+                 const edituser = document.getElementById('edituser');
+       
+                 editButton.addEventListener('click', () => {
+                   subcontainer.style.display = "none"; 
+                   edituser.style.display = "block"; 
+       
+       
+                   const usernameInput = document.getElementById('useredit');
+       usernameInput.value = userData.username;
+       const emailInput = document.getElementById('emailedit');
+       
+        emailInput.value = userData.email; 
+       
+       
+       
+                 });
+       
+                 const saveButton = document.getElementById('saveedit');
+                 saveButton.addEventListener('click', async () => {
+                   try {
+                     const usernameInput = document.getElementById('useredit');
+                     const emailInput = document.getElementById('emailedit');
+       
+                     await updateProfile(auth.currentUser, { displayName: usernameInput.value, email: emailInput.value }); 
+                     await updateDoc(docRef, { username: usernameInput.value, email: emailInput.value }); 
+       
+                     document.getElementById("username").textContent = usernameInput.value;
+                     document.getElementById("email").textContent = emailInput.value; 
+       
+                     subcontainer.style.display = "block"; 
+                     edituser.style.display = "none"; 
+                   } catch (error) {
+                     console.error("Error updating user data:", error);
+                   }
+                 });
 
         }
         else {
@@ -75,6 +112,13 @@ profile.addEventListener("click", (e) => {
   },1000)
  
 
+})
+
+let  draftbtn= document.getElementById("draftdisplay")
+draftbtn.addEventListener("click",(e)=>{
+    e.preventDefault()
+    window.location.href="./draft.html"
+    
 })
 
 
@@ -349,7 +393,7 @@ function clearForm() {
 let draftdata=document.getElementById("draftdata")
 draftdata.addEventListener("click",()=>{
   dSave()
-  console.log("he")
+  // console.log("he")
 })
 async function dSave() {
   console.log("hello")

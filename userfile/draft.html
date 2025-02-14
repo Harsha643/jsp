@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="draft.css">
+</head>
+<body>
+    <header id="head">
+        <img src="./recipe-food-logo-design-template-free-vector-removebg-preview.png" alt="recipe" id="image" width="90px">
+        <!-- <nav id="logo"></nav> -->
+        <input type="text" id="search" placeholder="Search recipes (Name/Category/Country)" autocomplete="off">
+       
+        
+        <input type="checkbox" name="check" id="check">
+<label for="check" id="ion">
+    <ion-icon name="home-outline" class="icon" id="home"></ion-icon>
+</label>
+
+    </header>
+
+
+    <div class="btn-container" id="btn-container"></div>
+    <div class="fcontainer" id="container"></div>
+
+
+    <div class="loader"></div>
+    <div id="nodata"></div>
+
+    <main id="container">
+        <div id="container-inputs">
+        
+            <input type="hidden" id="id" >
+            <div class="sub-input">
+            <input type="text" id="mealname" placeholder="Mealname "  id="name" autocomplete="off">
+            <div id="MealnameError"></div>
+            </div>
+            <div class="sub-input">
+
+            <input type="text" id="category" placeholder="Catagory" id="name" autocomplete="off">
+            <div id="CategoryError"></div>
+            </div>
+            <div class="sub-input">
+
+            <input type="text" id="country" placeholder="Country" id="name" autocomplete="off">
+            <div id="countryError"></div>
+            </div>
+            <div class="sub-input">
+
+            <input type="text" id="imageUrl" placeholder="Image URL" id="name" autocomplete="off">
+            
+            <div id="imageError"></div>
+            </div>
+            <div class="sub-input">
+
+            <textarea name="inst"  id="ingredient"  placeholder="Ingredients"  rows="5" cols="50"id="name" autocomplete="off"></textarea>
+            <div id="IngredientsError"></div>
+            </div>
+            <div class="sub-input">
+
+            <textarea name="ingre" id="Instructions" placeholder="Instructions" rows="5" cols="50"id="name" autocomplete="off"></textarea>
+        
+            <div id="InstructionsError"></div>
+            </div>
+            <button onclick="saveData()" class="button">save</button>
+           
+        </div>
+    </main>
+
+    <main id="main1">
+        <div id="maincontainer">
+         
+        </div>
+         
+    </main>
+<script src="draft.js"></script>
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+</html>
+      
+                    
+       
+
+      
+       

@@ -27,20 +27,38 @@
         <span id="addBtn">Add Recipes</span>
         <span id="fav"><ion-icon name="heart-outline" id="favopen"></ion-icon></span>
         <span id="userprofile"><img src="./image-removebg-preview.png" alt="" width="70px"></span>
+
+
+
         </div>
 
      </header>
 
-    <!-- profile -->
-    <div class="container" id="profileContainer" >
-        <div class="subcontainer">
-            <img src="./image-removebg-preview.png" alt="" width="100px">
-            <div><span id="username"></span></div>
-            <div><span id="email"></span></div>
-            <div><span id="password"></span></div>
-            <button id="logout">logout</button>
-        </div>
+
+   <!-- profile -->
+   <div class="container" id="profileContainer" >
+    <div class="subcontainer" id="subcontainer">
+      <div class="prof">
+       
+        <button><ion-icon name="create-outline"  id="editbt"></ion-icon></button>
+        <img src="./image-removebg-preview.png" alt="" width="100px">
+        <button id="draftdisplay">draft</button>
+      </div>
+        <div><span id="username"></span></div>
+        <div><span id="email"></span></div>
+        <div><span id="password"></span></div>
+      
+        <button id="logout">logout</button>
     </div>
+    <div class="edituser" id="edituser">
+
+        <input type="text" id="useredit">
+        <input type="email" id="emailedit">
+        <button id="saveedit">save</button>
+        
+    </div>
+      
+</div>
 
 
 

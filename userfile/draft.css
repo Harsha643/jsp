@@ -1,0 +1,259 @@
+    /* Reset styles */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f9f9f9;
+        color: #333;
+    }
+    
+    /* Header */
+    header {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        height: 70px;
+        background-color:#ccc; /* Dark brown color */
+        color: #fff;
+        padding: 0 20px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    header input {
+        width: 500px;
+        border: none;
+        border-radius: 20px;
+        padding: 10px;
+        font-size: 16px;
+    }
+    
+    header input::placeholder {
+        font-size: 16px;
+        text-align: center;
+        color: #aaa;
+    }
+    
+    header button {
+        background-color: #ff5722; /* Bright orange */
+        color:black;
+        border: none;
+        border-radius: 20px;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    
+    header button:hover {
+        background-color: #e64a19; /* Darker orange */
+    }
+    
+    .icon {
+        font-size: 28px;
+        cursor: pointer;
+        color: black;
+    }
+    
+    /* Dropdown Menu */
+    .menu {
+        position: absolute;
+        top: 70px;
+        right: 20px;
+        width: 150px;
+        background-color: #eee;
+        border-radius: 8px;
+        padding: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        display: none;
+    }
+    
+    .menu button {
+        background-color: transparent;
+        border: none;
+        padding: 10px;
+        text-align: left;
+        width: 100%;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    
+    .menu button:hover {
+        background-color: #ddd;
+    }
+    #check{
+      display: none;
+    }
+    
+    #check:checked ~ .menu {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    /* Input Form */
+    #container-inputs {
+        display: none;
+        width: 90%;
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    #container-inputs input,
+    #container-inputs textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+    
+    
+    #container-inputs textarea {
+        resize: vertical;
+    }
+    
+    #container-inputs button {
+        width: 150px;
+        background-color: #4caf50; /* Green */
+        color: white;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+    
+    #container-inputs button:hover {
+        background-color: #45a049;
+    }
+    
+    /* Recipe Container */
+    #maincontainer {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        padding: 20px;
+        gap: 20px;
+    }
+    
+    #maincontainer > div {
+        width: 250px;
+        background-color: #fff;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+    }
+    
+    #maincontainer > div:hover {
+        transform: translateY(-5px);
+    }
+    
+    #maincontainer img {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+    }
+    
+    #maincontainer p {
+        margin: 10px;
+        font-size: 14px;
+        color: #555;
+    }
+    
+    #maincontainer button {
+        margin: 10px;
+        background-color: #ff5722;
+        color: #fff;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 14px;
+    }
+    
+    #maincontainer button:hover {
+        background-color: #e64a19;
+    }
+    
+    /* Filter Container */
+    .fcontainer {
+        padding: 20px;
+        margin-top: 20px;
+    }
+    
+    .fcontainer > div {
+        border: 1px solid #ddd;
+        padding: 10px;
+        margin-bottom: 20px;
+        background-color: #fff;
+        border-radius: 5px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .fcontainer img {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 5px;
+    }
+    
+    /* Scrollable Containers */
+    #category, #ingre-container {
+        max-height: 150px;
+        overflow-y: auto;
+        padding: 10px;
+        background-color: #f4f4f4;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+    
+    #category p, #ingre-container p {
+        font-size: 14px;
+        color: #333;
+    }
+
+    /* loading */
+
+    .loader {
+        text-align: center;
+        /* margin: 500px; */
+        display: grid;
+        place-self: center;
+        margin-top: 150px;
+        --d:22px;
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        color: #25b09b;
+        box-shadow: 
+          calc(1*var(--d))      calc(0*var(--d))     0 0,
+          calc(0.707*var(--d))  calc(0.707*var(--d)) 0 1px,
+          calc(0*var(--d))      calc(1*var(--d))     0 2px,
+          calc(-0.707*var(--d)) calc(0.707*var(--d)) 0 3px,
+          calc(-1*var(--d))     calc(0*var(--d))     0 4px,
+          calc(-0.707*var(--d)) calc(-0.707*var(--d))0 5px,
+          calc(0*var(--d))      calc(-1*var(--d))    0 6px;
+        animation: l27 1s infinite steps(8);
+      }
+      @keyframes l27 {
+        100% {transform: rotate(1turn)}
+      }
+    
+      #nodata{
+       text-align: center;
+       color: red;
+       font-family: 'Arial', sans-serif;
+
+      }

@@ -4,252 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>recipe details </title>
-    <style>
-     /* Global Styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
-}
-
-body {
-    background: url('background.jpg') no-repeat center center fixed;
-    background-size: cover;
-    padding: 20px;
-}
-
-
-/* Style for the header container */
-#hcontainer {
-    background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent background for glassmorphism effect */
-    backdrop-filter: blur(10px); /* Blur effect for glassmorphism */
-    border-radius: 16px; /* Rounded corners */
-    padding: 10px 20px;
-    margin-bottom: 20px;
-    /* position: sticky; */
-    top: 0;
-}
-
-/* Grid layout for the main div */
-.main {
-    display: grid;
-    grid-template-columns: auto 1fr auto auto; /* Define columns for grid items */
-    align-items: center; /* Center items vertically */
-    gap: 20px; /* Space between grid items */
-}
-
-/* Style for the moveback button */
-#moveback {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* Style for the favorite icon */
-#fav {
-    font-size: 24px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* Style for the user profile image */
-#userprofile img {
-    border-radius: 50%; /* Circular profile image */
-    cursor: pointer;
-}
-
-.nav {
-    display: flex;
-    align-items: center;
-}
-
-.nav-button {
-    background: none;
-    border: none;
-    color: #fff;
-    font-size: 18px;
-    margin: 0 10px;
-    cursor: pointer;
-    transition: color 0.3s;
-}
-
-.nav-button:hover {
-    color: #f00;
-}
-
-.user-profile img {
-    border-radius: 50%;
-}
-
-/* Main Content Styles */
-#container {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    /* position: relative; */
-}
-
-.meal-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 30px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 16px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    text-align: center;
-}
-
-.meal-item img {
-    width: 100%;
-    max-width: 400px;
-    border-radius: 16px;
-    margin-bottom: 20px;
-}
-
-.meal-item p {
-    font-size: 24px;
-    font-weight: 500;
-    margin-bottom: 10px;
-}
-
-.meal-item h2 {
-    margin-top: 30px;
-    font-size: 28px;
-}
-
-.meal-item ul {
-    list-style-type: disc;
-    margin: 20px 0;
-    padding-left: 20px;
-    text-align: left;
-}
-
-.meal-item li {
-    font-size: 18px;
-    margin-bottom: 5px;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .header {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .nav {
-        flex-direction: column;
-        margin-top: 10px;
-    }
-
-    .nav-button {
-        margin: 5px 0;
-    }
-
-    .meal-item {
-        padding: 20px;
-    }
-
-    .meal-item p {
-        font-size: 20px;
-    }
-
-    .meal-item h2 {
-        font-size: 24px;
-    }
-
-    .meal-item ul {
-        padding-left: 15px;
-    }
-
-    .meal-item li {
-        font-size: 16px;
-    }
-}
-
-/* profile */
-
-
-
-.container {
-            position: fixed;
-            top: 105px;
-            right: 0;
-            background: #ffffff;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-            padding: 15px;
-            width: 250px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .subcontainer {
-            text-align: center;
-            width: 100%;
-        }
-
-        .subcontainer img {
-            width: 80px;
-            border-radius: 50%;
-            margin-bottom: 10px;
-        }
-
-        .subcontainer div {
-            margin-bottom: 8px;
-            font-size: 14px;
-            color: #333;
-        }
-
-        button#logout {
-            background: #ff4d4d;
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: background 0.3s ease;
-        }
-
-        button#logout:hover {
-            background: #e63939;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .container {
-                width: 220px;
-                padding: 10px;
-            }
-
-            .subcontainer img {
-                width: 70px;
-            }
-
-            .subcontainer div {
-                font-size: 13px;
-            }
-
-            button#logout {
-                font-size: 13px;
-                padding: 7px 12px;
-            }
-        }
-
-      
-    </style>
+    <link rel="stylesheet" href="./image.css">
+  
 </head>
 
 <body>
@@ -267,16 +23,29 @@ body {
 
    <!-- profile -->
    <div class="container" id="profileContainer" >
-    <div class="subcontainer">
+    <div class="subcontainer" id="subcontainer">
+      <div class="prof">
+       
+        <button><ion-icon name="create-outline"  id="editbt"></ion-icon></button>
         <img src="./image-removebg-preview.png" alt="" width="100px">
-        <span><ion-icon name="create-outline"  id="editbtn"></ion-icon></span>
-        <!-- <div><span id="editbtn">Editprofile</span></div> -->
+        <button id="draftdisplay">draft</button>
+      </div>
         <div><span id="username"></span></div>
         <div><span id="email"></span></div>
         <div><span id="password"></span></div>
       
         <button id="logout">logout</button>
     </div>
+
+
+    <div class="edituser" id="edituser">
+
+        <input type="text" id="useredit">
+        <input type="email" id="emailedit">
+        <button id="saveedit">save</button>
+        
+    </div>
+      
 </div>
 
   
@@ -284,170 +53,7 @@ body {
 
 </div>
 
-    <script  type="module">
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
-import { getAuth, onAuthStateChanged, updateProfile } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
-import { getFirestore, getDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyBbmBJPwfOKa2Q-r2CEhvsFv5yhmNFkuAU",
-  authDomain: "login-kk-f580d.firebaseapp.com",
-  projectId: "login-kk-f580d",
-  storageBucket: "login-kk-f580d.firebasestorage.app",
-  messagingSenderId: "901441715555",
-  appId: "1:901441715555:web:5228323a42259e1e91a756"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-
-const auth = getAuth();
-const db = getFirestore();
-
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    const loggedInUserId = user.uid; 
-
-    const docRef = doc(db, "users", loggedInUserId);
-
-    getDoc(docRef)
-      .then((docSnap) => {
-        if (docSnap.exists()) {
-          const userData = docSnap.data();
-
-          document.getElementById("username").textContent = userData.username;
-          document.getElementById("email").textContent = user.email; 
-
-          const editButton = document.getElementById('editbtn');
-          editButton.textContent = "Edit";
-          editButton.addEventListener('click', () => {
-
-
-
-
-            const usernameInput = document.createElement('input');
-            usernameInput.type = "text";
-            usernameInput.value = userData.username;
-
-            const emailInput = document.createElement('input');
-            emailInput.type = "email";
-            emailInput.value = user.email; 
-
-            const saveButton = document.createElement('button');
-            saveButton.textContent = "Save";
-            saveButton.addEventListener('click', async () => {
-              try {
-                await updateProfile(auth.currentUser, { displayName: usernameInput.value, email: emailInput.value }); 
-                await updateDoc(docRef, { username: usernameInput.value, email: emailInput.value }); 
-                document.getElementById("username").textContent = usernameInput.value;
-                document.getElementById("email").textContent = emailInput.value; 
-
-                editButton.remove();
-                usernameInput.remove();
-                emailInput.remove();
-                saveButton.remove();
-              } catch (error) {
-                console.error("Error updating user data:", error);
-              }
-            });
-
-            document.getElementById("username").replaceWith(usernameInput);
-            document.getElementById("email").replaceWith(emailInput);
-            document.getElementById("username").after(saveButton); 
-          });
-
-          document.getElementById("username").after(editButton); 
-        } else {
-          console.log("no document found matching id");
-        }
-      })
-      .catch((error) => {
-        console.error("error getting ", error);
-      });
-  } else {
-    console.error("user id not found in local storage");
-  }
-});
-
-
-let logout = document.getElementById("logout")
-logout.addEventListener("click", (e) => {
-  e.preventDefault()
-  window.location.href = "signin.html"
-})
-
-//userprofile
-let profileContainer = document.getElementById("profileContainer")
-profileContainer.style.display = "none"
-let profile = document.getElementById("userprofile")
-profile.addEventListener("click", (e) => {
-  e.preventDefault()
-  setTimeout(()=>{
-     profileContainer.style.display = profileContainer.style.display === "none" ? "block" : "none"
-  profileContainer.style.width="250px"
-  },1000)
- 
-
-})
-
-
-
-
-
-        
-        let imageDetails = JSON.parse(localStorage.getItem("imageitem")) || []; 
-
-console.log(imageDetails); 
-const mainContainer = document.getElementById("container");
-
-
-    const mealContainer = document.createElement("div");
-    mealContainer.classList.add("meal-item"); 
-
-    const mealInfo = document.createElement("div");
-    mealInfo.classList.add("items")
-    mealInfo.innerHTML = `
-      <img src="${imageDetails.image}" width="400px" alt="${imageDetails.mealName}">
-      <p>Meal Name: ${imageDetails.mealName}</p>
-      <p>Category: ${imageDetails.Category}</p>
-
-      
-    `;
-    let mealInfo1=document.createElement("div")
-    mealInfo1.classList.add("items1")
-
-    mealInfo1.innerHTML=
-    `
-    <h2>INGREDIENTS</h2>
-      <ul>
-        ${imageDetails.ingredients.map(ingredient => `<li>${ingredient}</li>`).join('')}
-      </ul>
-
-
-         <h2>INSTRUCTIONS</h2>
-      <p>${imageDetails.instructions}</p>
-
-    `
-
-
-    mealContainer.append(mealInfo,mealInfo1);
-    mainContainer.appendChild(mealContainer); 
-
-    let favopen = document.getElementById("favopen")
-favopen.addEventListener("click", () => {
-  window.location.href = "fav.html"
-
-})
-let home=document.getElementById("home")
-home.addEventListener("click",(e)=>{
-  e.preventDefault()
-  window.location.href="loginpage.html"
-
-})
-
-
-    </script>
+    <script  type="module"  src="./image.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>

@@ -233,74 +233,169 @@ div[id$="Error"] {
         }
 
 
-
-        .container {
-            position: fixed;
-            top: 105px;
-            right: 0;
-            background: #ffffff;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-            padding: 15px;
-            width: 250px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .subcontainer {
-            text-align: center;
-            width: 100%;
-        }
-
-        .subcontainer img {
-            width: 80px;
-            border-radius: 50%;
-            margin-bottom: 10px;
-        }
-
-        .subcontainer div {
-            margin-bottom: 8px;
-            font-size: 14px;
-            color: #333;
-        }
-
-        button#logout {
-            background: #ff4d4d;
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: background 0.3s ease;
-        }
-
-        button#logout:hover {
-            background: #e63939;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .container {
-                width: 220px;
-                padding: 10px;
+   /* profile */
+    
+    
+    
+   .container {
+                position: fixed;
+                top: 105px;
+                right: 0;
+                background: #ffffff;
+                box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+                border-radius: 10px;
+                padding: 15px;
+                width: 250px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 1000;
             }
-
+    
+            .subcontainer {
+                text-align: center;
+                width: 100%;
+            }
+    
             .subcontainer img {
-                width: 70px;
+                width: 80px;
+                border-radius: 50%;
+                margin-bottom: 10px;
             }
-
+    
             .subcontainer div {
-                font-size: 13px;
+                margin-bottom: 8px;
+                font-size: 14px;
+                color: #333;
+            }
+    
+            button#logout {
+                background: #ff4d4d;
+                color: white;
+                border: none;
+                padding: 8px 15px;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 14px;
+                transition: background 0.3s ease;
+            }
+    
+            button#logout:hover {
+                background: #e63939;
+            }
+    
+            /* Responsive Design */
+            @media (max-width: 768px) {
+                .container {
+                    width: 220px;
+                    padding: 10px;
+                }
+    
+                .subcontainer img {
+                    width: 70px;
+                }
+    
+                .subcontainer div {
+                    font-size: 13px;
+                }
+    
+                button#logout {
+                    font-size: 13px;
+                    padding: 7px 12px;
+                }
+            }
+    #edituser{
+            display: none;
+          } 
+          .prof{
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+          }
+          .prof button{
+            width: 20px;
+          }
+          #draftdisplay{
+            width: 60px;
+          }
+    
+    
+          /* editcss */
+    
+          .edituser {
+                background: white;
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                width: 90%;
+                max-width: 400px;
+                text-align: center;
+            }
+            .edituser input {
+                width: 100%;
+                padding: 10px;
+                margin: 10px 0;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+            }
+            .edituser button {
+                width: 100%;
+                padding: 10px;
+                background: #28a745;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 16px;
+            }
+            .edituser button:hover {
+                background: #218838;
+            }
+            @media (max-width: 480px) {
+                .edituser {
+                    padding: 15px;
+                }
+                .edituser input,
+                .edituser button {
+                    font-size: 14px;
+                    padding: 8px;
+                }
             }
 
-            button#logout {
-                font-size: 13px;
-                padding: 7px 12px;
-            }
-        }
+            /* HTML: <div class="loader"></div> */
+.loader {
+    display: none;
+  width: calc(100px - 14px);
+  height: 50px;
+  border-radius: 50px;
+  background: 
+   radial-gradient(farthest-side,#0000 calc(100% - 15px),#ccc calc(100% - 14px) 99%,#0000) left,
+   radial-gradient(farthest-side,#0000 calc(100% - 15px),#ccc calc(100% - 14px) 99%,#0000) right;
+  background-size: calc(50% + 7px) 100%;
+  background-repeat: no-repeat;
+  position: relative;
+  animation: l10-0 1s infinite linear;
+}
+.loader:before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto; 
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #f03355;
+  transform-origin: -14px 50%;
+  animation: l10-1 0.5s infinite linear;
+}
+@keyframes l10-0 { 
+    0%,49.99% { transform:scaleX(1)}
+    50%,100% { transform:scaleX(-1)} 
+}
+@keyframes l10-1 { 
+    100% { transform:rotate(1turn)} 
+}
     </style>
 </head>
 <body>
@@ -316,17 +411,35 @@ div[id$="Error"] {
     </div>
 
  </header>
- 
-  <!-- profile -->
-  <div class="container" id="profileContainer" >
-    <div class="subcontainer">
+
+   <!-- profile -->
+   <div class="container" id="profileContainer" >
+    <div class="subcontainer" id="subcontainer">
+      <div class="prof">
+       
+        <button><ion-icon name="create-outline"  id="editbt"></ion-icon></button>
         <img src="./image-removebg-preview.png" alt="" width="100px">
+        <button id="draftdisplay">draft</button>
+      </div>
         <div><span id="username"></span></div>
         <div><span id="email"></span></div>
         <div><span id="password"></span></div>
+      
         <button id="logout">logout</button>
     </div>
+
+    
+    <div class="edituser" id="edituser">
+
+        <input type="text" id="useredit">
+        <input type="email" id="emailedit">
+        <button id="saveedit">save <div class="loader"></div> </button>
+        
+    </div>
+      
 </div>
+
+
     
  <main id="container">
   <div id="container-inputs">
