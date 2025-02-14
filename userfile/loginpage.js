@@ -150,6 +150,13 @@ function displayData1(data) {
 
   const countryData = {};
 
+  let loading=document.getElementsByClassName("loader")[0]
+loading.style.display="block"
+ setTimeout(()=>{
+  loading.style.display="none"
+  catdata(categoryData)
+ },3000)
+
 
   data.forEach((element) => {
     // categoryData appending
@@ -181,12 +188,7 @@ function displayData1(data) {
 
 
 
-let loading=document.getElementsByClassName("loader")[0]
-loading.style.display="block"
- setTimeout(()=>{
-  loading.style.display="none"
-  catdata(categoryData)
- },3000)
+
 
   // let container = document.getElementById("maincontainer")
   let containerA = document.getElementById("main2container")

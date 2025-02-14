@@ -99,7 +99,7 @@ profile.addEventListener("click", (e) => {
   setTimeout(()=>{
      profileContainer.style.display = profileContainer.style.display === "none" ? "block" : "none"
   profileContainer.style.width="250px"
-  },1000)
+  },0)
 })
 
 
