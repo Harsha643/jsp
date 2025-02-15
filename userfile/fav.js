@@ -107,19 +107,12 @@ draftbtn.addEventListener("click",(e)=>{
     
 })
 
-
-
-
-
 const favoriteMeals = JSON.parse(localStorage.getItem("favoriteMeals")) || [];
-console.log(favoriteMeals);
+console.log(favoriteMeals.length);
 const maincontainer = document.getElementById("container");
 
-if(favoriteMeals==[]){
+if(!favoriteMeals.length==0){
   favoriteMeals.forEach((element) => {
-  
-    // console.log(element);
-  
   
     const mealContainer = document.createElement("div");
     mealContainer.classList.add("meal-item"); 
@@ -195,6 +188,7 @@ if(favoriteMeals==[]){
   
   
 }else{
+  console.log("else")
   let nodata=document.createElement("div")
   nodata.id="nodata"
   nodata.innerText="select your favovite recipies "
