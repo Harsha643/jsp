@@ -46,9 +46,6 @@ usernameInput.value = userData.username;
 const emailInput = document.getElementById('emailedit');
 
  emailInput.value = userData.email; 
-
-
-
           });
 
           const saveButton = document.getElementById('saveedit');

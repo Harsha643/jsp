@@ -158,11 +158,8 @@
 
 <script type="module">
 
-
-
     let submitsignin=document.getElementById("rsignin")
     let submitsignup=document.getElementById("rsignup")
-    
 
     submitsignin.addEventListener("click",(e)=>{
         e.preventDefault()
@@ -173,20 +170,9 @@
         
     })
 
-  
-
-
-    // firebase
-
-    // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
 import { getFirestore, setDoc,doc} from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
-
-
-
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -219,20 +205,14 @@ function showMessage(message, divId) {  // More descriptive name: divId
     }, 2000); // Delay before fade-out starts
 }
 
-
-
 // signup
 
 let submitloader=document.getElementsByClassName("loader")[0]
     submitloader.style.display="none"
 
 let signup=document.getElementById("submitSignup")
-    
 
 signup.addEventListener("click", async (e) => {
-    // submitloader.style.text-align="center"
-        // signup.style.display="none"
-
 
     e.preventDefault();
 
@@ -290,6 +270,7 @@ signup.addEventListener("click", async (e) => {
     submitloader.style.display = "block"; 
     signup.disabled = true;
 
+
     // Firebase Auth Signup
     const auth = getAuth();
     const db = getFirestore();
@@ -303,7 +284,6 @@ signup.addEventListener("click", async (e) => {
             username: username.value,
             password:password.value
         };
-
         let docRef = doc(db, "users", user.uid);
         await setDoc(docRef, userData);
       
@@ -312,8 +292,7 @@ signup.addEventListener("click", async (e) => {
 
 
         setTimeout(()=>{
-
-            window.location.href = "signin.html"
+window.location.href = "signin.html"
         },3000)
 
 

@@ -1,72 +1,71 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
-import { getAuth, onAuthStateChanged, updateProfile } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
-// import { getAuth, onAuthStateChanged , } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
-import { getFirestore, getDoc, doc,updateDoc } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
-
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
+import { getFirestore, doc, getDoc, updateDoc, arrayUnion, arrayRemove } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBbmBJPwfOKa2Q-r2CEhvsFv5yhmNFkuAU",
+  apiKey: "AIzaSy...",
   authDomain: "login-kk-f580d.firebaseapp.com",
   projectId: "login-kk-f580d",
-  storageBucket: "login-kk-f580d.firebasestorage.app",
+  storageBucket: "login-kk-f580d.appspot.com",
   messagingSenderId: "901441715555",
   appId: "1:901441715555:web:5228323a42259e1e91a756"
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const auth = getAuth();
+const db = getFirestore();
 
-const auth = getAuth()
-const db = getFirestore()
+
 onAuthStateChanged(auth, (user) => {
 
   const loggedInUserId = localStorage.getItem("loggedInUserId")
   if (loggedInUserId) {
-   
+
     const docRef = doc(db, "users", loggedInUserId)
-  
+
     getDoc(docRef)
       .then((docSnap) => {
-      
+
         if (docSnap.exists()) {
 
           const userData = docSnap.data()
-        
+
           document.getElementById("username").innerText = userData.username
           document.getElementById("email").innerText = userData.email
           // document.getElementById("password").innerText = userData.password
-       
+
                  const editButton = document.getElementById('editbt');
                  const subcontainer = document.getElementById('subcontainer');
                  const edituser = document.getElementById('edituser');
-       
+
                  editButton.addEventListener('click', () => {
                    subcontainer.style.display = "none"; 
                    edituser.style.display = "block"; 
-       
-       
+
+
                    const usernameInput = document.getElementById('useredit');
        usernameInput.value = userData.username;
        const emailInput = document.getElementById('emailedit');
-       
+
         emailInput.value = userData.email; 
-       
-       
-       
+
+
+
                  });
-       
+
                  const saveButton = document.getElementById('saveedit');
                  saveButton.addEventListener('click', async () => {
                    try {
                      const usernameInput = document.getElementById('useredit');
                      const emailInput = document.getElementById('emailedit');
-       
+
                      await updateProfile(auth.currentUser, { displayName: usernameInput.value, email: emailInput.value }); 
                      await updateDoc(docRef, { username: usernameInput.value, email: emailInput.value }); 
-       
+
                      document.getElementById("username").textContent = usernameInput.value;
                      document.getElementById("email").textContent = emailInput.value; 
-       
+
                      subcontainer.style.display = "block"; 
                      edituser.style.display = "none"; 
                    } catch (error) {
@@ -89,9 +88,6 @@ onAuthStateChanged(auth, (user) => {
     console.error("user id not found in local storage")
   }
 })
-
-
-
 
 
 
@@ -124,9 +120,9 @@ draftbtn.addEventListener("click",(e)=>{
     window.location.href="./draft.html"
     
 })
-
-
 /////////////////////////////////////////////////// fetching data
+
+
 async function fetchingData() {
   try {
     let response = await fetch("https://pouncing-scarlet-cesium.glitch.me/meals");
@@ -134,7 +130,7 @@ async function fetchingData() {
       throw new Error("Data is not found");
     }
     let data = await response.json();
-    displayData1(data);
+    displayData(data);
     // console.log(data)
 
   } catch (err) {
@@ -142,10 +138,11 @@ async function fetchingData() {
     console.error(err);
   }
 }
+
 fetchingData();
 
 // displayrecipes
-function displayData1(data) {
+function displayData(data) {
   const categoryData = {};
 
   const countryData = {};
@@ -187,10 +184,6 @@ loading.style.display="block"
   });
 
 
-
-
-
-  // let container = document.getElementById("maincontainer")
   let containerA = document.getElementById("main2container")
 
   let countryContainer = document.getElementById("footcountry");
@@ -220,7 +213,7 @@ setTimeout(()=>{
 
       // click the country
       items.addEventListener("click", () => {
-console.log("hello")
+// console.log("hello")
 containerA.innerHTML=""              
         const filteredData =countryData[element];
         filteredData.forEach((ele) => {
@@ -240,22 +233,21 @@ containerA.innerHTML=""
          <span id="fava" class="favorite-icon"><ion-icon name="heart-outline"></ion-icon></span>
          `
 
-         
-      const favoriteIcon =filterdiv.querySelector(".favorite-icon");
-      favoriteIcon.addEventListener("click", () => {
+      // const favoriteIcon =filterdiv.querySelector(".favorite-icon");
+      // favoriteIcon.addEventListener("click", () => {
 
-        const favoriteMeals = JSON.parse(localStorage.getItem("favoriteMeals")) || [];
-        const isAlreadyFavorite = favoriteMeals.some((meal) => meal.id === ele.id);
-        if (!isAlreadyFavorite) {
-          favoriteMeals.push(element);
-          localStorage.setItem("favoriteMeals", JSON.stringify(favoriteMeals));
-          favoriteIcon.querySelector("ion-icon").name = "heart";
-        } else {
-          const filteredFavorites = favoriteMeals.filter((meal) => meal.id !== ele.id);
-          localStorage.setItem("favoriteMeals", JSON.stringify(filteredFavorites));
-          favoriteIcon.querySelector("ion-icon").name = "heart-outline";
-        }
-      });
+      //   const favoriteMeals = JSON.parse(localStorage.getItem("favoriteMeals")) || [];
+      //   const isAlreadyFavorite = favoriteMeals.some((meal) => meal.id === ele.id);
+      //   if (!isAlreadyFavorite) {
+      //     favoriteMeals.push(element);
+      //     localStorage.setItem("favoriteMeals", JSON.stringify(favoriteMeals));
+      //     favoriteIcon.querySelector("ion-icon").name = "heart";
+      //   } else {
+      //     const filteredFavorites = favoriteMeals.filter((meal) => meal.id !== ele.id);
+      //     localStorage.setItem("favoriteMeals", JSON.stringify(filteredFavorites));
+      //     favoriteIcon.querySelector("ion-icon").name = "heart-outline";
+      //   }
+      // });
 
 
          let imgOpen =filterdiv .querySelector(".imgopen");
@@ -271,16 +263,12 @@ containerA.innerHTML=""
           containerA.append(filterdiv )
 
         })
-        // console.log(countryFilter)
-       
+
         filcon(countryFilter)
       });
       countryContainer.appendChild(items);
     });
 
-
-
-    // console.log(data)
   }
   else {
     console.error("Element with ID 'footcountry' not found.");
@@ -288,29 +276,18 @@ containerA.innerHTML=""
 },5000)
 }
 
-
 // fav
 let favopen = document.getElementById("favopen")
 favopen.addEventListener("click", () => {
-  window.location.href = "fav.html"
+  window.location.href = "./fav.html"
 
 })
 
-
-
 // recipes adding
-
 let addRecipes = document.getElementById("addBtn");
 
 let containerInputs = document.getElementById("container-inputs");
 containerInputs.style.display="none"
-// let coninput=document.getElementById("container")
-// coninput.style.display="none"
-//  coninput.style.alignItems="center"
-//  coninput.style.justifyContent="center"
-//  coninput.style.alignContent="center"
-
-
 
 addRecipes.addEventListener("click", () => {
  
@@ -327,11 +304,7 @@ addRecipes.addEventListener("dblclick",()=>{
 
 })
 
-
-
 // icon
-
-
 let iconadd = document.getElementById("iconadd");
 
 iconadd.addEventListener("dblclick",()=>{
@@ -505,7 +478,6 @@ async function dataSave() {
   }
 }
 
-
 // search function
 
 const filterInput = document.getElementById("search");
@@ -645,3 +617,38 @@ function filcon(countryFilter){
 }
 
          
+
+// onAuthStateChanged(auth, async (user) => {
+//   if (user) {
+//     const userId = user.uid;
+//     const userRef = doc(db, "users", userId);
+    
+//     const favoriteIcon = document.querySelector(".favorite-icon");
+
+//     favoriteIcon.addEventListener("click", async () => {
+//       try {
+//         const userDoc = await getDoc(userRef);
+//         let favoriteMeals = userDoc.exists() ? userDoc.data().favorites || [] : [];
+
+//         const meal = { id: "meal123", name: "Sample Meal" }; // Example meal object
+//         const isFavorite = favoriteMeals.some((m) => m.id === meal.id);
+
+//         if (!isFavorite) {
+//           await updateDoc(userRef, {
+//             favorites: arrayUnion(meal)
+//           });
+//           favoriteIcon.querySelector("ion-icon").name = "heart";
+//         } else {
+//           await updateDoc(userRef, {
+//             favorites: arrayRemove(meal)
+//           });
+//           favoriteIcon.querySelector("ion-icon").name = "heart-outline";
+//         }
+//       } catch (error) {
+//         console.error("Error updating favorites:", error);
+//       }
+//     });
+//   } else {
+//     console.log("User not logged in");
+//   }
+// });
