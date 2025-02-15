@@ -112,84 +112,98 @@ draftbtn.addEventListener("click",(e)=>{
 
 
 const favoriteMeals = JSON.parse(localStorage.getItem("favoriteMeals")) || [];
-     
+console.log(favoriteMeals);
 const maincontainer = document.getElementById("container");
 
-favoriteMeals.forEach((element) => {
+if(favoriteMeals==[]){
+  favoriteMeals.forEach((element) => {
   
-  console.log(element);
-
-
-  const mealContainer = document.createElement("div");
-  mealContainer.classList.add("meal-item"); 
-
-
-  const mealInfo = document.createElement("div");
-  mealInfo.innerHTML = `
-    <img src="${element.image}" width="300px" alt="${element.mealName}" class="imgopen" >
-    <p>Meal Name: ${element.mealName}</p>
-    <p>Category: ${element.Category}</p>
-`
-  const toggleButton = document.createElement("button");
-  toggleButton.textContent = "Show Instructions & Ingredients";
-    // click image  details
-    let imgOpen = mealInfo.querySelector(".imgopen");
-      imgOpen.addEventListener("click", (event1) => {
-        event1.preventDefault();
-
-        console.log("Image clicked for meal ID:", element)
-        localStorage.setItem("imageitem", JSON.stringify(element))
-        window.location.href = "./image.html"
-
-      });
-
-
-  const remove=document.createElement("button")
-  remove.innerText="remove"
-  remove.addEventListener("click",(e)=>{
-    e.preventDefault()
-    // console.log(element.id)
-    const index = favoriteMeals.indexOf(element);
-    if (index > -1) {
-    
-      favoriteMeals.splice(index, 1);
-
-
-      localStorage.setItem("favoriteMeals", JSON.stringify(favoriteMeals));
-
-      mealContainer.remove();
-    }
-
-  })
+    // console.log(element);
   
-  const detailsContainer = document.createElement("div");
-  detailsContainer.style.display = "none"; 
-
-  detailsContainer.innerHTML = 
+  
+    const mealContainer = document.createElement("div");
+    mealContainer.classList.add("meal-item"); 
+  
+  
+    const mealInfo = document.createElement("div");
+    // console.log(mealInfo)
+    mealInfo.innerHTML = `
+      <img src="${element.image}" width="300px" alt="${element.mealName}" class="imgopen" >
+      <p>Meal Name: ${element.mealName}</p>
+      <p>Category: ${element.Category}</p>
   `
-   <h2>INGREDIENTS</h2>
-    <ul>
-        ${element.ingredients.map(ingredient => `<li>${ingredient}</li>`).join('')}
-      </ul>
-    <h2>INSTRUCTIONS</h2>
-    <p>${element.instructions}</p>
-   
-  `;
-
-
-  mealContainer.appendChild(mealInfo);
-  mealContainer.append(toggleButton,remove);
-  mealContainer.appendChild(detailsContainer);
-
+    const toggleButton = document.createElement("button");
+    toggleButton.textContent = "Show Instructions & Ingredients";
+      // click image  details
+      let imgOpen = mealInfo.querySelector(".imgopen");
+        imgOpen.addEventListener("click", (event1) => {
+          event1.preventDefault();
   
-  toggleButton.addEventListener("click", () => {
-    detailsContainer.style.display = detailsContainer.style.display === "none" ? "block" : "none";
-    toggleButton.textContent = detailsContainer.style.display === "block" ? "Hide Instructions & Ingredients" : "Show Instructions & Ingredients";
+          console.log("Image clicked for meal ID:", element)
+          localStorage.setItem("imageitem", JSON.stringify(element))
+          window.location.href = "./image.html"
+  
+        });
+  
+  
+    const remove=document.createElement("button")
+    remove.innerText="remove"
+    remove.addEventListener("click",(e)=>{
+      e.preventDefault()
+      // console.log(element.id)
+      const index = favoriteMeals.indexOf(element);
+      if (index > -1) {
+      
+        favoriteMeals.splice(index, 1);
+  
+  
+        localStorage.setItem("favoriteMeals", JSON.stringify(favoriteMeals));
+  
+        mealContainer.remove();
+      }
+  
+    })
+    
+    const detailsContainer = document.createElement("div");
+    detailsContainer.style.display = "none"; 
+  
+    detailsContainer.innerHTML = 
+    `
+     <h2>INGREDIENTS</h2>
+      <ul>
+          ${element.ingredients.map(ingredient => `<li>${ingredient}</li>`).join('')}
+        </ul>
+      <h2>INSTRUCTIONS</h2>
+      <p>${element.instructions}</p>
+     
+    `;
+  
+  
+    mealContainer.appendChild(mealInfo);
+    mealContainer.append(toggleButton,remove);
+    mealContainer.appendChild(detailsContainer);
+  
+    
+    toggleButton.addEventListener("click", () => {
+      detailsContainer.style.display = detailsContainer.style.display === "none" ? "block" : "none";
+      toggleButton.textContent = detailsContainer.style.display === "block" ? "Hide Instructions & Ingredients" : "Show Instructions & Ingredients";
+    });
+  
+  
+    maincontainer.appendChild(mealContainer);
   });
+  
+  
+}else{
+  let nodata=document.createElement("div")
+  nodata.id="nodata"
+  nodata.innerText="select your favovite recipies "
+  nodata.style.color="red"
+  nodata.style.fontWeight="200"
+  
+maincontainer.appendChild(nodata)
 
-
-  maincontainer.appendChild(mealContainer);
-});
+}
 
 
 
@@ -198,6 +212,8 @@ let addRecipes = document.getElementById("addBtn");
 let containerInputs = document.getElementById("container-inputs");
 
 addRecipes.addEventListener("click", () => {
+  
+nodata.style.display="none"
  
 
   containerInputs.style.display = containerInputs.style.display === "none" ? "grid" : "none";

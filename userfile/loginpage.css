@@ -185,87 +185,6 @@ header {
 .favorite-icon:hover {
     color: #ff6b81;
 }
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    #addBtn {
-        display: none;
-    }
-
-    #recipe-form {
-        width: 100%;
-    }
-
-    #search {
-        width: 100%;
-    }
-
-    #maincontainer {
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 20px;
-    }
-
-    /* header {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 10px;
-        width: 100%;
-    } */
-}
-
-@media (max-width: 480px) {
-    #maincontainer {
-        grid-template-columns: 1fr;
-        gap: 10px;
-        padding: 10px;
-    }
-
-    .subcontainer img {
-        width: 80px;
-    }
-
-    header {
-        align-items: center;
-        padding: 10px;
-    }
-
-    .main {
-        padding: 10px;
-        display: flex;
-        align-items: flex-start;
-    }
-
-    .meal-item {
-        margin-bottom: 20px;
-        overflow: hidden;
-    }
-
-    .meal-item img {
-        width: 100%;
-        height: auto;
-    }
-
-    #userprofile img {
-        width: 40px;
-        height: 40px;
-    }
-
-    #fav {
-        font-size: 20px;
-    }
-
-    .loader {
-        margin-top: 100px;
-        --d: 18px;
-    }
-
-    .container {
-        width: 90%;
-        padding: 10px;
-    }
-}
-
 /* Loading Animation */
 .loader {
     text-align: center;
@@ -293,6 +212,26 @@ header {
         transform: rotate(1turn);
     }
 }
+
+.loadersave{
+    width: 30px;
+    display: flex;
+    justify-self: center;
+    padding: 8px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: #25b09b;
+    --_m: 
+      conic-gradient(#0000 10%,#000),
+      linear-gradient(#000 0 0) content-box;
+    -webkit-mask: var(--_m);
+            mask: var(--_m);
+    -webkit-mask-composite: source-out;
+            mask-composite: subtract;
+    animation: l3 1s infinite linear;
+  }
+  @keyframes l3 {to{transform: rotate(1turn)}}
+
 
 /* Profile Container */
 .container {
@@ -342,34 +281,6 @@ button#logout:hover {
     background: #e63939;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-
-    #iconadd{
-        display: block;
-        font-size:20px;
-        color: #0056b3;
-        font-weight: 200;
-    }
-    .container {
-        width: 220px;
-        padding: 10px;
-    }
-
-    .subcontainer img {
-        width: 70px;
-    }
-
-    .subcontainer div {
-        font-size: 13px;
-    }
-
-    button#logout {
-        font-size: 13px;
-        padding: 7px 12px;
-    }
-}
-
 /* Edit User Form */
 .edituser {
     background: white;
@@ -404,17 +315,7 @@ button#logout:hover {
     background: #218838;
 }
 
-@media (max-width: 480px) {
-    .edituser {
-        padding: 15px;
-    }
 
-    .edituser input,
-    .edituser button {
-        font-size: 14px;
-        padding: 8px;
-    }
-}
 
 /* Category Container */
 .category-container {
@@ -557,7 +458,124 @@ body {
     background-color: #e0a800;
 }
 
+
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    #addBtn {
+        display: none;
+    }
+
+    #recipe-form {
+        width: 100%;
+    }
+
+    #search {
+        width: 100%;
+    }
+
+    #maincontainer {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+    }
+
+    /* header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+        width: 100%;
+    } */
+
+    
+    #iconadd{
+        display: block;
+        font-size:20px;
+        color: #0056b3;
+        font-weight: 200;
+    }
+    .container {
+        width: 220px;
+        padding: 10px;
+    }
+
+    .subcontainer img {
+        width: 70px;
+    }
+
+    .subcontainer div {
+        font-size: 13px;
+    }
+
+    button#logout {
+        font-size: 13px;
+        padding: 7px 12px;
+    }
+}
+
+
+
+
+
+
 @media (max-width: 480px) {
+    #maincontainer {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        padding: 10px;
+    }
+  
+
+    .subcontainer img {
+        width: 80px;
+    }
+
+    header {
+        align-items: center;
+        padding: 10px;
+    }
+
+  
+
+    .meal-item {
+        margin-bottom: 20px;
+        overflow: hidden;
+    }
+
+    .meal-item img {
+        width: 100%;
+        height: auto;
+    }
+
+    #userprofile img {
+        width: 40px;
+        height: 40px;
+    }
+
+    #fav {
+        font-size: 20px;
+    }
+
+    .loader {
+        margin-top: 100px;
+        --d: 18px;
+    }
+
+    .container {
+        width: 90%;
+        padding: 10px;
+    }
+
+    .edituser {
+        padding: 15px;
+    }
+
+    .edituser input,
+    .edituser button {
+        font-size: 14px;
+        padding: 8px;
+    }
 
     #iconadd{
         display: block;
@@ -572,4 +590,14 @@ body {
         font-size: 14px;
         padding: 8px;
     }
+
+    .category-container {
+    width: 250px;
+   
+      
+    }
+
 }
+
+
+

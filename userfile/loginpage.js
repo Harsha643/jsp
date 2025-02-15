@@ -1,93 +1,96 @@
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
-import { getFirestore, doc, getDoc, updateDoc, arrayUnion, arrayRemove } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
+import { getAuth, onAuthStateChanged, updateProfile } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
+import { getFirestore, getDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSy...",
+  apiKey: "AIzaSyBbmBJPwfOKa2Q-r2CEhvsFv5yhmNFkuAU",
   authDomain: "login-kk-f580d.firebaseapp.com",
   projectId: "login-kk-f580d",
-  storageBucket: "login-kk-f580d.appspot.com",
+  storageBucket: "login-kk-f580d.firebasestorage.app",
   messagingSenderId: "901441715555",
   appId: "1:901441715555:web:5228323a42259e1e91a756"
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+
 const auth = getAuth();
 const db = getFirestore();
 
-
 onAuthStateChanged(auth, (user) => {
+  if (user) {
+    const loggedInUserId = user.uid; 
 
-  const loggedInUserId = localStorage.getItem("loggedInUserId")
-  if (loggedInUserId) {
-
-    const docRef = doc(db, "users", loggedInUserId)
+    const docRef = doc(db, "users", loggedInUserId);
 
     getDoc(docRef)
       .then((docSnap) => {
-
         if (docSnap.exists()) {
-
-          const userData = docSnap.data()
-
-          document.getElementById("username").innerText = userData.username
-          document.getElementById("email").innerText = userData.email
-          // document.getElementById("password").innerText = userData.password
-
-                 const editButton = document.getElementById('editbt');
-                 const subcontainer = document.getElementById('subcontainer');
-                 const edituser = document.getElementById('edituser');
-
-                 editButton.addEventListener('click', () => {
-                   subcontainer.style.display = "none"; 
-                   edituser.style.display = "block"; 
+          const userData = docSnap.data();
 
 
-                   const usernameInput = document.getElementById('useredit');
-       usernameInput.value = userData.username;
-       const emailInput = document.getElementById('emailedit');
+          document.getElementById("username").textContent = userData.username;
+          document.getElementById("email").textContent = user.email; 
 
-        emailInput.value = userData.email; 
+          const editButton = document.getElementById('editbt');
+          const subcontainer = document.getElementById('subcontainer');
+          const edituser = document.getElementById('edituser');
+
+          editButton.addEventListener('click', () => {
+            subcontainer.style.display = "none"; 
+            edituser.style.display = "block"; 
 
 
+            const usernameInput = document.getElementById('useredit');
+usernameInput.value = userData.username;
+const emailInput = document.getElementById('emailedit');
 
-                 });
+ emailInput.value = userData.email; 
+          });
 
-                 const saveButton = document.getElementById('saveedit');
-                 saveButton.addEventListener('click', async () => {
-                   try {
-                     const usernameInput = document.getElementById('useredit');
-                     const emailInput = document.getElementById('emailedit');
+          const saveButton = document.getElementById('saveedit');
+            let loadin=document.getElementsByClassName("loadersave")[0]
+            loadin.style.display="none"
 
-                     await updateProfile(auth.currentUser, { displayName: usernameInput.value, email: emailInput.value }); 
-                     await updateDoc(docRef, { username: usernameInput.value, email: emailInput.value }); 
+          saveButton.addEventListener('click', async () => {
 
-                     document.getElementById("username").textContent = usernameInput.value;
-                     document.getElementById("email").textContent = emailInput.value; 
+            let loadin=document.getElementsByClassName("loadersave")[0]
+            loadin.style.display="block"
+             setTimeout( async ()=>{
+              loadin.style.display="none"
+              
+            try {
+              const usernameInput = document.getElementById('useredit');
+              const emailInput = document.getElementById('emailedit');
 
-                     subcontainer.style.display = "block"; 
-                     edituser.style.display = "none"; 
-                   } catch (error) {
-                     console.error("Error updating user data:", error);
-                   }
-                 });
+              await updateProfile(auth.currentUser, { displayName: usernameInput.value, email: emailInput.value }); 
+              await updateDoc(docRef, { username: usernameInput.value, email: emailInput.value }); 
 
+              document.getElementById("username").textContent = usernameInput.value;
+              document.getElementById("email").textContent = emailInput.value; 
+
+              subcontainer.style.display = "block"; 
+              edituser.style.display = "none"; 
+            } catch (error) {
+              console.error("Error updating user data:", error);
+            }
+        
+             },2000)
+
+
+          });
+        } else {
+          console.log("no document found matching id");
         }
-        else {
-          console.log("no document found matching id ")
-        }
-
       })
       .catch((error) => {
-        console.error("error geting ", error)
-      })
-
+        console.error("error getting ", error);
+      });
+  } else {
+    console.error("user id not found in local storage");
   }
-  else {
-    console.error("user id not found in local storage")
-  }
-})
+});
 
 
 
@@ -233,21 +236,21 @@ containerA.innerHTML=""
          <span id="fava" class="favorite-icon"><ion-icon name="heart-outline"></ion-icon></span>
          `
 
-      // const favoriteIcon =filterdiv.querySelector(".favorite-icon");
-      // favoriteIcon.addEventListener("click", () => {
+      const favoriteIcon =filterdiv.querySelector(".favorite-icon");
+      favoriteIcon.addEventListener("click", () => {
 
-      //   const favoriteMeals = JSON.parse(localStorage.getItem("favoriteMeals")) || [];
-      //   const isAlreadyFavorite = favoriteMeals.some((meal) => meal.id === ele.id);
-      //   if (!isAlreadyFavorite) {
-      //     favoriteMeals.push(element);
-      //     localStorage.setItem("favoriteMeals", JSON.stringify(favoriteMeals));
-      //     favoriteIcon.querySelector("ion-icon").name = "heart";
-      //   } else {
-      //     const filteredFavorites = favoriteMeals.filter((meal) => meal.id !== ele.id);
-      //     localStorage.setItem("favoriteMeals", JSON.stringify(filteredFavorites));
-      //     favoriteIcon.querySelector("ion-icon").name = "heart-outline";
-      //   }
-      // });
+        const favoriteMeals = JSON.parse(localStorage.getItem("favoriteMeals")) || [];
+        const isAlreadyFavorite = favoriteMeals.some((meal) => meal.id === ele.id);
+        if (!isAlreadyFavorite) {
+          favoriteMeals.push(element);
+          localStorage.setItem("favoriteMeals", JSON.stringify(favoriteMeals));
+          favoriteIcon.querySelector("ion-icon").name = "heart";
+        } else {
+          const filteredFavorites = favoriteMeals.filter((meal) => meal.id !== ele.id);
+          localStorage.setItem("favoriteMeals", JSON.stringify(filteredFavorites));
+          favoriteIcon.querySelector("ion-icon").name = "heart-outline";
+        }
+      });
 
 
          let imgOpen =filterdiv .querySelector(".imgopen");
