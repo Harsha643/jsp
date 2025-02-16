@@ -363,6 +363,11 @@ button#logout:hover {
 /* Draft Display */
 #draftdisplay {
     width: 60px;
+    border:none;
+    border-radius:5px;
+    padding:4px;
+    background-color:  #ff4757;
+    color:white;
 }
 
 /* Profile Edit Section */
@@ -377,9 +382,20 @@ button#logout:hover {
     justify-content: center;
 }
 
+
 .prof button {
     width: 20px;
 }
+.prof #editbtn{
+    border: none;
+    border-radius:5px;
+    padding: 4px 4px;
+    width: 40px;
+    height:32px;
+    color: white;
+    background-color:  #ff4757;
+}
+
 
 /* inputs */
 body {

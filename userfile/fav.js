@@ -206,8 +206,9 @@ let addRecipes = document.getElementById("addBtn");
 let containerInputs = document.getElementById("container-inputs");
 
 addRecipes.addEventListener("click", () => {
+  console.log("ha")
   
-nodata.style.display="none"
+// nodata.style.display="none"
  
 
   containerInputs.style.display = containerInputs.style.display === "none" ? "grid" : "none";
