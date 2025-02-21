@@ -210,9 +210,12 @@ setTimeout(()=>{
     uniqueAreas.forEach((element) => {
        
       const items = document.createElement("h5");
-      items.classList.add(`ele-${data.id}`);
+      items.classList.add(`eleitems`);
+      items.style.cursor="pointer"
       items.textContent = element || "No Name";
       let  countryFilter=[]
+
+
 
       // click the country
       items.addEventListener("click", () => {
@@ -227,6 +230,8 @@ containerA.innerHTML=""
             countryFilter.push(ele.Area)
 
           }
+
+
 
 
           filterdiv.innerHTML =
@@ -302,7 +307,17 @@ containerInputs.style.display="grid"
   containerInputs.style.gridTemplateColumns = "repeat(2, 1fr)";
 
 });
+
 addRecipes.addEventListener("dblclick",()=>{
+  containerInputs.style.display = containerInputs.style.display === "none" ? "block" : "none";
+
+})
+
+let close=document.getElementById("closebtn")
+close.style.backgroundColor="red"
+close.style.color="white"
+
+close.addEventListener("click",()=>{
   containerInputs.style.display = containerInputs.style.display === "none" ? "block" : "none";
 
 })
@@ -621,37 +636,3 @@ function filcon(countryFilter){
 
          
 
-// onAuthStateChanged(auth, async (user) => {
-//   if (user) {
-//     const userId = user.uid;
-//     const userRef = doc(db, "users", userId);
-    
-//     const favoriteIcon = document.querySelector(".favorite-icon");
-
-//     favoriteIcon.addEventListener("click", async () => {
-//       try {
-//         const userDoc = await getDoc(userRef);
-//         let favoriteMeals = userDoc.exists() ? userDoc.data().favorites || [] : [];
-
-//         const meal = { id: "meal123", name: "Sample Meal" }; // Example meal object
-//         const isFavorite = favoriteMeals.some((m) => m.id === meal.id);
-
-//         if (!isFavorite) {
-//           await updateDoc(userRef, {
-//             favorites: arrayUnion(meal)
-//           });
-//           favoriteIcon.querySelector("ion-icon").name = "heart";
-//         } else {
-//           await updateDoc(userRef, {
-//             favorites: arrayRemove(meal)
-//           });
-//           favoriteIcon.querySelector("ion-icon").name = "heart-outline";
-//         }
-//       } catch (error) {
-//         console.error("Error updating favorites:", error);
-//       }
-//     });
-//   } else {
-//     console.log("User not logged in");
-//   }
-// });

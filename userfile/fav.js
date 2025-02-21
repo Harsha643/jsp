@@ -107,98 +107,102 @@ draftbtn.addEventListener("click",(e)=>{
     
 })
 
+
 const favoriteMeals = JSON.parse(localStorage.getItem("favoriteMeals")) || [];
 console.log(favoriteMeals.length);
 const maincontainer = document.getElementById("container");
 
-if(!favoriteMeals.length==0){
-  favoriteMeals.forEach((element) => {
-  
-    const mealContainer = document.createElement("div");
-    mealContainer.classList.add("meal-item"); 
-  
-  
-    const mealInfo = document.createElement("div");
-    // console.log(mealInfo)
-    mealInfo.innerHTML = `
-      <img src="${element.image}" width="300px" alt="${element.mealName}" class="imgopen" >
-      <p>Meal Name: ${element.mealName}</p>
-      <p>Category: ${element.Category}</p>
-  `
-    const toggleButton = document.createElement("button");
-    toggleButton.textContent = "Show Instructions & Ingredients";
-      // click image  details
-      let imgOpen = mealInfo.querySelector(".imgopen");
-        imgOpen.addEventListener("click", (event1) => {
-          event1.preventDefault();
-  
-          console.log("Image clicked for meal ID:", element)
-          localStorage.setItem("imageitem", JSON.stringify(element))
-          window.location.href = "./image.html"
-  
-        });
-  
-  
-    const remove=document.createElement("button")
-    remove.innerText="remove"
-    remove.addEventListener("click",(e)=>{
-      e.preventDefault()
-      // console.log(element.id)
-      const index = favoriteMeals.indexOf(element);
-      if (index > -1) {
-      
-        favoriteMeals.splice(index, 1);
-  
-  
-        localStorage.setItem("favoriteMeals", JSON.stringify(favoriteMeals));
-  
-        mealContainer.remove();
-      }
-  
-    })
-    
-    const detailsContainer = document.createElement("div");
-    detailsContainer.style.display = "none"; 
-  
-    detailsContainer.innerHTML = 
-    `
-     <h2>INGREDIENTS</h2>
-      <ul>
-          ${element.ingredients.map(ingredient => `<li>${ingredient}</li>`).join('')}
-        </ul>
-      <h2>INSTRUCTIONS</h2>
-      <p>${element.instructions}</p>
-     
-    `;
-  
-  
-    mealContainer.appendChild(mealInfo);
-    mealContainer.append(toggleButton,remove);
-    mealContainer.appendChild(detailsContainer);
-  
-    
-    toggleButton.addEventListener("click", () => {
-      detailsContainer.style.display = detailsContainer.style.display === "none" ? "block" : "none";
-      toggleButton.textContent = detailsContainer.style.display === "block" ? "Hide Instructions & Ingredients" : "Show Instructions & Ingredients";
-    });
-  
-  
-    maincontainer.appendChild(mealContainer);
-  });
-  
-  
-}else{
-  console.log("else")
-  let nodata=document.createElement("div")
-  nodata.id="nodata"
-  nodata.innerText="select your favovite recipies "
-  nodata.style.color="red"
-  nodata.style.fontWeight="200"
-  
-maincontainer.appendChild(nodata)
+if (!favoriteMeals.length == 0) {
+    favoriteMeals.forEach((element) => {
 
+        const mealContainer = document.createElement("div");
+        mealContainer.classList.add("meal-item");
+
+        const mealInfo = document.createElement("div");
+        mealInfo.innerHTML = `
+            <img src="${element.image}" width="300px" alt="${element.mealName}" class="imgopen" >
+            <p>Meal Name: ${element.mealName}</p>
+            <p>Category: ${element.Category}</p>
+        `;
+
+        const toggleButton = document.createElement("button");
+        toggleButton.textContent = "Show Instructions & Ingredients";
+
+        let imgOpen = mealInfo.querySelector(".imgopen");
+        imgOpen.addEventListener("click", (event1) => {
+            event1.preventDefault();
+            console.log("Image clicked for meal ID:", element);
+            localStorage.setItem("imageitem", JSON.stringify(element));
+            window.location.href = "./image.html";
+        });
+
+        const remove = document.createElement("button");
+        remove.innerText = "remove";
+        remove.addEventListener("click", (e) => {
+            e.preventDefault();
+            const index = favoriteMeals.indexOf(element);
+            if (index > -1) {
+                favoriteMeals.splice(index, 1);
+                localStorage.setItem("favoriteMeals", JSON.stringify(favoriteMeals));
+                mealContainer.remove();
+            }
+        });
+
+        const detailsContainer = document.createElement("div");
+        detailsContainer.style.display = "none";
+
+        detailsContainer.innerHTML = `
+            <h2>INGREDIENTS</h2>
+            <ul>
+                ${element.ingredients.map(ingredient => `<li>${ingredient}</li>`).join('')}
+            </ul>
+            <h2>INSTRUCTIONS</h2>
+            <p>${element.instructions}</p>
+        `;
+
+        mealContainer.appendChild(mealInfo);
+        mealContainer.append(toggleButton, remove);
+        mealContainer.appendChild(detailsContainer);
+
+        toggleButton.addEventListener("click", () => {
+             // Create modal
+            const modal = document.createElement("div");
+            modal.className="modal"
+  
+            modal.innerHTML = `
+                ${detailsContainer.innerHTML}
+                <button id="closeModal">Close</button>
+            `;
+
+            document.body.appendChild(modal);
+
+            // Close modal functionality
+            document.getElementById("closeModal").addEventListener("click", () => {
+                modal.remove();
+            });
+
+        });
+
+        maincontainer.appendChild(mealContainer);
+    });
+} else {
+    console.log("else");
+    let nodata = document.createElement("div");
+    nodata.id = "nodata";
+    nodata.innerText = "select your favorite recipes ";
+    nodata.style.color = "red";
+    nodata.style.fontWeight = "200";
+    maincontainer.appendChild(nodata);
 }
 
+let close=document.getElementById("closebtn")
+close.style.backgroundColor="red"
+close.style.color="white"
+
+close.addEventListener("click",()=>{
+  containerInputs.style.display = containerInputs.style.display === "none" ? "block" : "none";
+
+})
 
 
 let addRecipes = document.getElementById("addBtn");
@@ -222,6 +226,7 @@ addRecipes.addEventListener("click", () => {
 
 
 });
+
 
 function valid() {
   let isValid = true;

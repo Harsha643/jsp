@@ -248,7 +248,10 @@ header {
     align-items: center;
     z-index: 1000;
 }
-
+.allBtn{
+    display: flex;
+    gap: 30px;
+}
 .subcontainer {
     text-align: center;
     width: 100%;
@@ -374,6 +377,8 @@ button#logout:hover {
 #edituser {
     display: none;
 }
+
+
 
 .prof {
     display: flex;
