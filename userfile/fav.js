@@ -98,7 +98,10 @@ profile.addEventListener("click", (e) => {
   profileContainer.style.width="250px"
   },0)
 })
-
+let logo=document.getElementById("image")
+logo.addEventListener("click",()=>{
+  window.location.href="./loginpage.html"
+})
 
 let  draftbtn= document.getElementById("draftdisplay")
 draftbtn.addEventListener("click",(e)=>{
@@ -210,10 +213,6 @@ let addRecipes = document.getElementById("addBtn");
 let containerInputs = document.getElementById("container-inputs");
 
 addRecipes.addEventListener("click", () => {
-  console.log("ha")
-  
-// nodata.style.display="none"
- 
 
   containerInputs.style.display = containerInputs.style.display === "none" ? "grid" : "none";
   // containerInputs.style.display = "grid"; // Set grid layout
@@ -221,8 +220,6 @@ addRecipes.addEventListener("click", () => {
   containerInputs.style.marginTop = "50px";
   containerInputs.style.gridTemplateColumns = "repeat(2, 1fr)";
    
-  // let form = document.getElementById("recipe-form");
-  // form.scrollIntoView({ behavior: "smooth", block: "start" });
 
 
 });
