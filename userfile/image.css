@@ -1,139 +1,208 @@
-     /* Global Styles */
-     * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: 'Poppins', sans-serif;
-    }
-    
-    body {
-        background: url('background.jpg') no-repeat center center fixed;
-        background-size: cover;
-        padding: 20px;
-    }
-    
-    
-    /* Style for the header container */
-    #hcontainer {
-        background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent background for glassmorphism effect */
-        backdrop-filter: blur(10px); /* Blur effect for glassmorphism */
-        border-radius: 16px; /* Rounded corners */
-        padding: 10px 20px;
-        margin-bottom: 20px;
-        /* position: sticky; */
-        top: 0;
-    }
-    
-    /* Grid layout for the main div */
-    .main {
-        display: grid;
-        grid-template-columns: auto 1fr auto auto; /* Define columns for grid items */
-        align-items: center; /* Center items vertically */
-        gap: 20px; /* Space between grid items */
-    }
-    
-    /* Style for the moveback button */
-    #moveback {
-        background: none;
-        border: none;
-        cursor: pointer;
-        font-size: 24px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    
-    /* Style for the favorite icon */
-    #fav {
-        font-size: 24px;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    
-    /* Style for the user profile image */
-    #userprofile img {
-        border-radius: 50%; /* Circular profile image */
-        cursor: pointer;
-    }
-    
-    .nav {
-        display: flex;
-        align-items: center;
-    }
-    
-    .nav-button {
-        background: none;
-        /* border: none; */
-        color: #fff;
-        font-size: 18px;
-        margin: 0 10px;
-        cursor: pointer;
-        transition: color 0.3s;
-    }
-    
-    .nav-button:hover {
-        color: #f00;
-    }
-    
-    .user-profile img {
-        border-radius: 50%;
-    }
-    
-    /* Main Content Styles */
-    #container {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-        /* position: relative; */
-    }
-    
-    .meal-item {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 30px;
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 16px;
-        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        text-align: center;
-    }
-    
-    .meal-item img {
-        width: 100%;
-        max-width: 400px;
-        border-radius: 16px;
-        margin-bottom: 20px;
-    }
-    
-    .meal-item p {
-        font-size: 24px;
-        font-weight: 500;
-        margin-bottom: 10px;
-    }
-    
-    .meal-item h2 {
-        margin-top: 30px;
-        font-size: 28px;
-    }
-    
-    .meal-item ul {
-        list-style-type: disc;
-        margin: 20px 0;
-        padding-left: 20px;
-        text-align: left;
-    }
-    
-    .meal-item li {
-        font-size: 18px;
-        margin-bottom: 5px;
-    }
-    
-    /* Responsive Design */
-    @media (max-width: 768px) {
+
+            /* Color Variables */
+:root {
+    --primary-green: #3D8D7A;
+    --light-green: #B3D8A8;
+    --off-white: #FBFFE4;
+    --light-teal: #A3D1C6;
+}
+
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+/* Header Container */
+#hcontainer {
+    background-color: rgba(var(--primary-green-rgb, 61, 141, 122), 0.1); /* Use variable */
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    top: 0;
+}
+
+/* Main Grid Layout */
+.main {
+    display: grid;
+    grid-template-columns: auto 1fr auto auto;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Moveback Button */
+#moveback, #fav{
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* User Profile Image */
+#userprofile img {
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* Navigation */
+.nav {
+    display: flex;
+    align-items: center;
+}
+
+.nav-button {
+    background: none;
+    color: var(--primary-green); /* Use variable */
+    font-size: 18px;
+    margin: 0 10px;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.nav-button:hover {
+    color: var(--light-green); /* Use variable */
+}
+
+.user-profile img {
+    border-radius: 50%;
+}
+
+/* Main Content Styles */
+#container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.meal-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* margin: 40px; */
+    padding: 30px;
+    background: rgba(var(--light-green-rgb, 179, 216, 168), 0.1); /* Use variable */
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(var(--light-green-rgb, 179, 216, 168), 0.3); /* Use variable */
+    /* text-align: center; */
+}
+
+.meal-item img {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 16px;
+    margin-bottom: 20px;
+}
+
+.meal-item p {
+    /* padding: 10px; */
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+meal-item h2 {
+    margin-top: 30px;
+    font-size: 28px;
+}
+
+meal-item ul {
+    list-style-type: disc;
+    margin: 40px 0;
+    padding-left: 40px;
+    text-align: left;
+}
+
+meal-item li {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+/* Edit User Form */
+.edituser {
+    background: var(--off-white); /* Use variable */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.edituser input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid var(--light-teal); /* Use variable */
+    border-radius: 5px;
+}
+
+edituser button {
+    width: 100%;
+    padding: 10px;
+    background: var(--primary-green); /* Use variable */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+edituser button:hover {
+    background: var(--light-green); /* Use variable */
+}
+
+#edituser {
+    display: none;
+}
+
+#draftdisplay,
+.prof button,
+.prof #editbtn {
+    width: auto;
+    border: none;
+    border-radius: 5px;
+    padding: 4px 8px;
+    background-color: #ff4757;
+    color: white;
+}
+
+.prof {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Responsive Design */
+/* ... (rest of your responsive styles) ... */
+
+     /* Responsive Design */
+     @media (max-width: 768px) {
+        .container {
+            width: 220px;
+            padding: 10px;
+        }
+
+        .subcontainer img {
+            width: 70px;
+        }
+
+        .subcontainer div {
+            font-size: 13px;
+        }
+
+        button#logout {
+            font-size: 13px;
+            padding: 7px 12px;
+        }
         .header {
             flex-direction: column;
             text-align: center;
@@ -168,133 +237,151 @@
             font-size: 16px;
         }
     }
+
     
-    /* profile */
+    /* Responsive Design */
+  
+
+/* Profile Container */
+.container {
+    position: fixed;
+    top: 105px;
+    right: 0;
+    background: var(--off-white); /* Use variable */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 15px;
+    width: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+
     
-    
-    
+.container {
+    position: fixed;
+    top: 105px;
+    right: 0;
+    background: #ffffff;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 15px;
+    width: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.subcontainer {
+    text-align: center;
+    width: 100%;
+}
+
+.subcontainer img {
+    width: 80px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.subcontainer div {
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #333;
+}
+
+button#logout {
+    background: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s ease;
+}
+
+button#logout:hover {
+    background: #e63939;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
     .container {
-                position: fixed;
-                top: 105px;
-                right: 0;
-                background: #ffffff;
-                box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-                border-radius: 10px;
-                padding: 15px;
-                width: 250px;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                z-index: 1000;
-            }
-    
-            .subcontainer {
-                text-align: center;
-                width: 100%;
-            }
-    
-            .subcontainer img {
-                width: 80px;
-                border-radius: 50%;
-                margin-bottom: 10px;
-            }
-    
-            .subcontainer div {
-                margin-bottom: 8px;
-                font-size: 14px;
-                color: #333;
-            }
-    
-            button#logout {
-                background: #ff4d4d;
-                color: white;
-                border: none;
-                padding: 8px 15px;
-                border-radius: 5px;
-                cursor: pointer;
-                font-size: 14px;
-                transition: background 0.3s ease;
-            }
-    
-            button#logout:hover {
-                background: #e63939;
-            }
-    
-            /* Responsive Design */
-            @media (max-width: 768px) {
-                .container {
-                    width: 220px;
-                    padding: 10px;
-                }
-    
-                .subcontainer img {
-                    width: 70px;
-                }
-    
-                .subcontainer div {
-                    font-size: 13px;
-                }
-    
-                button#logout {
-                    font-size: 13px;
-                    padding: 7px 12px;
-                }
-            }
-    #edituser{
-            display: none;
-          } 
-          .prof{
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            justify-content: center;
-          }
-          .prof button{
-            width: 20px;
-          }
-          #draftdisplay{
-            width: 60px;
-          }
-    
-    
-          /* editcss */
-    
-          .edituser {
-                background: white;
-                padding: 20px;
-                border-radius: 10px;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-                width: 90%;
-                max-width: 400px;
-                text-align: center;
-            }
-            .edituser input {
-                width: 100%;
-                padding: 10px;
-                margin: 10px 0;
-                border: 1px solid #ccc;
-                border-radius: 5px;
-            }
-            .edituser button {
-                width: 100%;
-                padding: 10px;
-                background: #28a745;
-                color: white;
-                border: none;
-                border-radius: 5px;
-                cursor: pointer;
-                font-size: 16px;
-            }
-            .edituser button:hover {
-                background: #218838;
-            }
-            @media (max-width: 480px) {
-                .edituser {
-                    padding: 15px;
-                }
-                .edituser input,
-                .edituser button {
-                    font-size: 14px;
-                    padding: 8px;
-                }
-            }
+        width: 220px;
+        padding: 10px;
+    }
+
+    .subcontainer img {
+        width: 70px;
+    }
+
+    .subcontainer div {
+        font-size: 13px;
+    }
+
+    button#logout {
+        font-size: 13px;
+        padding: 7px 12px;
+    }
+}
+#edituser{
+display: none;
+} 
+.prof{
+display: flex;
+gap: 10px;
+align-items: center;
+justify-content: center;
+}
+.prof button{
+width: 20px;
+}
+#draftdisplay{
+width: 60px;
+}
+
+
+/* editcss */
+
+.edituser {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+}
+.edituser input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.edituser button {
+    width: 100%;
+    padding: 10px;
+    background: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+.edituser button:hover {
+    background: #218838;
+}
+@media (max-width: 480px) {
+    .edituser {
+        padding: 15px;
+    }
+    .edituser input,
+    .edituser button {
+        font-size: 14px;
+        padding: 8px;
+    }
+}

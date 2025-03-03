@@ -49,7 +49,15 @@ const emailInput = document.getElementById('emailedit');
           });
 
           const saveButton = document.getElementById('saveedit');
+          let loadin=document.getElementsByClassName("loadersave")[0]
+            loadin.style.display="none"
+
           saveButton.addEventListener('click', async () => {
+            // let loadin=document.getElementsByClassName("loadersave")[0]
+            loadin.style.display="block"
+
+            setTimeout( async ()=>{
+              loadin.style.display="none"
             try {
               const usernameInput = document.getElementById('useredit');
               const emailInput = document.getElementById('emailedit');
@@ -65,6 +73,7 @@ const emailInput = document.getElementById('emailedit');
             } catch (error) {
               console.error("Error updating user data:", error);
             }
+          },2000)
           });
         } else {
           console.log("no document found matching id");
@@ -98,6 +107,8 @@ profile.addEventListener("click", (e) => {
   profileContainer.style.width="250px"
   },0)
 })
+
+
 let logo=document.getElementById("image")
 logo.addEventListener("click",()=>{
   window.location.href="./loginpage.html"
@@ -111,13 +122,13 @@ draftbtn.addEventListener("click",(e)=>{
 })
 
 
+
 const favoriteMeals = JSON.parse(localStorage.getItem("favoriteMeals")) || [];
 console.log(favoriteMeals.length);
 const maincontainer = document.getElementById("container");
 
-if (!favoriteMeals.length == 0) {
+if (favoriteMeals.length > 0) {
     favoriteMeals.forEach((element) => {
-
         const mealContainer = document.createElement("div");
         mealContainer.classList.add("meal-item");
 
@@ -134,7 +145,7 @@ if (!favoriteMeals.length == 0) {
         let imgOpen = mealInfo.querySelector(".imgopen");
         imgOpen.addEventListener("click", (event1) => {
             event1.preventDefault();
-            console.log("Image clicked for meal ID:", element);
+            // console.log("Image clicked for meal ID:", element);
             localStorage.setItem("imageitem", JSON.stringify(element));
             window.location.href = "./image.html";
         });
@@ -168,10 +179,10 @@ if (!favoriteMeals.length == 0) {
         mealContainer.appendChild(detailsContainer);
 
         toggleButton.addEventListener("click", () => {
-             // Create modal
+            // Create modal
             const modal = document.createElement("div");
-            modal.className="modal"
-  
+            modal.className = "modal";
+
             modal.innerHTML = `
                 ${detailsContainer.innerHTML}
                 <button id="closeModal">Close</button>
@@ -180,10 +191,20 @@ if (!favoriteMeals.length == 0) {
             document.body.appendChild(modal);
 
             // Close modal functionality
-            document.getElementById("closeModal").addEventListener("click", () => {
+            const closeModal = () => {
                 modal.remove();
-            });
+                document.body.removeEventListener("click", outsideClickListener);
+            };
 
+            document.getElementById("closeModal").addEventListener("click", closeModal);
+
+            // Close modal when clicking outside the modal
+            const outsideClickListener = (event) => {
+                if (event.target === modal) {
+                    closeModal();
+                }
+            };
+            document.body.addEventListener("click", outsideClickListener);
         });
 
         maincontainer.appendChild(mealContainer);
@@ -206,6 +227,12 @@ close.addEventListener("click",()=>{
   containerInputs.style.display = containerInputs.style.display === "none" ? "block" : "none";
 
 })
+
+
+
+
+
+
 
 
 let addRecipes = document.getElementById("addBtn");
@@ -380,7 +407,6 @@ async function dataSave() {
     console.error("Save data error", error);
   }
 }
-
 
 
 

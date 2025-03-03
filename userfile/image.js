@@ -85,6 +85,12 @@ const emailInput = document.getElementById('emailedit');
 });
 
 
+let logo=document.getElementById("image")
+logo.addEventListener("click",()=>{
+  window.location.href="./loginpage.html"
+})
+
+
 
 let logout = document.getElementById("logout")
 logout.addEventListener("click", (e) => {
