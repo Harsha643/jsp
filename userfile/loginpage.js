@@ -339,7 +339,6 @@ iconadd.addEventListener("click",()=>{
 
 })
 
-
 function valid() {
   let isValid = true;
   const fields = [

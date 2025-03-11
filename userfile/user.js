@@ -115,9 +115,11 @@ let about=document.getElementById("abouta")
 let aboutUs=document.getElementById("about")
 let cont=document.getElementById("cont")
 let contactUs=document.getElementById("contact")
-
+let loader = document.getElementsByClassName("loader")[0]; 
 
 home.addEventListener("click", function(event) { 
+
+
       event.preventDefault(); 
     homeLink.style.display = "block"; 
     recipesDetails.style.display = "none";
@@ -141,6 +143,22 @@ cont.addEventListener("click",(eventa)=>{
 recipesDetails.style.display = "none";
 
 })
+
+let recipeid=document.getElementById("image")
+
+
+recipeid.addEventListener("click",(eventa)=>{
+  eventa.preventDefault(); 
+  aboutUs.style.display="none"
+  contactUs.style.display="none"
+  homeLink.style.display = "none"; 
+recipesDetails.style.display = "block";
+
+
+})
+
+
+
 
 
 

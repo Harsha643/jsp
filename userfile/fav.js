@@ -114,6 +114,7 @@ logo.addEventListener("click",()=>{
   window.location.href="./loginpage.html"
 })
 
+
 let  draftbtn= document.getElementById("draftdisplay")
 draftbtn.addEventListener("click",(e)=>{
     e.preventDefault()
@@ -179,33 +180,40 @@ if (favoriteMeals.length > 0) {
         mealContainer.appendChild(detailsContainer);
 
         toggleButton.addEventListener("click", () => {
-            // Create modal
-            const modal = document.createElement("div");
-            modal.className = "modal";
-
-            modal.innerHTML = `
-                ${detailsContainer.innerHTML}
-                <button id="closeModal">Close</button>
-            `;
-
-            document.body.appendChild(modal);
-
-            // Close modal functionality
-            const closeModal = () => {
-                modal.remove();
-                document.body.removeEventListener("click", outsideClickListener);
-            };
-
-            document.getElementById("closeModal").addEventListener("click", closeModal);
-
-            // Close modal when clicking outside the modal
-            const outsideClickListener = (event) => {
-                if (event.target === modal) {
-                    closeModal();
-                }
-            };
-            document.body.addEventListener("click", outsideClickListener);
+          // Create modal container (acts as a background)
+          const modalContainer = document.createElement("div");
+          modalContainer.className = "modal-container";
+        
+          // Create modal
+          const modal = document.createElement("div");
+          modal.className = "modal";
+        
+          modal.innerHTML = `
+            ${detailsContainer.innerHTML}
+            <button id="closeModal">Close</button>
+          `;
+        
+          // Append modal inside modalContainer
+          modalContainer.appendChild(modal);
+          document.body.appendChild(modalContainer);
+        
+          // Close modal functionality
+          const closeModal = () => {
+            modalContainer.remove();
+            window.removeEventListener("click", outsideClickListener);
+          };
+        
+          // Close modal when clicking outside
+          const outsideClickListener = (event) => {
+            if (event.target === modalContainer) {
+              closeModal();
+            }
+          };
+        
+          document.getElementById("closeModal").addEventListener("click", closeModal);
+          window.addEventListener("click", outsideClickListener);
         });
+        
 
         maincontainer.appendChild(mealContainer);
     });
