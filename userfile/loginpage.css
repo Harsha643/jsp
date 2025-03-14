@@ -42,11 +42,16 @@ header {
 }
 
 #footcountry {
-    display: flex;
-    flex-wrap: wrap;
+    /* margin: 30px; */
+    display: grid;
+    /* flex-wrap: wrap; */
+    grid-template-columns: repeat(5,1fr);
     gap: 20px;
-    justify-content: space-evenly;
+    justify-content: space-around;
     align-items: center;
+}
+.eleitems{
+    margin-left: 30px;
 }
 
 #main2container {
@@ -487,6 +492,15 @@ body {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    #footcountry {
+        /* margin: 30px; */
+        display: grid;
+        /* flex-wrap: wrap; */
+        grid-template-columns: repeat(3,1fr);
+        gap: 20px;
+        justify-content: space-around;
+        align-items: center;
+    }
     #addBtn {
         display: none;
     }
