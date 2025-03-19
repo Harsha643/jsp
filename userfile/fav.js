@@ -92,7 +92,7 @@ const emailInput = document.getElementById('emailedit');
 let logout = document.getElementById("logout")
 logout.addEventListener("click", (e) => {
   e.preventDefault()
-  window.location.href = "signin.html"
+  window.location.href = "index.html"
 })
 
 
