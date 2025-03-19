@@ -3,7 +3,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Arial', sans-serif;
+    font-family: sans-serif;
 }
 
 #iconadd {
@@ -432,7 +432,7 @@ body {
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     padding: 20px;
     width: 90%;
-    max-width: 600px;
+    /* max-width: 600px; */
     display: flex;
     /* gap: 30px; */
     flex-direction: column;

@@ -143,7 +143,8 @@ async function fetchingData() {
 }
 
 fetchingData();
-
+let bodyna=document.getElementById("bodyna")
+// bodyna.style.display="none"
 // displayrecipes
 function displayData(data) {
   const categoryData = {};
@@ -152,7 +153,10 @@ function displayData(data) {
 
   let loading=document.getElementsByClassName("loader")[0]
 loading.style.display="block"
+
+
  setTimeout(()=>{
+  bodyna.style.display="block"
   loading.style.display="none"
   catdata(categoryData)
  },3000)
