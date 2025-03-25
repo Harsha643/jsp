@@ -195,7 +195,7 @@ loading.style.display="block"
 
   let countryContainer = document.getElementById("footcountry");
   countryContainer.style.backgroundColor = "#ccc"
-  countryContainer.style.height = "200px"
+ 
 
 setTimeout(()=>{
   
@@ -221,46 +221,61 @@ setTimeout(()=>{
 
 
 
-      // click the country
-      items.addEventListener("click", () => {
+// click the country
+items.addEventListener("click", () => {
 // console.log("hello")
 containerA.innerHTML=""              
         const filteredData =countryData[element];
         filteredData.forEach((ele) => {
+          console.log(ele.ingredients)
 
           let filterdiv = document.createElement("div")
+          filterdiv.className="filterdiv"
 
           if(element==ele.Area){
             countryFilter.push(ele.Area)
 
           }
-
-
-
-
-          filterdiv.innerHTML =
-            `
-         <img src="${ele.image}" width="200px" class="imgopen" data-id="${ele.id}"/>
-         <h3>${ele.mealName}</h3>
-         <span id="fava" class="favorite-icon"><ion-icon name="heart-outline"></ion-icon></span>
-         `
-
-      const favoriteIcon =filterdiv.querySelector(".favorite-icon");
-      favoriteIcon.addEventListener("click", () => {
-
+          filterdiv.innerHTML = `
+          <img src="${ele.image}" width="200px" class="imgopen" data-id="${ele.id}"/>
+          <h3>${ele.mealName}</h3>
+          <span id="fava" class="favorite-icon"><ion-icon name="heart-outline"></ion-icon></span>
+        `;
+    
+        const favoriteIcon = filterdiv.querySelector(".favorite-icon");
+        
+        // Check if this meal is already in favorites and set the initial icon state
         const favoriteMeals = JSON.parse(localStorage.getItem("favoriteMeals")) || [];
-        const isAlreadyFavorite = favoriteMeals.some((meal) => meal.id === ele.id);
-        if (!isAlreadyFavorite) {
-          favoriteMeals.push(element);
-          localStorage.setItem("favoriteMeals", JSON.stringify(favoriteMeals));
+        const isFavorite = favoriteMeals.some(meal => meal.id === ele.id);
+        if (isFavorite) {
           favoriteIcon.querySelector("ion-icon").name = "heart";
-        } else {
-          const filteredFavorites = favoriteMeals.filter((meal) => meal.id !== ele.id);
-          localStorage.setItem("favoriteMeals", JSON.stringify(filteredFavorites));
-          favoriteIcon.querySelector("ion-icon").name = "heart-outline";
         }
-      });
-
+    
+        favoriteIcon.addEventListener("click", () => {
+          let favoriteMeals = JSON.parse(localStorage.getItem("favoriteMeals")) || [];
+          const mealIndex = favoriteMeals.findIndex(meal => meal.id === ele.id);
+          
+          if (mealIndex === -1) {
+            // Add to favorites - push the whole meal object, not just the area
+            favoriteMeals.push({
+              id: ele.id,
+              mealName: ele.mealName,
+              image: ele.image,
+              Category: ele.Area,
+              ingredients:ele.ingredients,
+              instructions:ele.instructions
+              // ingredients:ele.
+              // Add any other properties you want to save
+            });
+            favoriteIcon.querySelector("ion-icon").name = "heart";
+          } else {
+            // Remove from favorites
+            favoriteMeals.splice(mealIndex, 1);
+            favoriteIcon.querySelector("ion-icon").name = "heart-outline";
+          }
+          
+          localStorage.setItem("favoriteMeals", JSON.stringify(favoriteMeals));
+        });
 
          let imgOpen =filterdiv .querySelector(".imgopen");
          imgOpen.addEventListener("click", (event1) => {

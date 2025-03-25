@@ -126,10 +126,11 @@ draftbtn.addEventListener("click",(e)=>{
 
 const favoriteMeals = JSON.parse(localStorage.getItem("favoriteMeals")) || [];
 console.log(favoriteMeals.length);
-const maincontainer = document.getElementById("container");
+const mainContainer = document.getElementById("container");
 
 if (favoriteMeals.length > 0) {
     favoriteMeals.forEach((element) => {
+      console.log(element)
         const mealContainer = document.createElement("div");
         mealContainer.classList.add("meal-item");
 
@@ -169,12 +170,12 @@ if (favoriteMeals.length > 0) {
         detailsContainer.innerHTML = `
             <h2>INGREDIENTS</h2>
             <ul>
-                ${element.ingredients.map(ingredient => `<li>${ingredient}</li>`).join('')}
+                 ${(element.ingredients || []).map(ingredient => `<li>${ingredient}</li>`).join('')}
             </ul>
             <h2>INSTRUCTIONS</h2>
             <p>${element.instructions}</p>
         `;
-
+ // ${element.ingredients.map(ingredient => `<li>${ingredient}</li>`).join('')}
         mealContainer.appendChild(mealInfo);
         mealContainer.append(toggleButton, remove);
         mealContainer.appendChild(detailsContainer);
@@ -220,11 +221,13 @@ if (favoriteMeals.length > 0) {
 } else {
     console.log("else");
     let nodata = document.createElement("div");
+    
     nodata.id = "nodata";
     nodata.innerText = "select your favorite recipes ";
     nodata.style.color = "red";
+    nodata.style.fontsize="50px";
     nodata.style.fontWeight = "200";
-    maincontainer.appendChild(nodata);
+    mainContainer.appendChild(nodata);
 }
 
 let close=document.getElementById("closebtn")
@@ -235,11 +238,6 @@ close.addEventListener("click",()=>{
   containerInputs.style.display = containerInputs.style.display === "none" ? "block" : "none";
 
 })
-
-
-
-
-
 
 
 
@@ -393,8 +391,6 @@ async function dataSave() {
 
   try {
     let method = "POST";
-
-
     let response = await fetch("https://pouncing-scarlet-cesium.glitch.me/meals", {
       method,
       headers: { "Content-Type": "application/json" },

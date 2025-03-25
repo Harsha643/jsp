@@ -43,7 +43,9 @@
     align-items: center;
     justify-content: center;
 }
-
+#icon-ion{
+    font-size: 40px;
+}
 /* User Profile Image */
 #userprofile img {
     border-radius: 50%;

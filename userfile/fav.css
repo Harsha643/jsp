@@ -288,6 +288,11 @@ button#logout:hover {
   padding: 10px;
 
 }
+
+#nodata{
+    font-family: sans-serif;
+    font-size: 30px;
+}
 #edituser {
 display: none;
 }

@@ -1,4 +1,3 @@
-
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
 import { getAuth, onAuthStateChanged, updateProfile } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
 import { getFirestore, getDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
@@ -118,46 +117,82 @@ draftbtn.addEventListener("click",(e)=>{
     
 })
 
+let imageDetails = JSON.parse(localStorage.getItem("imageitem")) || []; 
+console.log("Current meal data:", imageDetails);
 
-
-
-
-        
-        let imageDetails = JSON.parse(localStorage.getItem("imageitem")) || []; 
-
-console.log(imageDetails); 
 const mainContainer = document.getElementById("container");
 
+// Create meal container
+const mealContainer = document.createElement("div");
+mealContainer.classList.add("meal-item"); 
 
-    const mealContainer = document.createElement("div");
-    mealContainer.classList.add("meal-item"); 
+// Create meal info section
+const mealInfo = document.createElement("div");
+mealInfo.classList.add("items");
 
-    const mealInfo = document.createElement("div");
-    mealInfo.classList.add("items")
-    mealInfo.innerHTML = `
-      <img src="${imageDetails.image}" width="400px" alt="${imageDetails.mealName}">
-      <p>Meal Name: ${imageDetails.mealName}</p>
-      <p>Category: ${imageDetails.Category}</p>
+// Check if meal is already favorited
+const favoriteMeals = JSON.parse(localStorage.getItem("favoriteMeals")) || [];
+const isFavorite = favoriteMeals.some(meal => meal.id === imageDetails.id);
 
-      
-    `;
-    let mealInfo1=document.createElement("div")
-    mealInfo1.classList.add("items1")
+mealInfo.innerHTML = `
+  <img src="${imageDetails.image}" width="400px" alt="${imageDetails.mealName}">
+  <p>Meal Name: ${imageDetails.mealName}</p>
+  <p>Category: ${imageDetails.Category}</p>
+  <button id="favorite-icon">
+    <ion-icon name="${isFavorite ? 'heart' : 'heart-outline'}"   id="icon-ion"></ion-icon>
+  </button>
+`;
 
-    mealInfo1.innerHTML=
-    `
-    <h2>INGREDIENTS</h2>
-      <ul>
-        ${imageDetails.ingredients.map(ingredient => `<li>${ingredient}</li>`).join('')}
-      </ul>
+// Create ingredients/instructions section
+const mealInfo1 = document.createElement("div");
+mealInfo1.classList.add("items1");
+mealInfo1.innerHTML = `
+  <h2>INGREDIENTS</h2>
+  <ul>
+    ${imageDetails.ingredients.map(ingredient => `<li>${ingredient}</li>`).join('')}
+  </ul>
+  <h2>INSTRUCTIONS</h2>
+  <p>${imageDetails.instructions}</p>
+`;
 
+// Append sections to container
+mealContainer.append(mealInfo, mealInfo1);
+mainContainer.appendChild(mealContainer);
 
-         <h2>INSTRUCTIONS</h2>
-      <p>${imageDetails.instructions}</p>
-
-    `
-
-
+// Favorite button functionality
+document.getElementById("favorite-icon").addEventListener("click", function() {
+  console.log("Favorite button clicked");
+  
+  // Get current favorites
+  let favoriteMeals = JSON.parse(localStorage.getItem("favoriteMeals")) || [];
+  const mealIndex = favoriteMeals.findIndex(meal => meal.id === imageDetails.id);
+  
+  // Toggle favorite status
+  if (mealIndex === -1) {
+    // Add to favorites
+    favoriteMeals.push({
+      id: imageDetails.id,
+      mealName: imageDetails.mealName,
+      image: imageDetails.image,
+      Category: imageDetails.Category,
+      ingredients: imageDetails.ingredients,
+      instructions: imageDetails.instructions
+    });
+    this.innerHTML = '<ion-icon name="heart"></ion-icon>';
+    console.log("Added to favorites");
+  } else {
+    // Remove from favorites
+    favoriteMeals.splice(mealIndex, 1);
+    this.innerHTML = '<ion-icon name="heart-outline"></ion-icon>';
+    console.log("Removed from favorites");
+  }
+  
+  // Save back to localStorage
+  localStorage.setItem("favoriteMeals", JSON.stringify(favoriteMeals));
+  
+  // Optional: Notify user
+  alert(`Meal ${mealIndex === -1 ? 'added to' : 'removed from'} favorites!`);
+});
     mealContainer.append(mealInfo,mealInfo1);
     mainContainer.appendChild(mealContainer); 
 
@@ -172,3 +207,4 @@ home.addEventListener("click",(e)=>{
   window.location.href="loginpage.html"
 
 })
+

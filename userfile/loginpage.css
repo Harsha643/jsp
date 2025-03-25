@@ -1,3 +1,6 @@
+css
+
+
 /* General Styles */
 * {
     margin: 0;
@@ -42,22 +45,55 @@ header {
 }
 
 #footcountry {
-    /* margin: 30px; */
+
     display: grid;
-    /* flex-wrap: wrap; */
     grid-template-columns: repeat(5,1fr);
     gap: 20px;
     justify-content: space-around;
     align-items: center;
 }
+/* #main2container{
+
+ 
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    margin: 0px 20px;
+  
+ 
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    margin-top: 10px;
+
+   
+} */
 .eleitems{
+    padding: 10px;
     margin-left: 30px;
 }
 
 #main2container {
+    width: 100%;
     display: flex;
     gap: 20px;
-    padding: 20px;
+    padding: 10px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    margin-top: 10px;
+    /* margin: 0px 20px; */
+  
+ 
+
 }
 
 /* Recipe Form */
@@ -146,8 +182,25 @@ header {
     position: relative;
     overflow: hidden;
 }
-
+.filterdiv {
+    width: 250px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 15px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    
+}
 .meal-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+.filterdiv:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
 }
@@ -159,11 +212,26 @@ header {
     transition: transform 0.3s ease;
 }
 
+.filterdiv img {
+    /* width: 100%; */
+    max-width: 200px;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+}
+
 .meal-item:hover img {
+    transform: scale(1.05);
+}
+.filterdiv:hover .imgopen {
     transform: scale(1.05);
 }
 
 .meal-item h4 {
+    margin: 10px 0;
+    font-size: 18px;
+    color: #333;
+}
+.filterdiv h3 {
     margin: 10px 0;
     font-size: 18px;
     color: #333;
@@ -186,10 +254,14 @@ header {
     opacity: 1;
     transform: translateY(0);
 }
-
+.filterdiv:hover .favorite-icon {
+    opacity: 1;
+    transform: translateY(0);
+}
 .favorite-icon:hover {
     color: #E0A800; /* Darker shade of FFB433 */
 }
+
 
 /* Loading Animation */
 .loader {
@@ -493,13 +565,10 @@ body {
 /* Responsive Design */
 @media (max-width: 768px) {
     #footcountry {
-        /* margin: 30px; */
-        display: grid;
-        /* flex-wrap: wrap; */
+
+
         grid-template-columns: repeat(3,1fr);
-        gap: 20px;
-        justify-content: space-around;
-        align-items: center;
+     
     }
     #addBtn {
         display: none;
@@ -544,11 +613,12 @@ body {
 }
 
 
-
-
-
-
 @media (max-width: 480px) {
+    .eleitems{
+        font-size: 10px;
+
+    }
+   
     #maincontainer {
         grid-template-columns: 1fr;
         gap: 10px;
@@ -580,6 +650,7 @@ body {
     #userprofile img {
         width: 40px;
         height: 40px;
+        gap: 10px;
     }
 
     #fav {
@@ -621,7 +692,7 @@ body {
     }
 
     .category-container {
-    width: 250px;
+    width: 350px;
    
       
     }
@@ -629,4 +700,12 @@ body {
 }
 
 
+@media (max-width: 400px) {
+    .category-container {
+        width: 270px;
+       
+          
+        }
+
+}
 
