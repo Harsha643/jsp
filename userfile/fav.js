@@ -126,7 +126,7 @@ draftbtn.addEventListener("click",(e)=>{
 
 const favoriteMeals = JSON.parse(localStorage.getItem("favoriteMeals")) || [];
 console.log(favoriteMeals.length);
-const mainContainer = document.getElementById("container");
+const maincontainer = document.getElementById("container");
 
 if (favoriteMeals.length > 0) {
     favoriteMeals.forEach((element) => {
@@ -221,13 +221,13 @@ if (favoriteMeals.length > 0) {
 } else {
     console.log("else");
     let nodata = document.createElement("div");
-    
+
     nodata.id = "nodata";
     nodata.innerText = "select your favorite recipes ";
     nodata.style.color = "red";
     nodata.style.fontsize="50px";
     nodata.style.fontWeight = "200";
-    mainContainer.appendChild(nodata);
+    maincontainer.appendChild(nodata);
 }
 
 let close=document.getElementById("closebtn")
