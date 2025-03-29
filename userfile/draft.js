@@ -302,4 +302,11 @@ filterInput.addEventListener("input", () => {
   });
 });
 
+let logo=document.getElementById("image")
+logo.addEventListener("click",()=>{
+  window.location.href="./loginpage.html"
+})
+
+
+
 
