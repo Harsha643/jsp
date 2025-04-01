@@ -114,13 +114,13 @@ header {
 }
 
 #search:focus {
-    border-color: #FFB433; /* FFB433 */
+    border-color: red; /* FFB433 */
     box-shadow: 0 0 5px rgba(255, 180, 51, 0.3); /* FFB433 with 30% opacity */
 }
 
 /* Buttons */
 #addBtn {
-    background-color: #FFB433; /* FFB433 */
+    background-color: red; /* FFB433 */
     color: #333;
     border: none;
     padding: 10px 20px;
@@ -140,7 +140,7 @@ header {
 
 #fav {
     font-size: 24px;
-    color: #FFB433; /* FFB433 */
+    color: red; /* FFB433 */
     cursor: pointer;
     transition: color 0.3s ease;
 }
@@ -242,7 +242,7 @@ header {
     position: absolute;
     top: 10px;
     right: 10px;
-    color: #FFB433; /* FFB433 */
+    color: red; /* FFB433 */
     font-size: 24px;
     cursor: pointer;
     opacity: 0;
@@ -273,7 +273,7 @@ header {
     width: 4px;
     height: 4px;
     border-radius: 50%;
-    color: #FFB433; /* FFB433 */
+    color: red; /* FFB433 */
     box-shadow:
         calc(1 * var(--d)) calc(0 * var(--d)) 0 0,
         calc(0.707 * var(--d)) calc(0.707 * var(--d)) 0 1px,
@@ -298,7 +298,7 @@ header {
     padding: 8px;
     aspect-ratio: 1;
     border-radius: 50%;
-    background: #FFB433; /* FFB433 */
+    background: red; /* FFB433 */
     --_m:
         conic-gradient(#0000 10%, #000),
         linear-gradient(#000 0 0) content-box;
